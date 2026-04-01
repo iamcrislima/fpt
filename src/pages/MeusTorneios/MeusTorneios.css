@@ -1,0 +1,222 @@
+/* ── Page ───────────────────────────────────────────────────── */
+.mt-page {
+  min-height: 100vh;
+  background: var(--page-bg, #f4f6f9);
+  padding: 40px 24px 64px;
+}
+
+.mt-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.mt-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.mt-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary, #111);
+  margin: 0 0 6px;
+}
+
+.mt-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-sub, #6b7280);
+  margin: 0;
+}
+
+/* Pill — verde escuro + fonte branca (var(--sport-text) é sempre escuro) */
+.mt-summary-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--sport-text, #0f4c30);
+  color: #fff;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── List ───────────────────────────────────────────────────── */
+.mt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.mt-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow 0.15s;
+}
+
+.mt-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.mt-card-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ── Position badge ─────────────────────────────────────────── */
+.mt-pos {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mt-pos--ouro {
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1px solid #fde047;
+}
+
+.mt-pos--prata {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.mt-pos--bronze {
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fdba74;
+}
+
+.mt-pos--default {
+  background: var(--sport-primary-light, #f0fad0);
+  color: var(--sport-text, #0f4c30);
+  border: 1px solid transparent;
+}
+
+[data-sport="tennis"] .mt-pos--default {
+  background: rgba(18,60,50,0.10);
+}
+
+/* ── Info ───────────────────────────────────────────────────── */
+.mt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.mt-nome {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary, #111);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mt-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  row-gap: 4px;
+}
+
+.mt-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-sub, #6b7280);
+}
+
+.mt-meta-item svg {
+  font-size: 11px;
+}
+
+.mt-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-sub, #d1d5db);
+  flex-shrink: 0;
+}
+
+/* ── Declaration button ─────────────────────────────────────── */
+.mt-decl-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--card-border, #e5e7eb);
+  border-radius: 8px;
+  background: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sport-text, #0f4c30);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mt-decl-btn:hover {
+  background: var(--sport-primary-light, #f0fad0);
+  border-color: var(--sport-primary, #0f4c30);
+}
+
+[data-sport="tennis"] .mt-decl-btn:hover {
+  background: rgba(18,60,50,0.08);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .mt-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .mt-decl-btn {
+    align-self: stretch;
+    justify-content: center;
+  }
+  .mt-nome {
+    white-space: normal;
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .mt-page {
+  --page-bg: #111827;
+}
+[data-color-mode="dark"] .mt-card {
+  --card-bg: #1e2530;
+  --card-border: #2d3748;
+  --text-primary: #e8eaf0;
+  --text-sub: #9ca3af;
+}

@@ -1,0 +1,347 @@
+/* ==========================================================
+   Sport Selection — full-screen splash
+   ========================================================== */
+
+/* ── Keyframes ────────────────────────────────────────────── */
+@keyframes ss-slide-left {
+  from { transform: translateX(-40px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+@keyframes ss-slide-right {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes ss-pop-in {
+  from { opacity: 0; transform: translateX(-50%) scale(0.88); }
+  to   { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+@keyframes ss-fade-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes ss-fade-simple {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Container ────────────────────────────────────────────── */
+.sport-selection {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.sport-selection--exit {
+  opacity: 0;
+  transition: opacity 0.32s ease;
+  pointer-events: none;
+}
+
+/* ── Cada metade ──────────────────────────────────────────── */
+.sport-half {
+  position: relative;
+  flex: 1 1 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-duration: 0.65s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.sport-half--bt     { animation-name: ss-slide-left;  animation-delay: 0.06s; }
+.sport-half--tennis { animation-name: ss-slide-right; animation-delay: 0.06s; }
+
+.sport-half--hovered { flex: 1.4 1 0; }
+.sport-half--dimmed  { flex: 0.6 1 0; }
+.sport-half--winning { flex: 3 1 0; transition: flex 0.42s cubic-bezier(0.4, 0, 0.2, 1); }
+.sport-half--losing  { flex: 0 1 0; transition: flex 0.42s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* ── Foto de fundo ────────────────────────────────────────── */
+.sport-half-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  /* Bloqueia drag/seleção acidental */
+  user-select: none;
+  pointer-events: none;
+}
+
+.sport-half--hovered .sport-half-photo,
+.sport-half--winning .sport-half-photo {
+  transform: scale(1.06);
+}
+
+/* ── Overlay de cor sólida (sem gradiente) ────────────────── */
+.sport-half-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Esquerda: verde-lima escurecido */
+.sport-half-overlay--bt {
+  background-color: rgba(26, 60, 10, 0.72);
+}
+
+/* Direita: verde-escuro profundo */
+.sport-half-overlay--tennis {
+  background-color: rgba(10, 34, 25, 0.75);
+}
+
+/* ── Véu de escurecimento extra (lado não-hovered) ────────── */
+.sport-half-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.45s ease;
+  pointer-events: none;
+}
+
+.sport-half--dimmed .sport-half-veil {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* ── Conteúdo ─────────────────────────────────────────────── */
+.sport-half-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 40px 48px;
+  text-align: center;
+  color: #fff;
+  max-width: 520px;
+  width: 100%;
+}
+
+/* ── Títulos ──────────────────────────────────────────────── */
+.sport-half-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -1.5px;
+  line-height: 1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+}
+
+.sport-half-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.70);
+  margin: 12px 0 0;
+  letter-spacing: 0.15px;
+}
+
+/* ── Botões ───────────────────────────────────────────────── */
+.sport-half-btn {
+  margin-top: 32px;
+  padding: 14px 40px;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.18s ease;
+}
+
+/* Beach Tennis: preenchido com lima */
+.sport-half-btn--bt {
+  background: #BCD405;
+  color: #1a2e0a;
+  border: none;
+  box-shadow: 0 4px 18px rgba(188, 212, 5, 0.40);
+}
+
+.sport-half--hovered .sport-half-btn--bt {
+  background: #d4f006;
+  box-shadow: 0 6px 26px rgba(188, 212, 5, 0.58);
+  transform: translateY(-2px);
+}
+
+/* Tênis: ghost com borda branca */
+.sport-half-btn--tennis {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.70);
+  box-shadow: none;
+}
+
+.sport-half--hovered .sport-half-btn--tennis {
+  background: #ffffff;
+  color: #123C32;
+  border-color: #ffffff;
+  box-shadow: 0 6px 26px rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+}
+
+/* ── Divisor central ──────────────────────────────────────── */
+.sport-divider {
+  position: relative;
+  width: 2px;
+  flex-shrink: 0;
+  z-index: 5;
+  overflow: visible;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 18%,
+    rgba(255, 255, 255, 0.45) 82%,
+    transparent 100%
+  );
+}
+
+/* Label "Selecione seu esporte" — acima do logo */
+.sport-divider-label {
+  position: absolute;
+  /* Fica acima do logo: bottom da label = top do logo */
+  bottom: calc(50% + 56px);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  white-space: nowrap;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.60);
+  animation: ss-fade-up 0.55s cubic-bezier(0.2, 0, 0.2, 1) 0.50s both;
+}
+
+/* Círculo com logo FPT — centralizado na linha */
+.sport-divider-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: rgba(8, 14, 8, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: ss-pop-in 0.50s cubic-bezier(0.2, 0, 0.2, 1) 0.40s both;
+  box-shadow:
+    0 0 0 8px rgba(0, 0, 0, 0.16),
+    0 8px 32px rgba(0, 0, 0, 0.50);
+}
+
+.sport-divider-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — divisão vertical (superior = BT, inferior = Tênis)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .sport-selection {
+    flex-direction: column;
+  }
+
+  .sport-half--bt,
+  .sport-half--tennis {
+    animation-name: ss-fade-simple;
+    animation-delay: 0.05s;
+  }
+
+  /* No mobile não há hover, desabilitar expand assimétrico */
+  .sport-half--hovered { flex: 1 1 0; }
+  .sport-half--dimmed  { flex: 1 1 0; }
+
+  /* Clique expande 60/40 antes de redirecionar */
+  .sport-half--winning { flex: 3 1 0; }
+  .sport-half--losing  { flex: 2 1 0; }
+
+  /* Divider vira horizontal */
+  .sport-divider {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.45) 18%,
+      rgba(255, 255, 255, 0.45) 82%,
+      transparent 100%
+    );
+  }
+
+  /* Label: acima do logo, agora numa linha horizontal */
+  .sport-divider-label {
+    font-size: 11px;
+    bottom: calc(50% + 44px);
+    letter-spacing: 1.5px;
+  }
+
+  /* Logo menor no mobile */
+  .sport-divider-logo {
+    width: 64px;
+    height: 64px;
+    padding: 13px;
+  }
+
+  .sport-half-content {
+    padding: 28px 24px 32px;
+  }
+
+  .sport-half-title {
+    font-size: clamp(28px, 9vw, 44px);
+    letter-spacing: -1px;
+  }
+
+  .sport-half-subtitle {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .sport-half-btn {
+    margin-top: 24px;
+    padding: 13px 34px;
+    font-size: 15px;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .sport-half,
+  .sport-half-photo,
+  .sport-half-veil,
+  .sport-half-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+  .sport-divider-logo,
+  .sport-divider-label {
+    animation: none !important;
+  }
+}

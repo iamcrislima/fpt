@@ -1,0 +1,557 @@
+/* ── Page ───────────────────────────────────────────────────── */
+.painel-page {
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* ── Greeting — full width, acima das duas colunas ─────────── */
+.painel-greeting {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+}
+
+.painel-greeting-hi {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+.painel-greeting-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sport-text, #0f4c30);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+}
+
+/* ── Body layout ────────────────────────────────────────────── */
+.painel-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 24px;
+  align-items: start;
+}
+
+/* ── Card base ──────────────────────────────────────────────── */
+.painel-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 24px;
+}
+
+/* ── Profile card ───────────────────────────────────────────── */
+.painel-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 24px 24px;
+}
+
+.painel-avatar-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.painel-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--sport-text, #0f4c30);
+  display: block;
+}
+
+/* Botão câmera — usa sempre verde escuro para garantir legibilidade */
+.painel-avatar-edit {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--sport-text, #0f4c30);
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.painel-profile-code {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.painel-profile-name {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 4px;
+}
+
+.painel-profile-clube {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.painel-profile-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.painel-badge {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+/* Usa var(--sport-primary-text): #333 no BT (verde claro → texto escuro),
+   #fff no tênis (verde escuro → texto branco) */
+.painel-badge--cat {
+  background: var(--sport-primary, #0f4c30);
+  color: var(--sport-primary-text, #333);
+}
+
+.painel-badge--class {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+/* ── Anuidade card ──────────────────────────────────────────── */
+.painel-anuidade-card {
+  margin-top: 16px;
+}
+
+.painel-anuidade-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.painel-anuidade-icon {
+  color: #16a34a;
+  font-size: 16px;
+}
+
+.painel-anuidade-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+}
+
+.painel-anuidade-status {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.painel-anuidade-status--ok {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.painel-anuidade-status--pendente {
+  background: #fef9c3;
+  color: #b45309;
+}
+
+.painel-anuidade-desc {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0 0 8px;
+}
+
+.painel-anuidade-link {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: var(--sport-text, #0f4c30);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.painel-anuidade-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Quick-link cards ───────────────────────────────────────── */
+.painel-quick-card {
+  margin-top: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.painel-quick-card:hover {
+  border-color: var(--sport-text, #0f4c30);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.painel-quick-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--sport-primary-light, #f0fad0);
+  color: var(--sport-text, #0f4c30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+[data-sport="tennis"] .painel-quick-icon-wrap {
+  background: rgba(18,60,50,0.10);
+}
+
+.painel-quick-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.painel-quick-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+}
+
+.painel-quick-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.painel-quick-arrow {
+  color: #9ca3af;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ── Main column ────────────────────────────────────────────── */
+.painel-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Section titles ─────────────────────────────────────────── */
+.painel-section-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.painel-section-title svg {
+  color: var(--sport-text, #0f4c30);
+  font-size: 14px;
+}
+
+.painel-section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.painel-section-head .painel-section-title {
+  margin-bottom: 16px;
+}
+
+/* Número de torneios — usa primary-text para garantir contraste */
+.painel-section-badge {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--sport-primary, #0f4c30);
+  color: var(--sport-primary-text, #333);
+  border-radius: 20px;
+  padding: 2px 9px;
+  margin-bottom: 16px;
+}
+
+/* ── Data grid ──────────────────────────────────────────────── */
+.painel-data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 24px;
+  margin-bottom: 20px;
+}
+
+.painel-data-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.painel-data-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.painel-data-value {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111;
+}
+
+.painel-edit-row {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 16px;
+}
+
+/* ── Tournament cards ───────────────────────────────────────── */
+.painel-trn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.painel-trn-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #f3f4f6;
+  border-radius: 10px;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.painel-trn-card:hover {
+  border-color: #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.painel-trn-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.painel-trn-pos {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.painel-trn-pos--ouro   { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+.painel-trn-pos--prata  { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.painel-trn-pos--bronze { background: #fff7ed; color: #9a3412; border: 1px solid #fdba74; }
+.painel-trn-pos--default {
+  background: var(--sport-primary-light, #edf2d0);
+  color: var(--sport-text, #0f4c30);
+  border: 1px solid transparent;
+}
+
+.painel-trn-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.painel-trn-name {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.painel-trn-name--link {
+  cursor: pointer;
+}
+
+.painel-trn-name--link:hover {
+  color: var(--sport-text, #0f4c30);
+  text-decoration: underline;
+}
+
+.painel-trn-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.painel-trn-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.painel-trn-meta-item svg { font-size: 10px; }
+
+.painel-trn-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #d1d5db;
+  flex-shrink: 0;
+}
+
+.painel-trn-decl-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  background: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sport-text, #0f4c30);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.painel-trn-decl-btn:hover {
+  background: var(--sport-primary-light, #edf2d0);
+  border-color: var(--sport-text, #0f4c30);
+}
+
+/* ── CTA card — sempre verde ESCURO para white text ser válido ── */
+.painel-cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: var(--sport-text, #0f4c30);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.painel-cta-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+}
+
+.painel-cta-text { position: relative; z-index: 1; }
+
+.painel-cta-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.painel-cta-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+}
+
+.painel-cta-btn {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.painel-cta-card .umds-button--primary {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.40);
+  color: #fff;
+}
+
+.painel-cta-card .umds-button--primary:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .painel-body { grid-template-columns: 1fr; gap: 0; }
+  .painel-data-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .painel-body { padding: 20px 16px 40px; }
+  .painel-cta-card { flex-direction: column; align-items: flex-start; }
+  .painel-cta-btn { align-self: stretch; justify-content: center; }
+  .painel-trn-name { white-space: normal; }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .painel-page { background: #111827; }
+[data-color-mode="dark"] .painel-greeting-hi { color: #e8eaf0; }
+[data-color-mode="dark"] .painel-card,
+[data-color-mode="dark"] .painel-quick-card { background: #1e2530; border-color: #2d3748; }

@@ -1,0 +1,327 @@
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+.hist-hero {
+  position: relative;
+  background: linear-gradient(135deg, #122b42 0%, #194280 55%, #0f4c30 100%);
+  overflow: hidden;
+  padding: 64px 143px 60px;
+}
+
+.hist-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/faca-parte-bg.png') center/cover no-repeat;
+  opacity: 0.10;
+}
+
+.hist-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.hist-hero-tag {
+  display: inline-block;
+  background: rgba(188, 212, 5, 0.18);
+  border: 1px solid var(--sport-primary);
+  color: var(--sport-primary);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hist-hero-title {
+  font-size: 52px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0 0 16px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.hist-hero-title span {
+  color: var(--sport-primary);
+}
+
+.hist-hero-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hist-hero-wave {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 420px;
+  height: 160px;
+  background: url('/images/waves.svg') right bottom/contain no-repeat;
+  opacity: 0.12;
+}
+
+.hist-hero-years {
+  display: flex;
+  gap: 10px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.hist-hero-year-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* ── Página wrapper ───────────────────────────────────────────────────────── */
+.hist-page {
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+.hist-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+/* ── Timeline ─────────────────────────────────────────────────────────────── */
+.hist-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Linha vertical central */
+.hist-timeline::before {
+  content: '';
+  position: absolute;
+  left: 52px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--sport-primary) 0%, #194280 50%, #0f4c30 100%);
+  border-radius: 4px;
+}
+
+/* ── Item da timeline ─────────────────────────────────────────────────────── */
+.hist-item {
+  display: flex;
+  gap: 32px;
+  padding-bottom: 52px;
+  position: relative;
+}
+
+.hist-item:last-child {
+  padding-bottom: 0;
+}
+
+/* ── Lado esquerdo (ano + badge) ──────────────────────────────────────────── */
+.hist-left {
+  flex-shrink: 0;
+  width: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.hist-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px #f4f6f9, 0 0 0 7px currentColor;
+}
+
+.hist-badge svg {
+  color: #fff;
+}
+
+.hist-ano {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 10px;
+  text-align: center;
+  line-height: 1.25;
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
+  position: relative;
+  z-index: 1;
+  background: #f4f6f9;
+  padding: 0 4px;
+}
+
+/* ── Conteúdo do card ─────────────────────────────────────────────────────── */
+.hist-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(24, 39, 75, 0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.hist-card:hover {
+  box-shadow: 0 6px 24px rgba(24, 39, 75, 0.11);
+  transform: translateY(-2px);
+}
+
+.hist-card-header {
+  padding: 16px 24px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hist-card-header-bar {
+  width: 4px;
+  height: 28px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.hist-card-titulo {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.hist-card-body {
+  padding: 4px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hist-card-body p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #4b5563;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* ── Card de destaque (diretoria/lista) ───────────────────────────────────── */
+.hist-destaque {
+  margin: 8px 24px 22px;
+  background: #f8fdf0;
+  border: 1px solid #d7ed82;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.hist-destaque-titulo {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #4b6600;
+  margin: 0 0 10px 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hist-destaque-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hist-destaque-list li {
+  font-size: 13px;
+  color: #374151;
+  font-family: 'Open Sans', sans-serif;
+  padding-left: 16px;
+  position: relative;
+}
+
+.hist-destaque-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--sport-text, #0f4c30);
+  font-size: 11px;
+  top: 1px;
+}
+
+/* ── Rodapé da página ─────────────────────────────────────────────────────── */
+.hist-footer-note {
+  margin-top: 48px;
+  background: linear-gradient(135deg, #122b42, #194280);
+  border-radius: 14px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hist-footer-note-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(188, 212, 5, 0.15);
+  border: 1.5px solid var(--sport-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--sport-primary);
+}
+
+.hist-footer-note p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.80);
+  line-height: 1.65;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.hist-footer-note strong {
+  color: var(--sport-primary);
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .hist-page { background: #111827; }
+[data-color-mode="dark"] .hist-ano {
+  color: #e8eaf0;
+  background: #111827;
+}
+[data-color-mode="dark"] .hist-badge {
+  box-shadow: 0 0 0 4px #111827, 0 0 0 7px currentColor;
+}
+[data-color-mode="dark"] .hist-card {
+  background: #1e2530;
+  border-color: #2d3748;
+}
+[data-color-mode="dark"] .hist-card-titulo { color: #e8eaf0; }
+[data-color-mode="dark"] .hist-card-body p { color: #9ca3af; }
+[data-color-mode="dark"] .hist-destaque {
+  background: #1a2a1a;
+  border-color: #2d4a1a;
+}
+[data-color-mode="dark"] .hist-destaque-titulo { color: #9ca3af; }
+[data-color-mode="dark"] .hist-destaque-list li { color: #d1d5db; }

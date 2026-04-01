@@ -1,0 +1,329 @@
+.fc-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f4;
+}
+
+.fc-inner {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 56px);
+  padding: 16px;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* ── Painel esquerdo ── */
+.fc-left {
+  position: relative;
+  flex: 0 0 40%;
+  overflow: hidden;
+  background: var(--dark-navy, #122b42);
+  border-radius: 16px;
+  box-shadow:
+    0px 8px 24px 0px rgba(24, 39, 75, 0.18),
+    0px 2px 8px 0px rgba(24, 39, 75, 0.10);
+}
+
+.fc-left-overlay {
+  position: relative;
+  z-index: 1;
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fc-left-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: 0.25px;
+  line-height: 1.1;
+  max-width: 340px;
+  margin: 0 0 16px 0;
+}
+
+.fc-left-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.80);
+  max-width: 300px;
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+}
+
+.fc-contact-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fc-contact-meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #374151;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-contact-meta-item svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #0f4c30;
+}
+
+.fc-contact-meta-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #9ca3af;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ── Painel direito ── */
+.fc-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 40px 40px;
+  overflow-y: auto;
+  border-radius: 16px;
+  box-shadow: 0px 4px 16px 0px rgba(24, 39, 75, 0.08);
+}
+
+.fc-form-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.fc-form-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 28px 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fc-row {
+  display: flex;
+  gap: 16px;
+}
+
+.fc-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.fc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fc-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-label span {
+  color: #e02424;
+}
+
+.fc-input,
+.fc-select,
+.fc-textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+
+.fc-input:focus,
+.fc-select:focus,
+.fc-textarea:focus {
+  border-color: var(--sport-primary);
+  box-shadow: 0 0 0 3px rgba(188, 212, 5, 0.15);
+}
+
+.fc-input::placeholder,
+.fc-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.fc-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.fc-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.fc-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0f4c30;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.fc-submit-btn:hover {
+  background: #0d3f28;
+}
+
+.fc-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 28px 0;
+}
+
+.fc-emails-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #9ca3af;
+  margin: 0 0 14px 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-email-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fc-email-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fc-email-label {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-email-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f4c30;
+  text-decoration: none;
+  transition: color 0.15s;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-email-link:hover {
+  color: var(--sport-text, #0f4c30);
+}
+
+/* ── Tela de sucesso ── */
+.fc-success {
+  background: #f0f9e8;
+  border: 1px solid var(--sport-primary);
+  border-radius: 10px;
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.fc-success-icon {
+  color: #0f4c30;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.fc-success h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f4c30;
+  margin: 0 0 8px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.fc-success p {
+  font-size: 14px;
+  color: #4b6600;
+  margin: 0 0 20px 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.fc-success-back {
+  background: none;
+  border: 1.5px solid #0f4c30;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f4c30;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  transition: background 0.15s;
+}
+
+.fc-success-back:hover {
+  background: #f0fad0;
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .fc-page { background: #111827; }
+[data-color-mode="dark"] .fc-right {
+  background: #1e2530;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+[data-color-mode="dark"] .fc-form-title { color: #e8eaf0; }
+[data-color-mode="dark"] .fc-form-subtitle { color: #9ca3af; }
+[data-color-mode="dark"] .fc-label { color: #d1d5db; }
+[data-color-mode="dark"] .fc-input,
+[data-color-mode="dark"] .fc-select,
+[data-color-mode="dark"] .fc-textarea {
+  background: #111827;
+  border-color: #2d3748;
+  color: #e8eaf0;
+}
+[data-color-mode="dark"] .fc-input::placeholder,
+[data-color-mode="dark"] .fc-textarea::placeholder { color: #4b5563; }
+[data-color-mode="dark"] .fc-divider { border-color: #2d3748; }
+[data-color-mode="dark"] .fc-success {
+  background: #1a2a1a;
+  border-color: var(--sport-primary);
+}
+[data-color-mode="dark"] .fc-success-back:hover { background: #2d3748; }

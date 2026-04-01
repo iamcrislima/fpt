@@ -1,0 +1,227 @@
+/* ── Page ───────────────────────────────────────────────────── */
+.pgmt-page {
+  min-height: 100vh;
+  background: var(--page-bg, #f4f6f9);
+  padding: 40px 24px 64px;
+}
+
+.pgmt-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pgmt-header {
+  margin-bottom: 28px;
+}
+
+.pgmt-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary, #111);
+  margin: 0 0 6px;
+}
+
+.pgmt-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-sub, #6b7280);
+  margin: 0;
+}
+
+/* ── List ───────────────────────────────────────────────────── */
+.pgmt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.pgmt-card {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px 20px 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: box-shadow 0.15s;
+}
+
+.pgmt-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+}
+
+.pgmt-card-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.pgmt-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.pgmt-num {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-sub, #9ca3af);
+  letter-spacing: 0.3px;
+}
+
+.pgmt-ref {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary, #111);
+  margin: 0 0 12px;
+}
+
+.pgmt-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.pgmt-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pgmt-meta-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-sub, #9ca3af);
+}
+
+.pgmt-meta-value {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #374151);
+}
+
+.pgmt-meta-value--valor {
+  font-weight: 700;
+  color: var(--text-primary, #111);
+}
+
+.pgmt-meta-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--card-border, #e5e7eb);
+  margin: 0 20px;
+}
+
+/* ── Status pill ────────────────────────────────────────────── */
+.pgmt-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.pgmt-status--pago {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.pgmt-status--pendente {
+  background: #fef9c3;
+  color: #b45309;
+}
+
+.pgmt-status--vencido {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ── PDF button ─────────────────────────────────────────────── */
+.pgmt-card-right {
+  flex-shrink: 0;
+}
+
+.pgmt-pdf-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: none;
+  border: 1px solid var(--card-border, #e5e7eb);
+  border-radius: 10px;
+  cursor: pointer;
+  color: #dc2626;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.pgmt-pdf-btn svg {
+  font-size: 22px;
+}
+
+.pgmt-pdf-btn:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .pgmt-card {
+    flex-wrap: wrap;
+  }
+  .pgmt-card-right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .pgmt-pdf-btn {
+    flex-direction: row;
+    gap: 6px;
+  }
+  .pgmt-pdf-btn svg {
+    font-size: 16px;
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .pgmt-page {
+  --page-bg: #111827;
+}
+[data-color-mode="dark"] .pgmt-card {
+  --card-bg: #1e2530;
+  --card-border: #2d3748;
+  --text-primary: #e8eaf0;
+  --text-sub: #9ca3af;
+}
+[data-color-mode="dark"] .pgmt-title { color: #e8eaf0; }
+[data-color-mode="dark"] .pgmt-status--pago {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+[data-color-mode="dark"] .pgmt-status--pendente {
+  background: #4e3106;
+  color: #fcd34d;
+}
+[data-color-mode="dark"] .pgmt-status--vencido {
+  background: #450a0a;
+  color: #fca5a5;
+}
+[data-color-mode="dark"] .pgmt-pdf-btn:hover {
+  background: #2d1515;
+  border-color: #7f1d1d;
+}

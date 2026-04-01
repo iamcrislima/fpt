@@ -1,0 +1,284 @@
+/* ── Filtros ─────────────────────────────────────────────────────── */
+.fil-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.fil-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+
+.fil-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+.fil-search {
+  width: 100%;
+  padding: 9px 12px 9px 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.fil-search:focus { border-color: var(--sport-primary); }
+
+.fil-select {
+  padding: 9px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.fil-select:focus { border-color: var(--sport-primary); }
+
+.fil-total {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* ── Tabela ──────────────────────────────────────────────────────── */
+.fil-table-header {
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 8px;
+  margin-bottom: 6px;
+  gap: 0;
+}
+
+.fil-table-header .fil-col {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+}
+
+.fil-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.fil-empty {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #9ca3af;
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* ── Row — igual ao rk-row do Ranking ───────────────────────────── */
+.fil-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  padding: 10px 16px 10px 0;
+  gap: 0;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.fil-row:hover {
+  border-color: var(--sport-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* barra lateral colorida */
+.fil-row-accent {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 10px 0 0 10px;
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+/* ── Colunas ─────────────────────────────────────────────────────── */
+.fil-col {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #374151;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 8px;
+}
+
+/* cabeçalho não corta */
+.fil-table-header .fil-col {
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.fil-col--codigo   { width: 72px;  color: #6b7280; font-size: 12px; }
+.fil-col--nome     { flex: 1; min-width: 160px; font-weight: 600; color: #1a1a1a; overflow: hidden; }
+.fil-col--idade    { width: 52px;  text-align: center; }
+.fil-col--cat      { width: 64px;  text-align: center; font-weight: 700; color: #0f4c30; font-size: 12px; }
+.fil-col--clube    { width: 168px; }
+.fil-col--classe   { width: 62px;  text-align: center; font-weight: 600; color: #374151; }
+.fil-col--nota     { width: 72px;  text-align: center; font-weight: 700; color: #0f4c30; }
+.fil-col--torneios { width: 80px;  text-align: center; }
+.fil-col--nasc     { width: 56px;  text-align: center; color: #6b7280; font-size: 12px; }
+.fil-col--venc     { width: 120px; color: #6b7280; font-size: 12px; }
+
+
+/* ── Paginação ───────────────────────────────────────────────────── */
+.fil-pagination-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0 16px;
+  flex-wrap: wrap;
+}
+
+.fil-total {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.fil-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0 16px;
+}
+
+.fil-pg-btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.fil-pg-btn:hover:not(:disabled) {
+  border-color: var(--sport-primary);
+  color: #0f4c30;
+}
+.fil-pg-btn--active {
+  background: #0f4c30 !important;
+  border-color: #0f4c30 !important;
+  color: #fff !important;
+}
+.fil-pg-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .fil-table-header {
+    display: none;
+  }
+  .fil-row {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    gap: 4px;
+    min-height: 44px;
+  }
+  .fil-col--clube,
+  .fil-col--nasc,
+  .fil-col--torneios,
+  .fil-col--classe {
+    display: none;
+  }
+  .fil-col--nome {
+    min-width: 0;
+    flex: 1;
+  }
+  .fil-col--codigo {
+    width: 52px;
+  }
+  .fil-col--nota {
+    width: 60px;
+  }
+  .fil-filters {
+    gap: 8px;
+  }
+  .fil-search-wrap {
+    min-width: 0;
+  }
+  .fil-pagination-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fil-col--clube,
+  .fil-col--nasc {
+    display: none;
+  }
+  .fil-table-header .fil-col--clube,
+  .fil-table-header .fil-col--nasc {
+    display: none;
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .fil-search {
+  background: #1e2530;
+  border-color: #2d3748;
+  color: #e8eaf0;
+}
+[data-color-mode="dark"] .fil-select {
+  background: #1e2530;
+  border-color: #2d3748;
+  color: #d1d5db;
+}
+[data-color-mode="dark"] .fil-row {
+  background: #1e2530;
+  border-color: #2d3748;
+}
+[data-color-mode="dark"] .fil-col { color: #d1d5db; }
+[data-color-mode="dark"] .fil-col--nome { color: #e8eaf0; }
+[data-color-mode="dark"] .fil-pg-btn {
+  background: #1e2530;
+  border-color: #2d3748;
+  color: #d1d5db;
+}
+[data-color-mode="dark"] .fil-pg-btn:hover:not(:disabled) {
+  border-color: var(--sport-text);
+  color: var(--sport-text);
+}

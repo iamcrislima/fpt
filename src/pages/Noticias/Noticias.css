@@ -1,0 +1,221 @@
+.nt-page {
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* ── Grid ─────────────────────────────────────────────────── */
+.nt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* ── Card base ────────────────────────────────────────────── */
+.nt-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.nt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+  border-color: var(--sport-primary);
+}
+
+/* ── Card destaque — ocupa 2 colunas ─────────────────────── */
+.nt-card--featured {
+  grid-column: span 2;
+  flex-direction: row;
+}
+
+.nt-card--featured .nt-card-img-wrap {
+  flex: 1.2;
+}
+
+.nt-card--featured .nt-card-body {
+  flex: 1;
+  padding: 28px 28px 24px;
+  justify-content: center;
+}
+
+.nt-card--featured .nt-titulo {
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+/* ── Imagem ───────────────────────────────────────────────── */
+.nt-card-img-wrap {
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #e5e7eb;
+  flex-shrink: 0;
+}
+
+.nt-card--featured .nt-card-img-wrap {
+  aspect-ratio: auto;
+  height: 100%;
+  min-height: 260px;
+}
+
+.nt-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.nt-card:hover .nt-card-img {
+  transform: scale(1.04);
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.nt-card-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* ── Categoria tag ────────────────────────────────────────── */
+.nt-categoria {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--sport-text, #0f4c30);
+  border-left: 3px solid var(--sport-primary);
+  padding-left: 8px;
+  line-height: 1;
+}
+
+/* ── Título ───────────────────────────────────────────────── */
+.nt-titulo {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Data ─────────────────────────────────────────────────── */
+.nt-data {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-top: auto;
+}
+
+/* ── Carregar mais ────────────────────────────────────────── */
+.nt-load-more-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 24px;
+}
+
+.nt-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  border: 2px solid #0f4c30;
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f4c30;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  letter-spacing: 0.3px;
+}
+
+.nt-load-more:hover:not(:disabled) {
+  background: #0f4c30;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.nt-load-more--loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.nt-load-more-icon {
+  width: 12px;
+  height: 12px;
+  animation: none;
+}
+
+.nt-load-more--loading .nt-load-more-icon {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsivo ───────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .nt-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .nt-card--featured {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+  .nt-card--featured .nt-card-img-wrap {
+    height: auto;
+    min-height: unset;
+    aspect-ratio: 16 / 9;
+  }
+  .nt-card--featured .nt-card-body {
+    padding: 16px 18px 18px;
+  }
+  .nt-card--featured .nt-titulo {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nt-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .nt-card--featured {
+    grid-column: span 2;
+    flex-direction: row;
+  }
+  .nt-card--featured .nt-card-img-wrap {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 220px;
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .nt-card-img-wrap { background: #2d3748; }
+[data-color-mode="dark"] .nt-load-more {
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+[data-color-mode="dark"] .nt-load-more:hover:not(:disabled) {
+  background: #4b5563;
+  color: #e8eaf0;
+}

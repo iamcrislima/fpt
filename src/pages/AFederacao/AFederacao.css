@@ -1,0 +1,150 @@
+.fed-section {
+  margin-bottom: 40px;
+}
+
+/* ── Informações ─────────────────────────────────────── */
+.fed-info-grid {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 24px 0 8px;
+}
+
+.fed-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fed-info-row {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.fed-info-label {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.fed-info-icon {
+  color: #0f4c30;
+  margin-top: 3px;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+
+.fed-links-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 160px;
+}
+
+.fed-links-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3af;
+  margin: 0 0 2px;
+}
+
+.fed-doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f4c30;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.fed-doc-link:hover {
+  color: var(--sport-text, #0f4c30);
+}
+
+/* ── Títulos das seções ──────────────────────────────── */
+.fed-section-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--sport-primary);
+}
+
+/* ── Grid de cards ───────────────────────────────────── */
+.fed-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.fed-cargo-header {
+  font-size: 13px;
+  min-height: auto;
+  padding: 10px 16px;
+}
+
+.fed-card-body {
+  padding: 14px 16px 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 48px;
+}
+
+.fed-membro {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.fed-empty {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #d1d5db;
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .fed-info-grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .fed-card-grid {
+    grid-template-columns: 1fr;
+  }
+  .fed-section-title {
+    font-size: 17px;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fed-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .fed-info-row { color: #d1d5db; }
+[data-color-mode="dark"] .fed-info-label { color: #e8eaf0; }
+[data-color-mode="dark"] .fed-card-body { background: #1e2530; }
+[data-color-mode="dark"] .fed-membro { color: #d1d5db; }
+[data-color-mode="dark"] .fed-section-title { color: #e8eaf0; border-bottom-color: var(--sport-primary); }

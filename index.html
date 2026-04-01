@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FPT — Federação Paranaense de Tênis</title>
+    <!-- SSR-safe theme init: apply CSS variables before React mounts to avoid FOUC -->
+    <script>
+      (function () {
+        var THEMES = {
+          bt: {
+            primary: '#BCD405', dark: '#6e9200', light: '#edf2d0',
+            text: '#333333', textColor: '#0f4c30',
+            navBg: 'linear-gradient(90deg, #8ab800 0%, #d5e207 100%)',
+            navText: '#0f4c30',
+            footerBg: '#BCD405', footerText: '#0f4c30'
+          },
+          tennis: {
+            primary: '#123C32', dark: '#0a2219', light: '#d4e6df',
+            text: '#ffffff', textColor: '#123C32',
+            navBg: '#0a2219',
+            navText: '#ffffff',
+            footerBg: '#123C32', footerText: '#ffffff'
+          }
+        };
+        function apply(sport) {
+          var t = THEMES[sport] || THEMES.bt;
+          var r = document.documentElement;
+          r.style.setProperty('--sport-primary', t.primary);
+          r.style.setProperty('--sport-primary-dark', t.dark);
+          r.style.setProperty('--sport-primary-light', t.light);
+          r.style.setProperty('--sport-primary-text', t.text);
+          r.style.setProperty('--sport-text', t.textColor);
+          r.style.setProperty('--sport-navbar-bg', t.navBg);
+          r.style.setProperty('--sport-navbar-text', t.navText);
+          r.style.setProperty('--sport-footer-bg', t.footerBg);
+          r.style.setProperty('--sport-footer-text', t.footerText);
+          r.setAttribute('data-sport', sport || 'bt');
+        }
+        try {
+          // URL is source of truth
+          var path = window.location.pathname;
+          var sport = path.startsWith('/tennis') ? 'tennis'
+                    : path.startsWith('/bt') ? 'bt'
+                    : localStorage.getItem('fpt_sport');
+          apply(sport || 'bt');
+        } catch (e) { apply('bt'); }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

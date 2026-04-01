@@ -1,0 +1,283 @@
+/* ── Layout ─────────────────────────────────────────────────── */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ── Form panel (left) ──────────────────────────────────────── */
+.login-form-panel {
+  flex: 0 0 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 48px 40px;
+}
+
+.login-form-inner {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.login-logo-link {
+  display: inline-block;
+  margin-bottom: 32px;
+}
+
+.login-logo {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+.login-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 8px;
+  line-height: 1.25;
+}
+
+.login-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 0 32px;
+  line-height: 1.5;
+}
+
+/* ── Form ───────────────────────────────────────────────────── */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.login-error {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #dc2626;
+  margin: -8px 0 0;
+}
+
+.login-submit-btn {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Force full-width on DS Button */
+.login-submit-btn.umds-button {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Links below form ───────────────────────────────────────── */
+.login-forgot {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: var(--sport-text, #0f4c30);
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  margin-top: 12px;
+}
+
+.login-forgot:hover {
+  text-decoration: underline;
+}
+
+.login-register-hint {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+  margin: 16px 0 0;
+}
+
+.login-register-link {
+  color: var(--sport-text, #0f4c30);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-register-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Brand panel (right) — sempre verde escuro para white text ── */
+.login-brand-panel {
+  flex: 1;
+  position: relative;
+  background: var(--sport-text, #0f4c30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.login-brand-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1200&h=900&fit=crop') center/cover no-repeat;
+  opacity: 0.12;
+}
+
+.login-brand-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.35) 0%, transparent 100%);
+}
+
+.login-brand-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px 40px;
+  max-width: 420px;
+}
+
+.login-brand-logo {
+  height: 72px;
+  width: auto;
+  filter: brightness(0) invert(1);
+  margin-bottom: 24px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-brand-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+
+.login-brand-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.80);
+  margin: 0 0 40px;
+  line-height: 1.6;
+}
+
+/* ── Stats row ──────────────────────────────────────────────── */
+.login-brand-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 20px 28px;
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+}
+
+.login-brand-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.login-brand-stat-number {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #BCD405;
+  line-height: 1;
+}
+
+.login-brand-stat-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.login-brand-stat-sep {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.25);
+  flex-shrink: 0;
+}
+
+/* ── BT override: accent color stays lime ───────────────────── */
+[data-sport="bt"] .login-brand-stat-number {
+  color: #BCD405;
+}
+
+[data-sport="tennis"] .login-brand-stat-number {
+  color: #BCD405;
+}
+
+/* ── DS input full width ────────────────────────────────────── */
+.login-field .umds-input {
+  width: 100%;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-form-panel {
+    flex: none;
+    padding: 32px 24px 24px;
+  }
+
+  .login-brand-panel {
+    flex: none;
+    min-height: 220px;
+  }
+
+  .login-brand-content {
+    padding: 32px 24px;
+  }
+
+  .login-brand-title {
+    font-size: 20px;
+  }
+
+  .login-brand-text {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .login-form-panel {
+    flex: 0 0 400px;
+  }
+}
+
+/* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .login-form-panel { background: #1e2530; }
+[data-color-mode="dark"] .login-title { color: #e8eaf0; }
+[data-color-mode="dark"] .login-subtitle { color: #9ca3af; }
+[data-color-mode="dark"] .login-label { color: #d1d5db; }
+[data-color-mode="dark"] .login-error { color: #f87171; }
