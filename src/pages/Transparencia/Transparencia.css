@@ -156,6 +156,7 @@
 }
 
 /* ── Dark mode ──────────────────────────────────────────────── */
+[data-color-mode="dark"] .trs-sidebar-title { color: #94a3b8; }
 [data-color-mode="dark"] .trs-nav-item { color: #d1d5db; }
 [data-color-mode="dark"] .trs-nav-item:hover {
   background: #2d3748;
@@ -163,6 +164,7 @@
 }
 [data-color-mode="dark"] .trs-nav-item.active {
   background: #2d3748;
+  color: #4ade80;
 }
 [data-color-mode="dark"] .trs-section-title { color: #e8eaf0; }
 [data-color-mode="dark"] .trs-doc-card { border-color: #2d3748; }
@@ -170,4 +172,7 @@
   color: #e8eaf0;
   background: #2d3748;
 }
-[data-color-mode="dark"] .trs-doc-card-body { background: #1e2530; }
+[data-color-mode="dark"] .trs-doc-card-body { background: #1e293b; }
+[data-color-mode="dark"] .trs-download-btn { color: #4ade80; }
+[data-color-mode="dark"] .trs-download-btn:hover { color: #86efac; }
+[data-color-mode="dark"] .trs-empty { color: #94a3b8; }

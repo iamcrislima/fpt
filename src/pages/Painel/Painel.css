@@ -555,3 +555,75 @@
 [data-color-mode="dark"] .painel-greeting-hi { color: #e8eaf0; }
 [data-color-mode="dark"] .painel-card,
 [data-color-mode="dark"] .painel-quick-card { background: #1e2530; border-color: #2d3748; }
+
+/* Badges e Posições */
+[data-color-mode="dark"] .painel-badge--class {
+  background: var(--dm-sunken);
+  color: var(--dm-text-secondary);
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .painel-trn-pos--default {
+  background: var(--dm-sunken);
+  color: var(--dm-text-primary);
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .painel-trn-pos--ouro {
+  background: rgba(234, 179, 8, 0.15);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+[data-color-mode="dark"] .painel-trn-pos--prata {
+  background: var(--dm-sunken);
+  color: #94a3b8;
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .painel-trn-pos--bronze {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fdba74;
+  border-color: rgba(217, 119, 6, 0.3);
+}
+
+[data-color-mode="dark"] .painel-trn-card {
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .painel-trn-card:hover {
+  border-color: var(--dm-text-disabled);
+}
+
+[data-color-mode="dark"] .painel-trn-meta-item {
+  color: var(--dm-text-secondary);
+}
+
+[data-color-mode="dark"] .painel-trn-decl-btn {
+  color: var(--dm-text-primary);
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .painel-trn-decl-btn:hover {
+  background: var(--dm-sunken);
+  border-color: var(--dm-text-disabled);
+}
+
+[data-color-mode="dark"] .painel-trn-name,
+[data-color-mode="dark"] .painel-quick-title,
+[data-color-mode="dark"] .painel-anuidade-title,
+[data-color-mode="dark"] .painel-profile-name,
+[data-color-mode="dark"] .painel-data-value,
+[data-color-mode="dark"] .painel-section-title {
+  color: var(--dm-text-primary);
+}
+
+[data-color-mode="dark"] .painel-profile-clube,
+[data-color-mode="dark"] .painel-quick-sub,
+[data-color-mode="dark"] .painel-data-label {
+  color: var(--dm-text-secondary);
+}
+
+[data-color-mode="dark"] .painel-edit-row {
+  border-top-color: var(--dm-border);
+}

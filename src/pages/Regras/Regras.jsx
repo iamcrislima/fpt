@@ -9,7 +9,7 @@ export default function Regras() {
   return (
     <>
       <div className="trn-banner">
-        <p className="trn-banner-title" style={{ fontSize: 22, fontWeight: 700, color: '#1a1a1a', marginLeft: 0 }}>
+        <p className="trn-banner-title trn-banner-subtitle" style={{ marginLeft: 0 }}>
           Regras do Beach Tennis
         </p>
         <div className="trn-banner-waves" aria-hidden="true" />

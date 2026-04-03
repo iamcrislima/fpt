@@ -25,7 +25,7 @@ export default function Regulamento() {
 
       <div className="trn-banner">
         <div>
-          <p className="trn-banner-title" style={{ fontSize: 20, fontWeight: 700, color: '#1a1a1a', marginLeft: 0 }}>
+          <p className="trn-banner-title trn-banner-subtitle" style={{ marginLeft: 0 }}>
             Transparência
           </p>
           <p className="trn-banner-title" style={{ marginLeft: 0 }}>

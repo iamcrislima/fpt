@@ -405,7 +405,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #0f4c30;
+  color: #0f4c30 !important;
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.12s;
@@ -1468,18 +1468,6 @@
   margin: 0 0 0 20px;
   align-self: flex-end;
   padding-bottom: 14px;
-}
-
-.trn-banner-subtitle {
-  font-size: 20px;
-  font-weight: 700;
-}
-
-/* Ranking — empty state */
-.rk-empty-state {
-  padding: 32px;
-  text-align: center;
-  color: #6b7280;
 }
 
 .trn-banner-waves {
@@ -4437,22 +4425,6 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-}
-
-/* Podium colors — light mode (were previously inline in JSX) */
-.rk-podium-card:nth-child(1) {
-  background: #FFF7E0;
-  border-color: #D4AF37;
-}
-
-.rk-podium-card:nth-child(2) {
-  background: #DCE6F5;
-  border-color: #BFC6CE;
-}
-
-.rk-podium-card:nth-child(3) {
-  background: #F6ECE6;
-  border-color: #C47A4A;
 }
 
 .rk-podium-avatar {
@@ -8222,22 +8194,18 @@ img {
 [data-color-mode="dark"] .news-card,
 [data-color-mode="dark"] .mbr-champion-card,
 [data-color-mode="dark"] .demfin-doc,
+[data-color-mode="dark"] .tli-page-header,
 [data-color-mode="dark"] .tli-cat-section,
+[data-color-mode="dark"] .prog-header,
 [data-color-mode="dark"] .prog-panel,
+[data-color-mode="dark"] .cf-section,
+[data-color-mode="dark"] .chaves-toolbar,
 [data-color-mode="dark"] .chaves-panel,
 [data-color-mode="dark"] .camp-card,
 [data-color-mode="dark"] .bcard,
 [data-color-mode="dark"] .demfin-card {
   background: var(--dm-surface);
   border-color: var(--dm-border);
-}
-
-/* Remover caixa artificial da ToolBar e containers de filtros para fluir na página */
-[data-color-mode="dark"] .cf-section,
-[data-color-mode="dark"] .prog-header,
-[data-color-mode="dark"] .chaves-toolbar {
-  background: transparent !important;
-  border-color: transparent !important;
 }
 
 [data-color-mode="dark"] .prog-card,
@@ -8259,24 +8227,16 @@ img {
 [data-color-mode="dark"] .umds-select__trigger,
 [data-color-mode="dark"] .umds-checkbox__control,
 [data-color-mode="dark"] .umds-button--neutral.carousel-btn,
-[data-color-mode="dark"] .umds-button--neutral,
-[data-color-mode="dark"] .cf-pill,
-[data-color-mode="dark"] .chaves-print-btn {
-  background: var(--dm-surface);
-  border-color: var(--dm-border);
-  color: var(--dm-text-primary);
-}
-
-/* Filtros e Inputs nativos soltos pelas páginas: 
-   fundo oco (transparent) preservando contorno */
 [data-color-mode="dark"] .rk-select,
 [data-color-mode="dark"] .rk-search,
 [data-color-mode="dark"] .trn-native-select,
 [data-color-mode="dark"] .tli-filter-select,
 [data-color-mode="dark"] .prog-filter-select,
 [data-color-mode="dark"] .cf-select,
-[data-color-mode="dark"] .chaves-select {
-  background: transparent !important;
+[data-color-mode="dark"] .cf-pill,
+[data-color-mode="dark"] .chaves-select,
+[data-color-mode="dark"] .chaves-print-btn {
+  background: var(--dm-surface);
   border-color: var(--dm-border);
   color: var(--dm-text-primary);
 }
@@ -8341,24 +8301,17 @@ img {
 [data-color-mode="dark"] .demfin-doc-date,
 [data-color-mode="dark"] .demfin-card-title,
 [data-color-mode="dark"] .trs-section-title,
+[data-color-mode="dark"] .tdet-tab--active,
 [data-color-mode="dark"] .mbr-pill--active {
   color: var(--dm-text-primary);
 }
 
-/* Abas de Detalhes de Torneio (Branco mais suave e Verde dark mode ajustado) */
-[data-color-mode="dark"] .tdet-tab--active {
-  color: #f8fafc;
-  border-bottom-color: var(--dm-accent-success);
-}
-[data-color-mode="dark"] .tdet-tab:hover:not(.tdet-tab--active) {
-  color: #cbd5e1;
-}
 
 /* ── 8. TEXTO SECUNDÁRIO ───────────────────────────────────── */
 
-[data-color-mode="dark"] .tdet-tab,
 [data-color-mode="dark"] .rk-filter-label,
 [data-color-mode="dark"] .rk-podium-pts,
+[data-color-mode="dark"] .tdet-tab,
 [data-color-mode="dark"] .trn-card-region,
 [data-color-mode="dark"] .trn-card-dates,
 [data-color-mode="dark"] .trn-card-arena,
@@ -8397,46 +8350,34 @@ img {
 
 /* ── 10. HEADERS DE TABELA (rebaixados) ─────────────────────── */
 
+[data-color-mode="dark"] .tli-th,
+[data-color-mode="dark"] .tli-cat-banner,
+[data-color-mode="dark"] .chaves-section-hdr,
+[data-color-mode="dark"] .chaves-class-table th,
 [data-color-mode="dark"] .prog-dia-header {
   background: var(--dm-sunken);
   color: var(--dm-text-secondary);
   border-color: var(--dm-border);
 }
 
-/* Chaves: Headers internos não devem ter fundo artificial escuro, herdam o elevated do card */
-[data-color-mode="dark"] .chaves-section-hdr,
-[data-color-mode="dark"] .chaves-class-table th {
-  background: transparent !important;
-  color: var(--dm-text-secondary);
-  border-bottom-color: var(--dm-border) !important;
-}
-
 
 /* ── 11. LINHAS DE TABELA / ROWS ────────────────────────────── */
 
-/* O zebrado genérico enraizado na library base será destruído aqui 
-   forçando var(--dm-sunken) em TODAS as linhas, células E no cabeçalho */
-[data-color-mode="dark"] .tli-row,
-[data-color-mode="dark"] .tli-row > td,
-[data-color-mode="dark"] .tli-table tbody tr,
-[data-color-mode="dark"] .tli-table tbody tr > td,
-[data-color-mode="dark"] .tli-table tbody tr:nth-child(n) > td,
-[data-color-mode="dark"] .tli-th {
-  background: var(--dm-sunken) !important;
+[data-color-mode="dark"] .tli-row {
+  background: var(--dm-surface);
   color: var(--dm-text-primary);
 }
 
-[data-color-mode="dark"] .tli-row:hover,
-[data-color-mode="dark"] .tli-row:hover > td {
-  background: var(--dm-elevated) !important;
+[data-color-mode="dark"] .tli-row:hover {
+  background: var(--dm-elevated);
 }
 
 [data-color-mode="dark"] .tli-row:not(:last-child) td {
-  border-bottom-color: var(--dm-border) !important;
+  border-color: var(--dm-border);
 }
 
 [data-color-mode="dark"] .gm-row {
-  background: transparent !important;
+  background: var(--dm-page);
   border-color: var(--dm-border);
 }
 
@@ -9151,28 +9092,19 @@ img {
 
 /* ── 33. FAÇA PARTE — FIX CONTRASTE INPUTS ──────────────────── */
 
-/* fp-right usa fundo escuro para contrastar com inputs */
+/* O fp-right usa --background-white (→ --dm-surface em dark).
+   Os inputs TAMBÉM usam --dm-surface → sem contraste.
+   Solução: fp-right usa --dm-page (mais escuro), inputs mantêm --dm-surface. */
 [data-color-mode="dark"] .fp-right {
   background: var(--dm-page);
   box-shadow: none;
 }
 
-/* Inputs e Selects: remove o fundo maciço para que fique natural no dark mode,
-   preservando apenas a formatação original do Material Design (bottom line) */
-[data-color-mode="dark"] .faca-parte-page .umds-input,
+/* Inputs dentro do Faça Parte: precisam ter fundo visível */
 [data-color-mode="dark"] .faca-parte-page .umds-input__container,
 [data-color-mode="dark"] .faca-parte-page .umds-select__trigger {
-  background: transparent !important;
-}
-
-/* Placeholder — mais escuro para não confundir com texto real */
-[data-color-mode="dark"] .faca-parte-page .umds-input__control::placeholder {
-  color: #64748b;
-}
-
-/* Texto digitado */
-[data-color-mode="dark"] .faca-parte-page .umds-input__control {
-  color: var(--dm-text-primary);
+  background: var(--dm-surface);
+  border-color: var(--dm-border);
 }
 
 
@@ -9782,29 +9714,44 @@ img {
 
 /* ══════════════════════════════════════════════════════════════
    40. FIXES PARA INLINE STYLES & UMDS LIBRARY
+   (Estes usam !important para combater style={{ }} do React)
    ══════════════════════════════════════════════════════════════ */
 
 /* ── 40a. UMDS PRIMARY BUTTON — texto invisível ─────────────── */
-/* O botão UMDS primary é library code (não editável),
-   então !important é necessário aqui. */
+/* O botão UMDS primary usa bg verde escuro + texto verde escuro
+   = contraste zero. Forçar texto branco. */
 [data-color-mode="dark"] .umds-button--primary {
   color: #fff !important;
 }
 
-/* ── 40b. BANNER SUBTITLE — agora via classe CSS ────────────── */
-/* Causa raiz resolvida: inline color removido dos 8 arquivos JSX.
-   Agora funciona sem !important. */
-[data-color-mode="dark"] .trn-banner-subtitle {
-  color: var(--dm-text-primary);
+/* ── 40b. BANNER TITLES — inline style={{ color: '#1a1a1a' }} ── */
+/* 8 páginas usam <p style={{ color: '#1a1a1a' }}> que sobrescreve
+   qualquer regra CSS. !important é a ÚNICA solução. */
+[data-color-mode="dark"] .trn-banner-title {
+  color: var(--dm-text-primary) !important;
 }
 
-/* ── 40c. RANKING — Podium (causa raiz resolvida) ───────────── */
-/* Causa raiz resolvida: inline bg/border removidos do Ranking.jsx.
-   As cores agora são definidas APENAS por CSS. Sem !important. */
+/* ── 40c. RANKING — Podium inline bg/border ─────────────────── */
+/* Ranking.jsx:150 usa style={{ background: bg, borderColor: border }}
+   Precisa !important para sobrescrever os inline styles. */
+[data-color-mode="dark"] .rk-podium-card:nth-child(1) {
+  background: var(--dm-podium-gold-bg) !important;
+  border-color: var(--dm-podium-gold-border) !important;
+}
 
-/* ── 40d. RANKING — Empty state (causa raiz resolvida) ──────── */
-[data-color-mode="dark"] .rk-empty-state {
-  color: var(--dm-text-secondary);
+[data-color-mode="dark"] .rk-podium-card:nth-child(2) {
+  background: var(--dm-podium-silver-bg) !important;
+  border-color: var(--dm-podium-silver-border) !important;
+}
+
+[data-color-mode="dark"] .rk-podium-card:nth-child(3) {
+  background: var(--dm-podium-bronze-bg) !important;
+  border-color: var(--dm-podium-bronze-border) !important;
+}
+
+/* ── 40d. RANKING — Empty state inline ──────────────────────── */
+[data-color-mode="dark"] .rk-rows > div[style] {
+  color: var(--dm-text-secondary) !important;
 }
 
 /* ── 40e. RANKING — Show All button ─────────────────────────── */
@@ -9918,91 +9865,3 @@ img {
     border-bottom-color: var(--dm-border);
   }
 }
-
-/* ══════════════════════════════════════════════════════════════
-   41. LISTA DE INSCRITOS — inscr-* classes sem dark mode
-   Estas classes têm cores hardcoded (#1a1a1a, #f4f6f9) que
-   tornam a lista completamente ilegível no modo escuro.
-   ══════════════════════════════════════════════════════════════ */
-
-/* Header da categoria (box destacado) */
-[data-color-mode="dark"] .inscr-cat-header {
-  background: var(--dm-elevated);
-  border-bottom-color: var(--dm-border);
-}
-
-/* Título da categoria */
-[data-color-mode="dark"] .inscr-cat-title {
-  color: var(--dm-text-primary);
-}
-
-/* Nomes dos jogadores */
-[data-color-mode="dark"] .inscr-dupla-name {
-  color: var(--dm-text-primary);
-}
-
-/* Clube (já é cinza, mas garantir legibilidade) */
-[data-color-mode="dark"] .inscr-dupla-clube {
-  color: var(--dm-text-secondary);
-}
-
-/* Rankings */
-[data-color-mode="dark"] .inscr-dupla-ranking span {
-  color: var(--dm-text-primary);
-}
-
-/* Linhas da lista - bordas */
-[data-color-mode="dark"] .inscr-dupla-row {
-  border-bottom-color: var(--dm-border);
-}
-
-/* Badges (inscritos/fila) */
-[data-color-mode="dark"] .inscr-badge--blue {
-  background: rgba(59, 130, 246, 0.2);
-  color: #93c5fd;
-}
-
-[data-color-mode="dark"] .inscr-badge--yellow {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fcd34d;
-}
-
-/* Player lines dentro da tabela */
-[data-color-mode="dark"] .inscr-player-line {
-  color: var(--dm-text-primary);
-}
-
-[data-color-mode="dark"] .inscr-rank-inline {
-  color: var(--dm-text-secondary);
-}
-
-/* ── MODAL BEACH TENNIS ──────────────────────────────────────── */
-[data-color-mode="dark"] .sport-switch-modal {
-  background: var(--dm-surface);
-  border: 1px solid var(--dm-border);
-}
-
-[data-color-mode="dark"] .sport-switch-modal-title {
-  color: var(--dm-text-primary);
-}
-
-[data-color-mode="dark"] .sport-switch-modal-body {
-  color: var(--dm-text-secondary);
-}
-
-[data-color-mode="dark"] .sport-switch-btn--cancel {
-  background: var(--dm-sunken);
-  color: var(--dm-text-primary);
-}
-
-[data-color-mode="dark"] .sport-switch-btn--cancel:hover {
-  background: var(--dm-elevated);
-}
-
-/* ══════════════════════════════════════════════════════════════
-   42. FAÇA PARTE — mantém estilo arredondado com cores dark
-   !important necessário para vencer a regra global da Seção 6
-   que já aplica --dm-surface (mesma especificidade, mesma cor).
-   ══════════════════════════════════════════════════════════════ */
-
-/* Nenhuma regra extra necessária — Seção 33 já aplica corretamente */

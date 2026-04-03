@@ -220,3 +220,37 @@
   --text-primary: #e8eaf0;
   --text-sub: #9ca3af;
 }
+
+[data-color-mode="dark"] .mt-pos--ouro {
+  background: rgba(234, 179, 8, 0.15);
+  color: #fde047;
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+[data-color-mode="dark"] .mt-pos--prata {
+  background: var(--dm-sunken, #0d1a2d);
+  color: #94a3b8;
+  border-color: var(--dm-border, #334155);
+}
+
+[data-color-mode="dark"] .mt-pos--bronze {
+  background: rgba(217, 119, 6, 0.15);
+  color: #fdba74;
+  border-color: rgba(217, 119, 6, 0.3);
+}
+
+[data-color-mode="dark"] .mt-pos--default {
+  background: var(--dm-sunken, #0d1a2d);
+  color: #e8eaf0;
+  border-color: var(--dm-border, #334155);
+}
+
+[data-color-mode="dark"] .mt-decl-btn {
+  color: #e8eaf0;
+  border-color: #2d3748;
+}
+
+[data-color-mode="dark"] .mt-decl-btn:hover {
+  background: var(--dm-sunken, #0d1a2d);
+  border-color: #475569;
+}

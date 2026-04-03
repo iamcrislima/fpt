@@ -145,9 +145,9 @@ function PlayerAvatar({ nome, size = 36 }) {
 }
 
 // ── Podium Card ───────────────────────────────────────────────────────────────
-function PodiumCard({ label, player, bg, border }) {
+function PodiumCard({ label, player }) {
   return (
-    <div className="rk-podium-card" style={{ background: bg, borderColor: border }}>
+    <div className="rk-podium-card">
       <PlayerAvatar nome={player.nome} size={48} />
       <p className="rk-podium-label">{label}</p>
       <p className="rk-podium-name">{player.nome}</p>
@@ -332,9 +332,9 @@ export default function Ranking() {
           {/* Top 3 podium */}
           {top3.length >= 3 && (
             <div className="rk-podium">
-              <PodiumCard label="Líder do Ranking" player={top3[0]} bg="#FFF7E0" border="#D4AF37" />
-              <PodiumCard label="2º Colocado"       player={top3[1]} bg="#DCE6F5" border="#BFC6CE" />
-              <PodiumCard label="3º Colocado"       player={top3[2]} bg="#F6ECE6" border="#C47A4A" />
+              <PodiumCard label="Líder do Ranking" player={top3[0]} />
+              <PodiumCard label="2º Colocado"       player={top3[1]} />
+              <PodiumCard label="3º Colocado"       player={top3[2]} />
             </div>
           )}
 
@@ -353,7 +353,7 @@ export default function Ranking() {
           {/* Rows */}
           <div className="rk-rows">
             {displayed.length === 0 && (
-              <div style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>
+              <div className="rk-empty-state">
                 Nenhum resultado encontrado para os filtros selecionados.
               </div>
             )}
