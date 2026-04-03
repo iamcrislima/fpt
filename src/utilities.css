@@ -1,0 +1,31 @@
+/* =======================================================================
+   UTILITIES / HELPERS (Design DRY)
+   Redução drástica de flexbox e textos redundantes ao redor do projeto.
+   ======================================================================= */
+
+/* Flexbox Helpers */
+.d-flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.a-center { align-items: center; }
+.a-flex-end { align-items: flex-end; }
+.j-center { justify-content: center; }
+.j-space-between { justify-content: space-between; }
+.j-flex-end { justify-content: flex-end; }
+.flex-1 { flex: 1; }
+.flex-wrap { flex-wrap: wrap; }
+
+/* Gaps comuns */
+.gap-4 { gap: 4px; }
+.gap-6 { gap: 6px; }
+.gap-8 { gap: 8px; }
+.gap-10 { gap: 10px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.gap-24 { gap: 24px; }
+
+/* Typography & Layout básicos */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.w-100 { width: 100%; }
+.m-0 { margin: 0; }
+.p-0 { padding: 0; }

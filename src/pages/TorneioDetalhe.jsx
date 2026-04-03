@@ -1655,7 +1655,7 @@ export default function TorneioDetalhe() {
 
           {/* ── Grupos ── */}
           {dados && <div className="chaves-panel print-hide">
-            <div className="chaves-panel-title-bar">
+            <div className="chaves-panel-title-bar d-flex a-center j-space-between">
               <span>Chaveamento</span>
               <button className="chaves-print-btn" onClick={() => window.print()}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1664,7 +1664,7 @@ export default function TorneioDetalhe() {
                 Imprimir
               </button>
             </div>
-            <div className="chaves-groups-grid">
+            <div className="chaves-groups-grid d-flex flex-col">
               {dados.grupos.map(grupo => (
                 <div key={grupo.nome} className="chaves-grupo">
                   <div className="chaves-grupo-nome">{grupo.nome}</div>
@@ -1726,7 +1726,7 @@ export default function TorneioDetalhe() {
 
           {/* ── Eliminatórias ── */}
           {dados && <div className="chaves-panel print-hide">
-            <div className="chaves-panel-title-bar">
+            <div className="chaves-panel-title-bar d-flex a-center j-space-between">
               <span>Eliminatórias</span>
               <button className="chaves-print-btn" onClick={() => window.print()}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

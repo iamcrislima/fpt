@@ -1,6 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Inter:wght@400;600;700&family=Roboto:wght@400&display=swap');
 
 /* =======================================================================
+   DESIGN TOKENS (Arquitetura World Class)
+   ======================================================================= */
+:root {
+  --bvp-surface: #fff;
+  --bvp-surface-elevated: #fff;
+  --bvp-border: #e5e7eb;
+  --bvp-text-primary: #1a1a1a;
+  --bvp-shadow-soft: 0 6px 14px -6px rgba(24, 39, 75, 0.10);
+  --bvp-shadow-card: 0 2px 8px rgba(24, 39, 75, 0.08);
+}
+
+/* Modificação Automática de Escopo para o Dark Mode (Fim dos overrides em cadeia) */
+[data-color-mode="dark"] {
+  --bvp-surface: var(--dm-surface);
+  --bvp-surface-elevated: var(--dm-elevated);
+  --bvp-border: var(--dm-border);
+  --bvp-text-primary: var(--dm-text-primary);
+  --bvp-shadow-soft: 0 6px 14px -6px rgba(0, 0, 0, 0.40);
+  --bvp-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.60);
+}
+
+/* =======================================================================
    Modal (InscricaoModal)
    ======================================================================= */
 .modal-backdrop {
@@ -822,7 +844,8 @@
   letter-spacing: 0.25px;
 }
 
-.tournaments-section--home .section-title {
+.tournaments-section--home .section-title,
+.events-section .section-title {
   color: var(--neutral-dark-pure);
 }
 
@@ -2457,35 +2480,29 @@
 
 /* Panel */
 .chaves-panel {
-  background: #fff;
-  border: 1px solid #d5d5d5;
+  background: var(--bvp-surface);
+  border: 1px solid var(--bvp-border);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 6px 14px -6px rgba(24, 39, 75, 0.10);
+  box-shadow: var(--bvp-shadow-soft);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.chaves-title-tools {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+/* .chaves-title-tools destruído: substituído inteiramente por utility classes (d-flex a-center gap-12) */
 
 .chaves-panel-title-bar {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   font-size: 22px;
-  color: #1a1a1a;
+  color: var(--bvp-text-primary);
   padding: 12px 24px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* Flex/layout properties removidas, migradas para JSX helpers */
 }
 
 /* Groups grid: single column stacked */
 .chaves-groups-grid {
-  display: flex;
-  flex-direction: column;
   gap: 0;
+  /* display: flex; flex-direction: column; migrado para helpers no JSX */
 }
 
 .chaves-grupo {
@@ -2514,12 +2531,13 @@
 }
 
 .chaves-class-card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--bvp-surface-elevated);
+  border: 1px solid var(--bvp-border);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(24, 39, 75, 0.08);
+  box-shadow: var(--bvp-shadow-card);
   padding: 14px 16px 12px;
   overflow: hidden;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .chaves-section-hdr {
@@ -8224,7 +8242,6 @@ img {
 [data-color-mode="dark"] .demfin-doc,
 [data-color-mode="dark"] .tli-cat-section,
 [data-color-mode="dark"] .prog-panel,
-[data-color-mode="dark"] .chaves-panel,
 [data-color-mode="dark"] .camp-card,
 [data-color-mode="dark"] .bcard,
 [data-color-mode="dark"] .demfin-card {
@@ -8240,8 +8257,7 @@ img {
   border-color: transparent !important;
 }
 
-[data-color-mode="dark"] .prog-card,
-[data-color-mode="dark"] .chaves-class-card {
+[data-color-mode="dark"] .prog-card {
   background: var(--dm-elevated);
   border-color: var(--dm-border);
 }
@@ -10006,3 +10022,502 @@ img {
    ══════════════════════════════════════════════════════════════ */
 
 /* Nenhuma regra extra necessária — Seção 33 já aplica corretamente */
+
+/* =======================================================================
+   43. EVENTS SECTION — Calendário de Eventos (tabbed, 2-col grid)
+   ======================================================================= */
+
+.events-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+
+  /* Inherit sport theme tokens for the DS Tabs active state */
+  --umds-theme-primary-pure: var(--sport-primary);
+  --umds-theme-primary-dark: var(--sport-primary-dark);
+  --umds-semantic-color-primary-pure: var(--sport-primary);
+  --umds-semantic-color-primary-dark: var(--sport-primary-dark);
+}
+
+.events-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Tab overrides (mirrors .tournaments-section--home pattern) ── */
+.events-section .umds-tabs {
+  border-bottom: none;
+}
+
+.events-section .umds-tabs__tab {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  padding: 12px;
+}
+
+.events-section .umds-tabs__tab--selected .umds-tabs__label--selected {
+  font-weight: 700;
+  color: var(--neutral-dark-pure);
+}
+
+/* ── Grid ────────────────────────────────────────────────────── */
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ── Tab switch fade-in ──────────────────────────────────────── */
+@keyframes eventsTabFadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.events-tab-panel {
+  animation: eventsTabFadeIn 0.2s ease forwards;
+}
+
+/* ── Event Card ──────────────────────────────────────────────── */
+.event-card {
+  display: flex;
+  gap: 14px;
+  background: var(--bvp-surface);
+  border: 1px solid var(--bvp-border);
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: var(--bvp-shadow-card);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.event-card:hover {
+  box-shadow: var(--bvp-shadow-soft);
+  transform: translateY(-2px);
+}
+
+.event-card__thumb {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--neutral-light-medium);
+  position: relative;
+}
+
+.event-card__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.event-card__thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--neutral-light-medium);
+}
+
+.event-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.event-card__title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--neutral-dark-pure);
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.event-card__category {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: var(--neutral-dark-medium);
+  margin: 0;
+}
+
+.event-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.event-card__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: var(--neutral-dark-medium);
+}
+
+.event-card__meta-row svg {
+  flex-shrink: 0;
+  color: var(--neutral-dark-up);
+  font-size: 11px;
+}
+
+.event-card__deadline-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+/* ── Skeleton ────────────────────────────────────────────────── */
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1;   }
+  50%       { opacity: 0.4; }
+}
+
+.skeleton-block {
+  background: var(--neutral-light-medium);
+  border-radius: 6px;
+  animation: skeletonPulse 1.4s ease-in-out infinite;
+}
+
+.event-skeleton {
+  display: flex;
+  gap: 14px;
+  background: var(--bvp-surface);
+  border: 1px solid var(--bvp-border);
+  border-radius: 12px;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.event-skeleton__thumb {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.event-skeleton__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  padding-top: 4px;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.event-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px 24px;
+  color: var(--neutral-dark-medium);
+  text-align: center;
+}
+
+.event-empty__icon {
+  font-size: 40px;
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.event-empty__text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  color: var(--neutral-dark-medium);
+  margin: 0;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+[data-color-mode="dark"] .events-section .umds-tabs__tab--selected .umds-tabs__label--selected {
+  color: var(--dm-text-primary);
+}
+
+[data-color-mode="dark"] .event-card {
+  background: var(--dm-surface);
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .event-card:hover {
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.5);
+}
+
+[data-color-mode="dark"] .event-card__title {
+  color: var(--dm-text-primary);
+}
+
+[data-color-mode="dark"] .event-card__category,
+[data-color-mode="dark"] .event-card__meta-row {
+  color: var(--dm-text-secondary);
+}
+
+[data-color-mode="dark"] .event-card__meta-row svg {
+  color: var(--dm-text-hint);
+}
+
+[data-color-mode="dark"] .event-card__deadline-badge {
+  background: rgba(0, 88, 219, 0.18);
+  color: var(--dm-accent-link);
+}
+
+[data-color-mode="dark"] .event-card__thumb-placeholder {
+  background: var(--dm-elevated);
+}
+
+[data-color-mode="dark"] .event-skeleton {
+  background: var(--dm-surface);
+  border-color: var(--dm-border);
+}
+
+[data-color-mode="dark"] .skeleton-block {
+  background: var(--dm-elevated);
+}
+
+[data-color-mode="dark"] .event-empty {
+  color: var(--dm-text-secondary);
+}
+
+[data-color-mode="dark"] .event-empty__text {
+  color: var(--dm-text-secondary);
+}
+
+/* ── Tablet (768–1024px): keep 2 columns ────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .events-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+}
+
+/* ── Mobile (<768px): 1 column, full-width tabs ─────────────── */
+@media (max-width: 767px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .events-section .umds-tabs {
+    width: 100%;
+  }
+
+  .events-section .umds-tabs__tab {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    min-height: 44px;
+  }
+}
+/* =======================================================================
+   44. FEATURED ARTICLE CAROUSEL
+   .fa-carousel* — image viewport + arrows + dots
+   .fa-article-caption — animated title/subtitle below the image
+   ======================================================================= */
+
+/* ── Root: takes over article-image-wrap's role ──────────────── */
+.fa-carousel {
+  background: var(--sport-primary);   /* placeholder color while image loads */
+  height: 465px;
+  border-radius: 4px;
+  position: relative;
+  width: 100%;
+  outline: none;                       /* focus ring handled by arrows/dots */
+  cursor: default;
+}
+
+/* ── Viewport: clips the sliding track ───────────────────────── */
+.fa-carousel__viewport {
+  overflow: hidden;
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* ── Track: horizontal flex strip ────────────────────────────── */
+.fa-carousel__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* ── Slide: each item fills 100% of the viewport width ─────── */
+.fa-carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Slide link fills the entire slide area */
+.fa-carousel__slide-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* Override the static article-img positioning inside slides —
+   use object-fit so any image fills the container gracefully  */
+.fa-carousel .article-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  left: auto;
+  transform: none;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Arrow buttons ────────────────────────────────────────────── */
+.fa-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--neutral-dark-pure);
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+  transition: background 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
+  opacity: 0;                          /* hidden until hover */
+}
+
+.fa-carousel:hover .fa-carousel__arrow,
+.fa-carousel:focus-within .fa-carousel__arrow {
+  opacity: 1;
+}
+
+.fa-carousel__arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.fa-carousel__arrow:focus-visible {
+  outline: 2px solid var(--primary-pure);
+  outline-offset: 2px;
+}
+
+.fa-carousel__arrow--prev { left: 14px;  }
+.fa-carousel__arrow--next { right: 14px; }
+
+/* ── Dot indicators ──────────────────────────────────────────── */
+.fa-carousel__dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 3;
+}
+
+.fa-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.50);
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.fa-carousel__dot--active {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+.fa-carousel__dot:focus-visible {
+  outline: 2px solid var(--primary-pure);
+  outline-offset: 3px;
+}
+
+/* ── Caption (title + subtitle) — fades in on slide change ───── */
+@keyframes faArticleCaptionFadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.fa-article-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  animation: faArticleCaptionFadeIn 0.3s ease forwards;
+}
+
+/* ── Dark mode ───────────────────────────────────────────────── */
+[data-color-mode="dark"] .fa-carousel__arrow {
+  background: rgba(30, 41, 59, 0.88);
+  color: var(--dm-text-primary);
+}
+
+[data-color-mode="dark"] .fa-carousel__arrow:hover {
+  background: var(--dm-elevated);
+}
+
+[data-color-mode="dark"] .fa-carousel__dot {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.50);
+}
+
+[data-color-mode="dark"] .fa-carousel__dot--active {
+  background: #fff;
+}
+
+/* ── Mobile (<768px) ─────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .fa-carousel {
+    height: 220px;                     /* matches .article-image-wrap mobile height */
+    border-radius: 0;                  /* edge-to-edge on mobile */
+  }
+
+  .fa-carousel__viewport {
+    border-radius: 0;
+  }
+
+  .fa-carousel .article-img {
+    height: 220px;
+  }
+
+  /* Arrows always visible on touch devices (no hover state) */
+  .fa-carousel__arrow {
+    opacity: 1;
+    width: 34px;
+    height: 34px;
+    font-size: 11px;
+  }
+
+  .fa-carousel__arrow--prev { left: 8px;  }
+  .fa-carousel__arrow--next { right: 8px; }
+
+  .fa-carousel__dots {
+    bottom: 10px;
+  }
+}

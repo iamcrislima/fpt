@@ -2,6 +2,7 @@ import HeroBanner from '../components/HeroBanner'
 import FeaturedArticle from '../components/FeaturedArticle'
 import NewsColumn from '../components/NewsColumn'
 import TournamentsSection from '../components/TournamentsSection'
+import EventsSection from '../components/events/EventsSection'
 import SecondBanner from '../components/SecondBanner'
 
 export default function Home() {
@@ -15,6 +16,8 @@ export default function Home() {
             <FeaturedArticle />
             <NewsColumn />
           </div>
+
+          <EventsSection />
 
           <TournamentsSection home />
         </div>

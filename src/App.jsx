@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import './App.css'
+import './utilities.css'
 import { SportProvider, useSport } from './context/SportContext'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
