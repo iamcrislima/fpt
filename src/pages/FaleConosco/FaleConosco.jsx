@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './FaleConosco.css'
+import { Button } from '../../components/ui/Button'
 
 const BG_IMG = '/faca-parte-bg.png'
 
@@ -115,9 +116,9 @@ export default function FaleConosco() {
                 <p>
                   Recebemos sua mensagem e entraremos em contato em breve pelo e-mail informado.
                 </p>
-                <button className="fc-success-back" onClick={handleNovaMensagem}>
+                <Button variant="secondary" onClick={handleNovaMensagem}>
                   Enviar nova mensagem
-                </button>
+                </Button>
               </div>
               <hr className="fc-divider" />
             </>

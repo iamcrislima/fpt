@@ -1,0 +1,85 @@
+/*
+ * 1DS Overrides — FPT Design System
+ * Corrige o que tokens sozinhos não resolvem no componente 1DS Button.
+ *
+ * REGRAS:
+ * - Não modificar nenhum arquivo de @1doc/
+ * - Usar apenas class selectors para manter especificidade mínima
+ * - Cada override deve ter comentário explicando o motivo
+ *
+ * Importado em main.jsx APÓS os CSS do 1DS para garantir precedência.
+ */
+
+/* ─── 1. Cor do texto no variant primary ───────────────────────────────────
+ *
+ * Problema: Button.css usa color: --umds-semantic-color-neutral-light-pure
+ * (branco) para o texto de botões primary. O branco é legível sobre o azul
+ * padrão 1doc (#0058DB), mas não sobre sport-primary BT (#BCD405 lime).
+ *
+ * Solução: sobrescrever a cor de texto com --ds-color-primary-text, que
+ * mapeia para --sport-primary-text (#333333 escuro para BT, #fff para Tennis).
+ * ─────────────────────────────────────────────────────────────────────────── */
+.umds-button--primary {
+  color: var(--ds-color-primary-text, #333333);
+}
+
+/* Hover mantém a mesma cor de texto */
+.umds-button--primary:hover:not(:disabled) {
+  color: var(--ds-color-primary-text, #333333);
+}
+
+/* ─── 2. Focus ring acessível ──────────────────────────────────────────────
+ *
+ * Problema: Button.css usa outline com --umds-semantic-color-neutral-dark-down
+ * (cinza). Inconsistente com o focus ring do DS e não usa sport-primary.
+ *
+ * Solução: remover outline, aplicar box-shadow com tokens --ds-focus-ring-*.
+ * Box-shadow (não outline) porque: respeita border-radius, é consistente com
+ * outros componentes do DS, e suporta offset visual (double ring).
+ * ─────────────────────────────────────────────────────────────────────────── */
+.umds-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--ds-focus-ring-offset, 0px) var(--ds-surface, #fff),
+    0 0 0 calc(var(--ds-focus-ring-offset, 0px) + var(--ds-focus-ring-width, 3px))
+      var(--ds-focus-ring-color,
+        color-mix(in srgb, var(--sport-primary, #BCD405) 40%, transparent));
+}
+
+/* ─── 3. Transição via token DS ─────────────────────────────────────────────
+ *
+ * Problema: Button.css usa transition: all 0.2s — hardcoded, independente
+ * do token --ds-transition-base.
+ *
+ * Solução: substituir por --ds-transition-interactive que anima as mesmas
+ * propriedades relevantes e usa o mesmo timing (120ms fast), evitando
+ * animação de propriedades não intencionais que "all" incluiria.
+ * ─────────────────────────────────────────────────────────────────────────── */
+.umds-button {
+  transition: var(--ds-transition-interactive,
+    background     120ms ease,
+    color          120ms ease,
+    border-color   120ms ease,
+    opacity        120ms ease,
+    box-shadow     120ms ease,
+    transform      120ms ease
+  );
+}
+
+/* ─── 4. Disabled state unificado ───────────────────────────────────────────
+ *
+ * 1DS já aplica cursor: not-allowed por variant. Este override unifica
+ * o opacity para ficar consistente com o padrão DS (0.45).
+ * Não remove o comportamento 1DS, apenas reforça o visual.
+ * ─────────────────────────────────────────────────────────────────────────── */
+.umds-button:disabled {
+  opacity: 0.45;
+}
+
+/* Exceção: variantes que 1DS já remove o fundo no disabled ficam com
+   opacity menor para não sumir o texto no neutral/text/icon variant */
+.umds-button--neutral:disabled,
+.umds-button--text:disabled,
+.umds-button--icon:disabled {
+  opacity: 0.5;
+}

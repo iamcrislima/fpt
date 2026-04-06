@@ -49,7 +49,8 @@
       "Bash(\"C:/Users/cristianderson.lima/projeto-fpt-react/src/pages/Artigo/Artigo.css\":*)",
       "Bash(\"C:/Users/cristianderson.lima/projeto-fpt-react/src/pages/Login/Login.css\":*)",
       "Bash(\"C:/Users/cristianderson.lima/projeto-fpt-react/src/App.css\":*)",
-      "Bash(\"C:/Users/cristianderson.lima/projeto-fpt-react/src/pages/Pagamentos/Pagamentos.css\":*)"
+      "Bash(\"C:/Users/cristianderson.lima/projeto-fpt-react/src/pages/Pagamentos/Pagamentos.css\":*)",
+      "Bash(xargs ls:*)"
     ]
   }
 }
