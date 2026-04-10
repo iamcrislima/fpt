@@ -1,0 +1,719 @@
+/*
+ * FPT — Mobile Enhancements
+ * Todas as regras aqui ficam dentro de @media (max-width: 767px)
+ * para não afetar desktop. Nenhuma classe existente é renomeada.
+ */
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP BAR — Ocultar navbar no mobile
+   (bottom nav cobre toda a navegação)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Oculta a navbar completa — evita dupla navegação */
+  .navbar {
+    display: none !important;
+  }
+
+  /* Sem o navbar, o conteúdo não precisa de offset no topo */
+  .main-content {
+    padding-top: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUG 1 — Tabs do Calendário / Torneios cortadas no mobile
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .events-section .umds-tabs__list,
+  .tournaments-section--home .umds-tabs__list,
+  .tournaments-section .umds-tabs__list,
+  [role="tablist"] {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    padding-bottom: 2px; /* evita clip da borda da tab ativa */
+  }
+  .events-section .umds-tabs__list::-webkit-scrollbar,
+  .tournaments-section .umds-tabs__list::-webkit-scrollbar,
+  [role="tablist"]::-webkit-scrollbar {
+    display: none;
+  }
+  .events-section [role="tab"],
+  .tournaments-section [role="tab"],
+  [role="tab"] {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUG 2 — Tabela de Ranking com largura errada
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .rk-page,
+  .rk-wrapper,
+  .rk-content,
+  .rk-rows {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+  .rk-filter-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 1 — Compensação do Bottom Nav
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Empurra conteúdo para não ficar atrás da bottom bar */
+  .main-content,
+  .rk-page,
+  .nt-page,
+  .fc-page,
+  .trs-content,
+  .tdet-page,
+  .tinscr-page,
+  .painel-page,
+  .prf-page,
+  .pgmt-page,
+  .faca-parte-page,
+  .artigo-page,
+  [class$="-page"] {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
+
+  /* Footer links: redundantes com bottom nav */
+  .footer-links,
+  .footer-nav {
+    display: none;
+  }
+
+  /* Footer compacto */
+  .footer {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 2 — Menu Fullscreen (drawer fix completo)
+   ═══════════════════════════════════════════════════════════════ */
+
+/*
+ * PROBLEMA ORIGINAL:
+ *   .navbar-mobile-menu { top: 56px; background: #fff; width: min(360px,100%) }
+ *   .navbar-mobile-backdrop { top: 56px; display: none/block (sem transição) }
+ *
+ * FIX:
+ *   - top: 0  → menu e backdrop cobrem a tela toda (navbar está hidden no mobile)
+ *   - background dark navy para o menu
+ *   - backdrop usa opacity+pointer-events (transicionável) em vez de display
+ *   - z-index acima do bottom nav (200) e abaixo do BottomSheet (500)
+ */
+@media (max-width: 767px) {
+
+  /* ── Menu drawer ───────────────────────────────────────────── */
+  .navbar-mobile-menu {
+    top: 0 !important;           /* cobre do topo — navbar está hidden */
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    height: 100vh !important;    /* fallback iOS < 15 */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    background: #0d1b2e !important;   /* dark navy, combina com bottom nav */
+    z-index: 1001 !important;         /* acima de bottom-nav (200) */
+    /* A transição slideIn já está no App.css:
+       transform: translateX(-100%) → translateX(0) */
+  }
+
+  /* ── Backdrop — transição suave em vez de display none/block ── */
+  /*
+   * O App.css usa display:none/block (não transicionável).
+   * Sobrescrevemos para usar opacity + pointer-events,
+   * que funciona com transition sem mudar o JS.
+   */
+  .navbar-mobile-backdrop {
+    display: block !important;    /* sempre no DOM no mobile */
+    top: 0 !important;            /* cobre a tela toda */
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.25s ease !important;
+    animation: none !important;   /* cancela o backdropFadeIn original */
+    z-index: 1000 !important;     /* abaixo do menu (1001) */
+    background: rgba(0, 0, 0, 0.65) !important;
+  }
+
+  .navbar-mobile-backdrop--open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* ── Header do menu: logo + botão [X] ──────────────────────── */
+  .navbar-mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 4px;
+    flex-shrink: 0;
+  }
+
+  /* Logo dentro do menu */
+  .navbar-mobile-menu-header .navbar-logo img {
+    width: 44px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);  /* garante visibilidade no fundo dark */
+  }
+
+  /* Botão fechar [X] */
+  .navbar-mobile-close-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .navbar-mobile-close-btn:active {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0.88);
+  }
+
+  /* ── Links principais do menu ───────────────────────────────── */
+  .navbar-mobile-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-left-color: transparent !important;
+    font-size: 17px !important;
+    padding: 14px 20px !important;
+  }
+  .navbar-mobile-link:hover,
+  .navbar-mobile-link.active {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-left-color: var(--sport-primary, #c8f000) !important;
+    color: var(--sport-primary, #c8f000) !important;
+  }
+
+  /* ── Botão "Mais" ───────────────────────────────────────────── */
+  .navbar-mobile-mais-toggle {
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-left-color: transparent !important;
+    font-size: 17px !important;
+    padding: 14px 20px !important;
+  }
+  .navbar-mobile-mais-toggle:hover {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-left-color: var(--sport-primary, #c8f000) !important;
+  }
+
+  /* Subitens do "Mais" — animação por CSS */
+  .navbar-mobile-mais-list {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+  .navbar-mobile-mais-list--open {
+    max-height: 600px;
+    opacity: 1;
+  }
+
+  /* Sub-links */
+  .navbar-mobile-sub-link {
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 15px !important;
+  }
+  .navbar-mobile-sub-link:hover,
+  .navbar-mobile-sub-link.active {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-left-color: var(--sport-primary, #c8f000) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Chevron rotaciona quando "Mais" abre */
+  .navbar-mobile-mais-chevron {
+    transition: transform 0.3s ease;
+  }
+  .navbar-mobile-mais-chevron--open {
+    transform: rotate(180deg) !important;
+  }
+
+  /* ── Sport card ─────────────────────────────────────────────── */
+  .navbar-mobile-sport-card {
+    margin: 8px 16px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  /* ── User header ────────────────────────────────────────────── */
+  .navbar-mobile-user-name  { color: rgba(255, 255, 255, 0.95) !important; }
+  .navbar-mobile-user-role  { color: rgba(255, 255, 255, 0.50) !important; }
+  .navbar-mobile-entrar-btn {
+    background: var(--sport-primary, #c8f000) !important;
+    color: #0a1628 !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+  }
+
+  /* ── Logout ─────────────────────────────────────────────────── */
+  .navbar-mobile-logout-link {
+    color: rgba(255, 100, 100, 0.85) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    margin-top: auto !important;
+  }
+
+  /* Subitens com delay escalonado */
+  .navbar-mobile-sub-link:nth-child(1)  { transition-delay: 0ms; }
+  .navbar-mobile-sub-link:nth-child(2)  { transition-delay: 30ms; }
+  .navbar-mobile-sub-link:nth-child(3)  { transition-delay: 60ms; }
+  .navbar-mobile-sub-link:nth-child(4)  { transition-delay: 90ms; }
+  .navbar-mobile-sub-link:nth-child(5)  { transition-delay: 120ms; }
+  .navbar-mobile-sub-link:nth-child(6)  { transition-delay: 150ms; }
+  .navbar-mobile-sub-link:nth-child(7)  { transition-delay: 180ms; }
+  .navbar-mobile-sub-link:nth-child(8)  { transition-delay: 210ms; }
+  .navbar-mobile-sub-link:nth-child(9)  { transition-delay: 240ms; }
+  .navbar-mobile-sub-link:nth-child(10) { transition-delay: 270ms; }
+  .navbar-mobile-sub-link:nth-child(11) { transition-delay: 300ms; }
+  .navbar-mobile-sub-link:nth-child(12) { transition-delay: 330ms; }
+  .navbar-mobile-sub-link:nth-child(13) { transition-delay: 360ms; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 4 — Pull to Refresh indicator
+   ═══════════════════════════════════════════════════════════════ */
+.ptr-indicator {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  width: 40px;
+  height: 40px;
+  background: #c8f000;
+  color: #0a1628;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 150;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(200, 240, 0, 0.4);
+}
+.ptr-indicator--visible {
+  transform: translateX(-50%) translateY(0);
+}
+.ptr-indicator--loading {
+  animation: ptr-spin 0.6s linear infinite;
+}
+@keyframes ptr-spin {
+  from { rotate: 0deg; }
+  to   { rotate: 360deg; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 6 — Microinterações e Tap Feedback
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .tournament-card,
+  .event-card,
+  .nt-card,
+  .nt-card--featured,
+  .painel-quick-card,
+  .painel-trn-card,
+  .painel-anuidade-card,
+  .artigo-card,
+  .rk-row {
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.15s ease;
+  }
+
+  .tournament-card:active,
+  .event-card:active,
+  .nt-card:active,
+  .nt-card--featured:active,
+  .painel-quick-card:active,
+  .painel-trn-card:active,
+  .artigo-card:active,
+  .rk-row:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 2px rgba(200, 240, 0, 0.3);
+  }
+
+  button,
+  a,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Focus ring nos inputs */
+  .tinscr-input:focus,
+  .fp-fields input:focus,
+  .fc-input:focus,
+  .fc-textarea:focus,
+  .prf-form input:focus,
+  .rk-search input:focus {
+    outline: none;
+    border-color: #c8f000 !important;
+    box-shadow: 0 0 0 3px rgba(200, 240, 0, 0.15) !important;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+}
+
+/* Ripple button */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-btn .ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(0);
+  animation: ripple-anim 0.5s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 7 — Transições de Página
+   ═══════════════════════════════════════════════════════════════ */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.page-transition-exit {
+  opacity: 1;
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+/* Fade simples sem JS (via key) */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-animate {
+  animation: page-fade-in 0.2s ease forwards;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO 8 — Fix Fale Conosco no Mobile
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .fc-page {
+    flex-direction: column !important;
+  }
+  .fc-left {
+    width: 100% !important;
+    min-height: 180px !important;
+    max-height: 220px !important;
+  }
+  .fc-right {
+    width: 100% !important;
+  }
+  .fc-inner {
+    padding: 24px 16px !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME — Redesign mobile (app-like, Mercado Pago style)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* ── Layout geral da home ──────────────────────────────── */
+  .main-content {
+    padding-top: 0 !important;
+    padding-bottom: 0;
+  }
+
+  /* HeroBanner: reduz para 140px e fica como "splash" compacto */
+  .hero-banner {
+    height: 140px !important;
+  }
+
+  /* Wrapper sem padding lateral — permite cards full-bleed */
+  .content-wrapper {
+    padding: 0 !important;
+    gap: 0 !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Seções da Home ────────────────────────────────────── */
+  /* Cada seção tem padding próprio em vez do wrapper global */
+  .featured-row,
+  .events-section,
+  .tournaments-section {
+    padding: 0 0 24px;
+  }
+
+  /* ── Featured article: card com cantos arredondados ─────── */
+  .featured-article {
+    width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  /* Carrossel: reduz altura e remove bordas */
+  .fa-carousel {
+    height: 220px !important;
+    border-radius: 0 !important;
+  }
+
+  .fa-carousel__viewport {
+    border-radius: 0 !important;
+  }
+
+  /* Caption abaixo do carrossel */
+  .fa-article-caption {
+    display: block;
+    padding: 12px 16px 0;
+    text-decoration: none;
+  }
+
+  .article-title {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    /* Clamp a 3 linhas */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  .article-subtitle {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0.75;
+  }
+
+  /* ── News Column: lista horizontal compacta ─────────────── */
+  .featured-row {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+
+  .news-column {
+    flex: none !important;
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 12px 16px 0;
+  }
+
+  /* Separador entre cards */
+  .news-card + .news-card {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Card horizontal: imagem 88px × 88px + título */
+  .news-card {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-decoration: none;
+    /* Tap feedback */
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.12s ease;
+  }
+
+  .news-card:active {
+    opacity: 0.7;
+  }
+
+  .news-card-img-wrap {
+    width: 88px !important;
+    height: 88px !important;
+    border-radius: 10px !important;
+    flex-shrink: 0 !important;
+    overflow: hidden;
+  }
+
+  .news-card-img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .news-card-title {
+    flex: 1 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.45 !important;
+    /* Clamp a 3 linhas */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  /* ── Seção de label (títulos de seção) ──────────────────── */
+  /* Adicionar cabeçalho de seção onde não existe no markup */
+  .events-section {
+    padding: 0 0 24px;
+  }
+
+  /* Espaço entre as seções principais */
+  .tournaments-section--home {
+    padding-top: 8px;
+  }
+
+  /* ── Tipografia geral mobile ─────────────────────────────── */
+  /* Hierarquia visual clara */
+  .section-title,
+  .events-section h2,
+  .tournaments-top h2,
+  .tournament-cards-title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.3px !important;
+    padding: 0 16px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* ── Tournament cards no mobile ─────────────────────────── */
+  .tournament-card {
+    border-radius: 12px !important;
+  }
+
+  /* ── Espaçamento rítmico entre seções ───────────────────── */
+  .events-section + .tournaments-section,
+  .featured-row + .events-section {
+    margin-top: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME — Mini top bar mobile (substitui navbar completa)
+   Escondida no desktop (só aparece quando .navbar está oculto)
+   ═══════════════════════════════════════════════════════════════ */
+.home-mobile-topbar {
+  /* Oculto no desktop — o navbar normal aparece */
+  display: none;
+}
+
+/* Seções da home — apenas no markup */
+.home-section {
+  /* sem estilo extra — o conteúdo filho gerencia seu padding */
+}
+
+.home-section-label {
+  /* Desktop: oculto (os componentes já têm seus próprios títulos) */
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TORNEIOS — Mobile-only tweaks
+   (layout logic lives in App.css, mobile-first base styles)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+
+  /* Tap feedback: slight opacity + sport-primary ring */
+  .trn-compact-card:active {
+    opacity: 0.6 !important;
+  }
+
+  /* Bottom nav compensation for the sticky search bar */
+  .torneios-page .trn-content-inner {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* ── Mini top bar — apenas logo ──────────────────────── */
+  .home-mobile-topbar {
+    display: flex;
+    align-items: center;
+    /* Sem justify-content: space-between — logo fica à esquerda */
+    padding: 12px 16px 8px;
+    background: var(--sport-navbar-bg, #0a1628);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Altura total ~44px — bem compacta */
+  }
+
+  .home-mobile-logo img {
+    width: 40px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ── Section labels ───────────────────────────────────── */
+  .home-section-label {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    padding: 20px 16px 10px;
+    margin: 0;
+    color: var(--bvp-text-primary, #e2e8f0);
+  }
+
+  /* ── Seções: breathing room entre elas ──────────────────── */
+  .home-section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .home-section:last-child {
+    border-bottom: none;
+  }
+
+  /* ── Compensação do bottom nav nas páginas (atualização) ── */
+  /* Home usa .content-wrapper, não [class$="-page"], então precisa de padding */
+  .content-wrapper {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
+  }
+}

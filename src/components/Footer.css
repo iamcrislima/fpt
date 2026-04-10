@@ -1,0 +1,83 @@
+/* =======================================================================
+   Footer — co-located styles
+   Extracted from App.css (lines 940-1021)
+   ======================================================================= */
+
+.footer {
+  background: var(--sport-footer-bg);
+  overflow: hidden;
+  padding: 16px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background 0.3s ease;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center;
+  gap: 231px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--sport-footer-text);
+}
+
+.social-icons-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-icon-link {
+  color: var(--sport-footer-text);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--sport-footer-text);
+}
+
+.footer-logos img {
+  object-fit: contain;
+  width: auto;
+}
+
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  font-family: var(--ds-font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--sport-footer-text);
+  letter-spacing: 0.25px;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.footer-links a {
+  color: var(--sport-footer-text);
+  font-family: var(--ds-font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.25px;
+  transition: color 0.3s ease;
+}
+
+.copyright {
+  color: var(--sport-footer-text);
+  transition: color 0.3s ease;
+}

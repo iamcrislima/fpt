@@ -44,7 +44,7 @@ export default function NewsColumn() {
   return (
     <aside className="news-column">
       {news.map((item) => (
-        <Link key={item.title} to={`/${sport}/artigos/${item.slug}`} className="news-card" style={{ textDecoration: 'none', display: 'block' }}>
+        <Link key={item.title} to={`/${sport}/artigos/${item.slug}`} className="news-card">
           <div className="news-card-img-wrap">
             <img src={item.img} alt={item.title} className="news-card-img" />
           </div>

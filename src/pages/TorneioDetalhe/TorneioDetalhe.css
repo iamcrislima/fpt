@@ -1,0 +1,1813 @@
+/* =======================================================================
+   Página TorneioDetalhe
+   ======================================================================= */
+
+.tdet-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f6f9;
+  --umds-theme-primary-pure: var(--sport-primary);
+  --umds-theme-primary-dark: var(--sport-primary-dark);
+  --umds-semantic-color-primary-pure: var(--sport-primary);
+  --umds-semantic-color-primary-dark: var(--sport-primary-dark);
+}
+
+/* --- Header banner --- */
+.tdet-header {
+  background: #042246;
+  padding: 24px 0;
+}
+
+.tdet-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.tdet-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tdet-badge {
+  width: 100px;
+  height: 76px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.tdet-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.tdet-header-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tdet-header-location {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: var(--sport-text, #0f4c30);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tdet-header-location .umds-icon,
+.tdet-header-location svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.tdet-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.tdet-cat-chip {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+}
+
+.tdet-inscr-btn.umds-button {
+  flex-shrink: 0;
+  color: var(--feedback-positive-dark);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* --- Tabs bar --- */
+.tdet-tabs-bar {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 56px;
+  z-index: 10;
+}
+
+.tdet-tabs-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+}
+
+.tdet-tab {
+  padding: 14px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  color: #6b7280;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.tdet-tab--active {
+  color: #1a1a1a;
+  font-weight: 700;
+  border-bottom-color: var(--sport-primary);
+}
+
+.tdet-tab:hover:not(.tdet-tab--active) {
+  color: #1a1a1a;
+}
+
+/* --- Content layout --- */
+.tdet-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 40px 48px;
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.tdet-content--center {
+  justify-content: center;
+}
+
+.tdet-empty {
+  font-family: 'Open Sans', sans-serif;
+  color: #6b7280;
+  font-size: 16px;
+  padding: 48px 0;
+}
+
+/* --- Main column --- */
+.tdet-main-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tdet-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 24px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Grid 2 colunas para agrupar cards */
+.tdet-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Seção isolada ainda precisa da margem */
+.tdet-content .tdet-section:not(.tdet-sections-grid .tdet-section) {
+  margin-bottom: 16px;
+}
+
+/* Accordion — Importante */
+.tdet-importante {
+  margin-bottom: 16px;
+}
+
+.tdet-importante-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+}
+
+.tdet-importante-header .tdet-subsection-title {
+  margin: 0;
+}
+
+.tdet-importante-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92660a;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tdet-importante-body {
+  margin-top: 12px;
+}
+
+.tdet-section--alert {
+  background: #fffbeb;
+  border-color: #f5a623;
+}
+
+.tdet-section-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+}
+
+.tdet-subsection-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #374151;
+  margin: 0 0 8px;
+}
+
+.tdet-body-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* --- Resumo card --- */
+.tdet-resumo-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.tdet-resumo-badge {
+  width: 80px;
+  height: 60px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.tdet-resumo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tdet-resumo-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tdet-resumo-row {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tdet-resumo-row .umds-icon,
+.tdet-resumo-row svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.tdet-resumo-pts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.tdet-resumo-pts strong {
+  font-size: 15px;
+  color: #042246;
+  font-weight: 700;
+}
+
+.tdet-resumo-pts span {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* --- Info grid (Piso / Quadras / Bolas) --- */
+.tdet-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.tdet-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #f4f6f9;
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+
+.tdet-info-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tdet-info-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* --- Sidebar --- */
+.tdet-sidebar {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tdet-sidebar-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.tdet-sidebar-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a1a1a;
+  margin: 0 0 12px;
+}
+
+/* --- Pontuação table --- */
+.tdet-pts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+}
+
+.tdet-pts-table th {
+  text-align: left;
+  color: #9ca3af;
+  font-weight: 600;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.tdet-pts-table td {
+  padding: 6px 0;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.tdet-pts-table tr:last-child td {
+  border-bottom: none;
+}
+
+.tdet-pts-val {
+  font-weight: 700;
+  color: #042246;
+  text-align: right;
+}
+
+/* --- Inscrições sidebar --- */
+.tdet-inscr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tdet-inscr-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #4b5563;
+  padding: 6px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.tdet-inscr-row:last-child {
+  border-bottom: none;
+}
+
+.tdet-inscr-row strong {
+  color: #042246;
+  font-weight: 700;
+}
+
+.tdet-inscr-btn--full.umds-button {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8px;
+  color: var(--feedback-positive-dark);
+  font-weight: 700;
+}
+
+.tdet-reg-link {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: var(--primary-pure);
+  cursor: pointer;
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* --- Próximos eventos --- */
+.tdet-next-events {
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  padding: 32px 0;
+}
+
+.tdet-next-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.tdet-next-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1a1a1a;
+  margin: 0 0 20px;
+}
+
+.tdet-next-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tdet-next-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f4f6f9;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  flex: 1;
+  min-width: 220px;
+}
+
+.tdet-next-card:hover {
+  border-color: var(--sport-primary);
+}
+
+.tdet-next-badge {
+  width: 48px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.tdet-next-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tdet-next-dates {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0;
+}
+
+/* =======================================================================
+   Chaves (tab dentro de TorneioDetalhe)
+   ======================================================================= */
+
+.chaves-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 40px 48px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Filtros de gênero/categoria (pills) ── */
+.cf-section {
+  padding: 20px 24px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 4px;
+}
+
+.cf-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cf-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #374151;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.cf-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cf-pill {
+  padding: 5px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  line-height: 1.4;
+}
+
+.cf-pill:hover:not(:disabled) {
+  border-color: #194280;
+  color: #194280;
+}
+
+.cf-pill--active {
+  background: #194280 !important;
+  border-color: #194280 !important;
+  color: #fff !important;
+}
+
+.cf-pill--disabled,
+.cf-pill:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* ── Chaves filter selects row (3 dropdowns) ── */
+.cf-selects-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cf-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 160px;
+}
+
+.cf-select-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cf-select {
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  color: #111827;
+  background: #fff;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+/* ── Estado vazio / sem resultados ── */
+.chaves-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 20px;
+  text-align: center;
+}
+
+.chaves-empty-icon {
+  color: #d1d5db;
+  font-size: 32px;
+}
+
+.chaves-empty-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #9ca3af;
+  max-width: 300px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.chaves-empty--noresult .chaves-empty-icon {
+  color: #f59e0b;
+}
+
+.chaves-empty--noresult .chaves-empty-text {
+  color: #6b7280;
+}
+
+/* Toolbar */
+.chaves-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+.chaves-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chaves-filter-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.chaves-select {
+  height: 32px;
+  padding: 0 28px 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  cursor: pointer;
+  min-width: 150px;
+  appearance: none;
+}
+
+.chaves-print-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.chaves-print-btn:hover {
+  border-color: var(--sport-primary);
+  background: var(--sport-primary-light);
+}
+
+/* Panel */
+.chaves-panel {
+  background: var(--bvp-surface);
+  border: 1px solid var(--bvp-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--bvp-shadow-soft);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* .chaves-title-tools destruído: substituído inteiramente por utility classes (d-flex a-center gap-12) */
+
+.chaves-panel-title-bar {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--bvp-text-primary);
+  padding: 12px 24px 14px;
+  /* Flex/layout properties removidas, migradas para JSX helpers */
+}
+
+/* Groups grid: single column stacked */
+.chaves-groups-grid {
+  gap: 0;
+  /* display: flex; flex-direction: column; migrado para helpers no JSX */
+}
+
+.chaves-grupo {
+  padding: 16px 20px 20px;
+}
+
+.chaves-grupo-nome {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1a1a1a;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--sport-primary);
+}
+
+.chaves-grupo-body {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Classification column */
+.chaves-class-col {
+  flex: 0 0 550px;
+}
+
+.chaves-class-card {
+  background: var(--bvp-surface-elevated);
+  border: 1px solid var(--bvp-border);
+  border-radius: 8px;
+  box-shadow: var(--bvp-shadow-card);
+  padding: 14px 16px 12px;
+  overflow: hidden;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.chaves-section-hdr {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 0 6px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chaves-class-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.chaves-class-table th {
+  text-align: center;
+  color: #9ca3af;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 4px 6px 7px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chaves-class-table th.col-dupla {
+  text-align: left;
+}
+
+.chaves-class-table td {
+  padding: 8px 6px;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.chaves-class-table td.td-pos {
+  font-weight: 700;
+  color: #042246;
+  width: 22px;
+  font-size: 14px;
+}
+
+.chaves-class-table td.td-dupla {
+  text-align: left;
+}
+
+.chaves-class-table td.td-sg {
+  font-weight: 600;
+  color: #0f4c30;
+}
+
+.chaves-class-table tr.row-qualifier {
+  background: #f0fdf4;
+}
+
+.td-dupla {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chaves-legend {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.legend-dot {
+  width: 7px;
+  height: 7px;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Dupla avatars: two circles side-by-side */
+.dupla-avs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.player-av {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.player-av--init {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 9px;
+  color: #fff;
+}
+
+/* Dupla names: equal weight for both players */
+.dupla-names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dupla-names span {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dupla-names--right {
+  text-align: right;
+}
+
+/* Jogos column */
+.chaves-jogos-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.gm-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.gm-side {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.gm-side--right {
+  justify-content: flex-end;
+}
+
+.gm-score-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 0 6px;
+}
+
+.gm-score {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a1a1a;
+  line-height: 1;
+  min-width: 14px;
+  text-align: center;
+}
+
+.gm-score--win {
+  color: #0f4c30;
+  text-decoration: underline;
+  text-decoration-color: var(--sport-primary);
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 3px;
+}
+
+.gm-score--empty {
+  font-size: 13px;
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+/* Eliminatórias bracket */
+.chaves-bracket-wrap {
+  padding: 20px 24px 28px;
+  overflow-x: auto;
+}
+
+.br-headers {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.br-header {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #374151;
+  text-align: center;
+  flex: 0 0 280px;
+}
+
+.br-header:last-child {
+  flex: 0 0 200px;
+}
+
+.br-tree {
+  display: flex;
+  align-items: stretch;
+  min-height: 380px;
+}
+
+.br-round {
+  display: flex;
+  flex-direction: column;
+}
+
+.br-round--quarters {
+  flex: 0 0 280px;
+  padding-right: 20px;
+}
+
+.br-round--semis {
+  flex: 0 0 280px;
+  padding: 0 20px;
+}
+
+.br-round--final {
+  flex: 0 0 280px;
+  padding: 0 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.br-round--champion {
+  flex: 0 0 200px;
+  padding-left: 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pair: 2 slots */
+.br-pair {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Slot: one match position */
+.br-slot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+/* Center slots (Final, Champion) */
+.br-slot--center {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 100%;
+  padding: 0;
+}
+
+/* Bracket match card */
+.bcard {
+  width: 100%;
+  border: 1px solid #d5d5d5;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(24, 39, 75, 0.07);
+}
+
+.bcard-team {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  gap: 6px;
+  min-height: 38px;
+}
+
+.bcard-team--win {
+  background: #f0fdf4;
+}
+
+.bcard-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bcard-team--win .dupla-names span {
+  color: #0f4c30;
+}
+
+.bcard-score {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1a1a;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.bcard-score--win {
+  color: #0f4c30;
+  text-decoration: underline;
+  text-decoration-color: var(--sport-primary);
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 3px;
+}
+
+.bcard-score-empty {
+  font-size: 12px;
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+.bcard-divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* Champion display */
+.br-campeao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 12px;
+  border: 2px solid var(--sport-primary);
+  border-radius: 8px;
+  background: var(--sport-primary-light);
+  text-align: center;
+  width: 100%;
+}
+
+.br-campeao-trophy {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.br-campeao .dupla-avs {
+  justify-content: center;
+}
+
+.br-campeao .dupla-avs .player-av {
+  width: 34px;
+  height: 34px;
+}
+
+.br-campeao .player-av--init {
+  font-size: 12px;
+}
+
+.br-campeao .dupla-names {
+  align-items: center;
+}
+
+.br-campeao .dupla-names span {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  color: #0f4c30;
+}
+
+/* Lista de inscritos: avatar per player row */
+.tli-atleta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.tli-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Print-only header */
+.print-only {
+  display: none;
+}
+
+/* =======================================================================
+   Mobile responsive — max-width: 767px
+   ======================================================================= */
+@media (max-width: 767px) {
+
+  /* ── Page header ── */
+  .tdet-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .tdet-inscr-btn {
+    width: 100%;
+  }
+
+  /* ── Tabs ── */
+  .tdet-tabs-inner {
+    gap: 0;
+  }
+
+  /* ── Conteúdo principal ── */
+  .tdet-content {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .tdet-sidebar {
+    width: 100%;
+  }
+
+  /* ── Programação ── */
+  .prog-page {
+    padding: 16px 16px 80px;
+    gap: 14px;
+  }
+
+  .prog-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .prog-filters {
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* ── Chaves: filter selects ── */
+  .cf-section {
+    padding: 14px 16px 4px;
+  }
+
+  .cf-selects-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cf-select-group {
+    min-width: 0;
+    width: 100%;
+    flex: none;
+  }
+
+  /* ── Chaves: grupos grid ── */
+  .chaves-page {
+    padding-bottom: 80px;
+  }
+
+  .chaves-grupo-body {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chaves-class-col {
+    flex: none;
+    width: 100%;
+  }
+
+  /* ── Lista de inscritos ── */
+  .tli-page {
+    padding-bottom: 80px;
+  }
+
+  .tli-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .tli-filter-row {
+    width: 100%;
+  }
+
+  .tli-filter-select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* hide less important table columns on very small screens */
+  .tli-th--cidade,
+  .tli-td--cidade,
+  .tli-th--codigo,
+  .tli-td--codigo {
+    display: none;
+  }
+}
+
+/* =======================================================================
+   Print styles — layout dedicado via PrintView (pv-*)
+   ======================================================================= */
+@media print {
+
+  /* ── hide site chrome & screen content ── */
+  .navbar,
+  .footer,
+  .tdet-header,
+  .tdet-tabs-bar,
+  .tdet-next-events,
+  .print-hide {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  * {
+    box-shadow: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* ── PrintView (pv-*) ── */
+  .pv {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 9pt;
+    color: #000;
+    background: #fff;
+    padding: 0;
+  }
+
+  /* Header */
+  .pv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 11pt;
+    font-weight: 700;
+    border-bottom: 0.5pt solid #000;
+    padding-bottom: 3mm;
+    margin-bottom: 5mm;
+  }
+
+  /* Group block */
+  .pv-grupo {
+    margin-bottom: 7mm;
+    page-break-inside: avoid;
+  }
+
+  .pv-grupo-nome {
+    font-size: 12pt;
+    font-weight: 700;
+    margin-bottom: 1.5mm;
+  }
+
+  .pv-hr {
+    border: none;
+    border-top: 0.5pt solid #888;
+    margin: 0 0 3mm;
+  }
+
+  /* 50/50 grid inside each group */
+  .pv-grupo-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8mm;
+    align-items: start;
+  }
+
+  /* ── Classificação ── */
+  .pv-col-label {
+    font-size: 8pt;
+    color: #555;
+    margin-bottom: 2mm;
+  }
+
+  .pv-class-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .pv-class-table th {
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 0 2mm 2mm;
+    border-bottom: 0.5pt solid #000;
+    text-align: center;
+  }
+
+  .pv-th-dupla {
+    text-align: left !important;
+  }
+
+  .pv-th-pos,
+  .pv-th-j {
+    width: 22pt;
+  }
+
+  .pv-th-sg {
+    width: 28pt;
+  }
+
+  .pv-class-row td {
+    padding: 2.5mm 2mm;
+    border-bottom: 0.25pt solid #ccc;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .pv-class-row td.pv-td-dupla {
+    text-align: left;
+  }
+
+  /* 20×20 square boxes for Pos and J1/J2/J3 */
+  .pv-sq {
+    display: inline-block;
+    width: 16pt;
+    height: 14pt;
+    border: 0.5pt solid #000;
+    vertical-align: middle;
+  }
+
+  .pv-td-dupla {
+    font-size: 8pt;
+    white-space: nowrap;
+  }
+
+  /* SG underline */
+  .pv-sg-line {
+    display: inline-block;
+    width: 22pt;
+    height: 12pt;
+    border-bottom: 0.5pt solid #000;
+    vertical-align: bottom;
+  }
+
+  /* ── Jogos ── */
+  .pv-match {
+    display: flex;
+    align-items: center;
+    gap: 3mm;
+    padding: 2mm 0;
+    border-bottom: 0.25pt solid #ddd;
+  }
+
+  .pv-team {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    font-size: 8pt;
+    line-height: 1.4;
+  }
+
+  .pv-team--left {
+    text-align: right;
+  }
+
+  .pv-team--right {
+    text-align: left;
+  }
+
+  .pv-score-block {
+    display: flex;
+    align-items: center;
+    gap: 2mm;
+    flex-shrink: 0;
+  }
+
+  /* Score underline boxes (border-bottom only) */
+  .pv-score-line {
+    display: inline-block;
+    width: 18pt;
+    height: 14pt;
+    border-bottom: 0.5pt solid #000;
+    vertical-align: bottom;
+  }
+
+  .pv-x {
+    font-size: 8pt;
+    color: #000;
+    flex-shrink: 0;
+  }
+
+  /* ── Eliminatórias ── */
+  .pv-elim {
+    margin-top: 6mm;
+    page-break-before: always;
+  }
+
+  .pv-br {
+    margin-top: 3mm;
+  }
+
+  .pv-br-headers {
+    display: flex;
+    border-bottom: 0.25pt solid #bbb;
+    padding-bottom: 1.5mm;
+    margin-bottom: 3mm;
+  }
+
+  .pv-br-col-hdr {
+    flex: 1;
+    font-size: 8pt;
+    color: #555;
+    text-align: center;
+  }
+
+  /* Bracket tree: flex row, all rounds fill equal width */
+  .pv-br-tree {
+    display: flex;
+    min-height: 230pt;
+  }
+
+  .pv-br-round {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0 4mm;
+    border-left: 0.25pt solid #e0e0e0;
+  }
+
+  .pv-br-round:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .pv-br-round--champion {
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  /* Each match fills its share of the round height */
+  .pv-br-match {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    gap: 3pt;
+    padding: 4pt 0;
+  }
+
+  /* One slot = name line + score box */
+  .pv-br-slot {
+    display: flex;
+    align-items: flex-end;
+    gap: 3pt;
+    margin-bottom: 2pt;
+  }
+
+  .pv-name-line {
+    flex: 1;
+    border-bottom: 0.5pt solid #000;
+    height: 14pt;
+    min-width: 40pt;
+  }
+
+  /* Score box (full border) */
+  .pv-score-box {
+    width: 18pt;
+    height: 16pt;
+    border: 0.5pt solid #000;
+    flex-shrink: 0;
+  }
+
+  /* Campeão box */
+  .pv-br-campeao {
+    border: 0.75pt solid #000;
+    padding: 3mm 4mm;
+    display: flex;
+    flex-direction: column;
+    gap: 5mm;
+    align-self: center;
+    width: 100%;
+  }
+
+  .pv-br-campeao-label {
+    font-size: 8pt;
+    color: #555;
+    text-align: center;
+    padding-bottom: 2mm;
+    border-bottom: 0.25pt solid #ccc;
+  }
+}
+
+/* =======================================================================
+   Lista de Inscritos (tab dentro de TorneioDetalhe)
+   ======================================================================= */
+
+/* Page wrapper */
+.tli-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 40px 48px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Page header: title + filter */
+.tli-page-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tli-page-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tli-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tli-filter-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.tli-filter-select {
+  height: 34px;
+  padding: 0 28px 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  cursor: pointer;
+  min-width: 180px;
+  appearance: none;
+}
+
+/* Category section card */
+.tli-cat-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(24, 39, 75, 0.07);
+}
+
+/* Category banner: name + count */
+.tli-cat-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tli-cat-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.tli-cat-count {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Table */
+.tli-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+/* Column headers */
+.tli-th {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 16px;
+  text-align: left;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tli-th--atleta {
+  width: 34%;
+}
+
+.tli-th--codigo {
+  width: 11%;
+}
+
+.tli-th--clube {
+  width: 20%;
+}
+
+.tli-th--cidade {
+  width: 22%;
+}
+
+.tli-th--ranking {
+  width: 9%;
+  text-align: right;
+  padding-right: 20px;
+}
+
+/* Rows */
+.tli-row {
+  background: #fff;
+}
+
+.tli-row:not(:last-child) td {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.tli-td {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #374151;
+  padding: 10px 16px;
+  vertical-align: middle;
+}
+
+/* Atleta cell: two avatars side-by-side + stacked names */
+.tli-dupla-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tli-dupla-avs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.tli-dupla-avs .player-av {
+  width: 26px;
+  height: 26px;
+}
+
+.tli-dupla-names {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.tli-dupla-names span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Stacked values */
+.tli-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tli-stacked span {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.35;
+}
+
+.tli-stacked--right {
+  align-items: flex-end;
+  padding-right: 4px;
+}
+

@@ -1,0 +1,3640 @@
+/* =======================================================================
+   Ranking Page  (/ranking)
+   ======================================================================= */
+
+/* Page shell */
+.rk-page {
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* Hero */
+.rk-hero {
+  background: linear-gradient(135deg, #122B42 0%, #194280 60%, #0F4C30 100%);
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rk-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/torneio-detalhe-banner.png') center/cover no-repeat;
+  opacity: 0.18;
+}
+
+.rk-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 36px;
+}
+
+.rk-hero-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+  margin: 0;
+}
+
+/* Content wrapper */
+.rk-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 40px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* White content box */
+.rk-content {
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rk-page-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #333;
+  margin: 0;
+}
+
+/* Filter row */
+.rk-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rk-filter-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.rk-select {
+  height: 36px;
+  padding: 0 28px 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: #333;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 8px center;
+  appearance: none;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.rk-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 220px;
+  flex: 1;
+}
+
+.rk-search {
+  width: 100%;
+  height: 36px;
+  padding: 0 32px 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  outline: none;
+}
+
+.rk-search::placeholder {
+  color: #7d7d7d;
+}
+
+.rk-search-wrap:focus-within .rk-search {
+  border-color: #194280;
+}
+
+.rk-search-icon {
+  position: absolute;
+  right: 9px;
+  color: #7d7d7d;
+  pointer-events: none;
+  display: flex;
+}
+
+/* ── Podium ── */
+.rk-podium {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.rk-podium-card {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 24px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Podium colors — light mode (were previously inline in JSX) */
+.rk-podium-card:nth-child(1) {
+  background: #FFF7E0;
+  border-color: #D4AF37;
+}
+
+.rk-podium-card:nth-child(2) {
+  background: #DCE6F5;
+  border-color: #BFC6CE;
+}
+
+.rk-podium-card:nth-child(3) {
+  background: #F6ECE6;
+  border-color: #C47A4A;
+}
+
+.rk-podium-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: #fff;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.rk-podium-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #333;
+  margin: 0;
+}
+
+.rk-podium-name {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Table header ── */
+.rk-table-header {
+  background: var(--sport-primary);
+  border-radius: 6px;
+  padding: 10px 16px 10px 34px;
+  display: grid;
+  grid-template-columns: 52px 92px 1fr 72px 128px 240px 96px 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.rk-table-header .rk-col {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f4c30;
+}
+
+/* ── Rows container ── */
+.rk-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Individual row ── */
+.rk-row {
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+
+.rk-row:hover {
+  box-shadow: 0 2px 10px rgba(24, 39, 75, 0.09);
+}
+
+.rk-row--open {
+  box-shadow: 0 4px 20px rgba(24, 39, 75, 0.12);
+}
+
+/* Left green accent */
+.rk-row-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: #0f874e;
+  border-radius: 8px 0 0 8px;
+}
+
+/* Main data row */
+.rk-row-main {
+  display: grid;
+  grid-template-columns: 52px 92px 1fr 72px 128px 240px 96px 44px;
+  gap: 8px;
+  align-items: center;
+  padding: 13px 16px 13px 34px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Columns */
+.rk-col {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rk-col--rank {
+  font-size: 16px;
+}
+
+.rk-col--nome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rk-col--pontos {
+  color: #0f4c30;
+}
+
+.rk-col--action {}
+
+/* Small avatar in row */
+.rk-avatar-sm {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fff;
+  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px #d1d5db;
+}
+
+/* Chevron toggle button */
+.rk-row-chevron {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #6b7280;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+}
+
+.rk-row-chevron:hover {
+  background: #f3f4f6;
+  color: #194280;
+}
+
+.rk-row--open .rk-row-chevron {
+  color: #194280;
+}
+
+/* Divider between row and expanded */
+.rk-row-divider {
+  height: 1px;
+  background: #d5d5d5;
+  margin: 0 16px 0 34px;
+}
+
+/* ── Expanded panel ── */
+.rk-expanded {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Left box: Nota BT card + Desempenho — fixed width */
+.rk-left-col {
+  width: 310px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e5e7eb;
+  align-self: stretch;
+}
+
+.rk-nota-bt {
+  background: linear-gradient(135deg, var(--sport-primary-dark) 0%, var(--sport-primary) 100%);
+  padding: 18px 20px 22px;
+  flex-shrink: 0;
+}
+
+.rk-nota-bt-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rk-nota-bt-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f4c30;
+}
+
+.rk-nota-bt-value {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 900;
+  font-size: 48px;
+  color: #0f4c30;
+  line-height: 1.05;
+}
+
+.rk-nota-bt-body {
+  height: 0;
+}
+
+/* Right panel (legacy) */
+.rk-expanded-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Desempenho — inside left box */
+.rk-desempenho {
+  padding: 16px 20px 20px;
+  flex: 1;
+}
+
+.rk-section-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.rk-stats-divider {
+  height: 1px;
+  background: #d5d5d5;
+  margin: 4px 0 12px;
+}
+
+.rk-stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 12px;
+}
+
+.rk-stats-block {
+  margin-bottom: 8px;
+}
+
+.rk-stats-block-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #111;
+  margin: 0 0 6px;
+}
+
+.rk-stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.rk-stats-row span {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: #333;
+}
+
+.rk-stats-row strong {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #111;
+}
+
+/* Eligible tag */
+.rk-eligible-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  background: #cef2e1;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.rk-eligible-tag span {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #0f4c30;
+}
+
+/* Composição do Ranking — fills remaining horizontal space */
+.rk-composicao {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rk-composicao-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.rk-composicao-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 9px 16px 9px 20px;
+  gap: 12px;
+}
+
+.rk-composicao-nome {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #333;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rk-composicao-pontos {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.rk-composicao-row--total {
+  background: linear-gradient(90deg, var(--sport-primary-dark) 0%, var(--sport-primary) 100%);
+  border-color: var(--sport-primary-dark);
+}
+
+.rk-composicao-row--total .rk-composicao-nome,
+.rk-composicao-row--total .rk-composicao-pontos {
+  color: #0f4c30;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Avatar photo */
+.rk-avatar-photo {
+  flex-shrink: 0;
+}
+
+/* Podium points */
+.rk-podium-pts {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a5a5a;
+  margin-top: 2px;
+}
+
+/* Mostrar todos */
+.rk-show-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 11px;
+  background: #fff;
+  border: 1px solid var(--sport-primary);
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f4c30;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.rk-show-all:hover {
+  background: var(--sport-primary-light);
+}
+
+/* ── How is calculated box ── */
+.rk-info-box {
+  background: #fff;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 32px 36px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
+}
+
+.rk-info-text {
+  flex: 1;
+}
+
+.rk-info-title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+.rk-info-body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.rk-info-img {
+  width: 280px;
+  height: 190px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f4f6f9;
+}
+
+
+/* ── Chaves filter selects ────────────────────────────────────────────────── */
+.cf-selects-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  padding: 20px 24px;
+}
+
+.cf-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.cf-select-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cf-select {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.cf-select:focus {
+  border-color: #adde21;
+}
+
+.cf-select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── Dynamic bracket ─────────────────────────────────────────────────────── */
+.br-dyn-tree {
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+  overflow-x: auto;
+  padding: 16px 24px 24px;
+}
+
+.br-dyn-round {
+  display: flex;
+  flex-direction: column;
+  min-width: 230px;
+  flex-shrink: 0;
+}
+
+.br-dyn-round-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 8px 10px;
+  text-align: center;
+}
+
+.br-dyn-cards {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+}
+
+/* Split bracket */
+.br-split-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.br-split-half {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.br-split-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f4c30;
+  padding: 12px 24px 0;
+}
+
+.br-split-final {
+  border-top: 2px solid #adde21;
+}
+
+.br-campeao--tbd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  min-width: 200px;
+}
+
+.br-campeao-tbd {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.chaves-bracket-wrap--scroll {
+  overflow-x: auto;
+}
+
+/* ── Campeões tab ─────────────────────────────────────────────────────────── */
+.camp-page {
+  padding: 24px 32px;
+}
+
+.camp-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f4c30;
+  margin: 0 0 20px;
+}
+
+.camp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .camp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .camp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.camp-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.camp-card-header {
+  background: #0f4c30;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 14px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.camp-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.camp-podium-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.camp-podium-row:last-child {
+  border-bottom: none;
+}
+
+.camp-medal {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 26px;
+  text-align: center;
+}
+
+.camp-pair {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.camp-pair-names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.camp-pair-names span {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Demonstrativo Financeiro
+   ═══════════════════════════════════════════════════════════════════════════ */
+.demfin-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.demfin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .demfin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HAMBURGER MENU & MOBILE NAVBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hamburger button — hidden on desktop */
+.navbar-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--sport-navbar-text);
+  font-size: 22px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.3s ease;
+  margin-left: auto;
+}
+
+.navbar-hamburger:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* Mobile overlay menu — hidden on desktop */
+.navbar-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  width: min(360px, 100%);
+}
+
+.navbar-mobile-menu--open {
+  transform: translateX(0);
+}
+
+/* Backdrop behind mobile drawer */
+.navbar-mobile-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 56px;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 997;
+  animation: backdropFadeIn 0.22s ease;
+}
+
+.navbar-mobile-backdrop--open {
+  display: block;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.navbar-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0 16px;
+}
+
+.navbar-mobile-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f4c30;
+  text-decoration: none;
+  padding: 13px 20px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-left: 3px solid transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.navbar-mobile-link:hover,
+.navbar-mobile-link.active {
+  background: var(--sport-primary-light);
+  border-left-color: var(--sport-primary);
+}
+
+.navbar-mobile-mais-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 20px;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f4c30;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, border-color 0.12s;
+  width: 100%;
+}
+
+.navbar-mobile-mais-toggle:hover {
+  background: var(--sport-primary-light);
+  border-left-color: var(--sport-primary);
+}
+
+.navbar-mobile-mais-chevron {
+  transition: transform 0.22s ease;
+  width: 14px;
+  height: 14px;
+}
+
+.navbar-mobile-mais-chevron--open {
+  transform: rotate(180deg);
+}
+
+.navbar-mobile-mais-list {
+  background: var(--sport-primary-light, #f9fef0);
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-mobile-sub-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a4a2e;
+  text-decoration: none;
+  padding: 11px 20px 11px 32px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-left: 3px solid transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.navbar-mobile-sub-link:hover,
+.navbar-mobile-sub-link.active {
+  background: var(--sport-primary-light);
+  border-left-color: var(--sport-primary);
+}
+
+.navbar-mobile-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 8px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 8px;
+}
+
+.navbar-mobile-username {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f4c30;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — Mobile (max-width: 767px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* ── Navbar ── */
+  .navbar {
+    height: auto;
+    min-height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .navbar-inner {
+    padding: 0 16px;
+    height: 56px;
+    gap: 0;
+  }
+
+  .navbar-left {
+    gap: 12px;
+    flex: 1;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-right {
+    display: none;
+  }
+
+  .navbar-hamburger {
+    display: flex;
+  }
+
+  .navbar-mobile-menu {
+    display: block;
+  }
+
+  /* ── Global page padding ── */
+  .trn-content {
+    padding: 16px !important;
+  }
+
+  .trn-banner {
+    padding: 0 16px !important;
+  }
+
+  .trn-banner-title {
+    font-size: 18px !important;
+  }
+
+  /* ── Ranking ── */
+  .rk-wrapper {
+    padding: 16px !important;
+  }
+
+  .rk-hero-inner {
+    padding: 16px !important;
+  }
+
+  .rk-hero {
+    height: auto !important;
+    padding: 20px 16px !important;
+  }
+
+  .rk-page-title {
+    font-size: 22px !important;
+  }
+
+  .rk-filter-row {
+    display: none !important;
+  }
+
+  .rk-select {
+    font-size: 13px !important;
+  }
+
+  .rk-table-header {
+    display: none !important;
+  }
+
+  .rk-podium {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .rk-row-main {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .rk-col--clube,
+  .rk-col--nasc {
+    display: none !important;
+  }
+
+  .rk-expanded {
+    flex-direction: column !important;
+  }
+
+  .rk-left-col {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* ── Tournament detail tabs — horizontal scroll ── */
+  .tdet-tabs-bar {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tdet-tabs-inner {
+    min-width: max-content;
+  }
+
+  .tdet-header-inner {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tdet-header-name {
+    font-size: 20px !important;
+  }
+
+  .tdet-content {
+    padding: 12px 16px !important;
+  }
+
+  .tdet-sections-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Bracket / Chaves ── */
+  .chaves-bracket-wrap,
+  .chaves-bracket-wrap--scroll {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .br-split-wrap {
+    flex-direction: column !important;
+  }
+
+  /* ── Torneios listing ── */
+  .trn-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .trn-filters {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ── Transparencia layout ── */
+  .trs-layout {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .trs-sidebar {
+    width: 100% !important;
+    position: static !important;
+  }
+
+  .trs-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Regras layout ── */
+  .reg-layout {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .reg-sidebar {
+    width: 100% !important;
+    position: static !important;
+  }
+
+  .reg-card {
+    padding: 20px 16px !important;
+  }
+
+  /* ── Filiados table ── */
+  .fil-table-header {
+    display: none !important;
+  }
+
+  .fil-row {
+    flex-wrap: wrap;
+    padding: 10px 12px !important;
+    gap: 4px;
+  }
+
+  .fil-col--clube,
+  .fil-col--nasc,
+  .fil-col--torneios,
+  .fil-col--classe {
+    display: none !important;
+  }
+
+  .fil-col--nome {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .fil-col--codigo {
+    width: 56px;
+  }
+
+  /* ── Clubes Filiados ── */
+  .cl-table-header {
+    display: none !important;
+  }
+
+  .cl-row {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .cl-col--tel {
+    display: none !important;
+  }
+
+  .cl-col--cidade {
+    width: auto !important;
+    flex: 1;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .cl-col--nome {
+    min-width: 0;
+    flex: 2;
+  }
+
+  /* ── AFederacao ── */
+  .fed-info-grid {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .fed-card-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Campeões ── */
+  .camp-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Demonstrativo Financeiro ── */
+  .demfin-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Hero banners — general ── */
+  .hero-banner,
+  .hero-section {
+    height: auto !important;
+    min-height: unset !important;
+    padding: 20px 16px !important;
+  }
+
+  .hero-title,
+  .hero-heading {
+    font-size: 24px !important;
+  }
+
+  .hero-subtitle {
+    font-size: 14px !important;
+  }
+
+  /* ── Podium cards ── */
+  .rk-podium-card {
+    padding: 14px 12px !important;
+  }
+
+  .rk-podium-avatar {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  /* ── Footer ── */
+  .footer-inner {
+    flex-direction: column !important;
+    gap: 24px !important;
+    padding: 24px 16px !important;
+  }
+
+  .footer-col {
+    width: 100% !important;
+  }
+
+  /* ── Generic content padding ── */
+  .page-content,
+  .content-inner {
+    padding: 16px !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — Tablet (768px – 1023px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+  .navbar-inner {
+    padding: 0 24px;
+  }
+
+  .trn-content {
+    padding: 16px 24px 32px !important;
+  }
+
+  .trn-banner {
+    padding: 0 24px !important;
+  }
+
+  .trn-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .rk-wrapper {
+    padding: 16px 24px !important;
+  }
+
+  .rk-podium {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .trs-layout {
+    gap: 24px !important;
+  }
+
+  .trs-sidebar {
+    width: 200px !important;
+  }
+
+  .trs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .reg-layout {
+    gap: 24px !important;
+  }
+
+  .reg-sidebar {
+    width: 200px !important;
+  }
+
+  .camp-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .fed-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .fil-col--clube,
+  .fil-col--nasc {
+    display: none !important;
+  }
+
+  .fil-table-header .fil-col--clube,
+  .fil-table-header .fil-col--nasc {
+    display: none !important;
+  }
+
+  .footer-inner {
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    padding: 24px !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — Medium screens (768px – 1099px): hide navbar search
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1099px) {
+
+  .navbar-search-input,
+  .navbar-search-input.umds-input {
+    display: none !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — Home page mobile (≤767px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* ── Home content wrapper ── */
+  .content-wrapper {
+    padding: 0 16px;
+    gap: 32px;
+  }
+
+  /* ── Featured row: stack vertically ── */
+  .featured-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .featured-article {
+    width: 100%;
+  }
+
+  .article-image-wrap {
+    height: 220px;
+  }
+
+  .article-img {
+    width: 100%;
+    height: 220px;
+    left: 0;
+    transform: none;
+  }
+
+  .article-title {
+    font-size: 20px;
+    white-space: normal;
+  }
+
+  .article-subtitle {
+    font-size: 14px;
+  }
+
+  /* ── News column: vertical stack, full width ── */
+  .news-column {
+    flex: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .news-card {
+    width: 100%;
+  }
+
+  /* ── Ranking sidebar: hide on mobile home ── */
+  .ranking-sidebar {
+    display: none;
+  }
+
+  /* ── Tournaments: swipe carousel, no visible scrollbar ── */
+  .tournament-cards {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 16px;
+    padding-bottom: 4px;
+  }
+
+  .tournament-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tournament-card {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
+  }
+
+  .tournament-img-wrap {
+    height: 240px;
+  }
+
+  .carousel-nav {
+    display: none;
+  }
+
+  /* ── Footer logos: vertical stack ── */
+  .footer-logos {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 16px;
+    align-items: center;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 16px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .footer {
+    padding: 16px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — FacaParte mobile (≤767px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  .faca-parte-inner {
+    flex-direction: column;
+    padding: 0;
+    gap: 0;
+    min-height: unset;
+  }
+
+  /* Hero image section on top */
+  .fp-left {
+    flex: none;
+    height: 220px;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .fp-left-overlay {
+    padding: 24px 20px;
+    gap: 12px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .fp-left-title {
+    font-size: 26px;
+  }
+
+  .fp-left-subtitle {
+    font-size: 14px;
+    display: none;
+  }
+
+  /* Form panel below */
+  .fp-right {
+    flex: 1;
+    padding: 24px 20px 32px;
+    border-radius: 0;
+    box-shadow: none;
+    overflow-y: visible;
+  }
+
+  .fp-form-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .fp-dots {
+    margin-bottom: 20px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — TorneioDetalhe mobile (≤767px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* ── Header ── */
+  .tdet-header {
+    padding: 16px 0;
+  }
+
+  .tdet-header-inner {
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .tdet-header-left {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .tdet-badge {
+    width: 64px;
+    height: 48px;
+  }
+
+  .tdet-header-name {
+    font-size: 15px !important;
+    white-space: normal;
+  }
+
+  .tdet-header-location {
+    font-size: 13px;
+  }
+
+  .tdet-cats {
+    gap: 4px;
+  }
+
+  .tdet-cat-chip {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .tdet-inscr-btn.umds-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── Tabs: horizontal scroll, no scrollbar ── */
+  .tdet-tabs-bar {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tdet-tabs-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tdet-tabs-inner {
+    padding: 0 16px;
+    min-width: max-content;
+  }
+
+  .tdet-tab {
+    padding: 12px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  /* ── Content layout: stack main + sidebar ── */
+  .tdet-content {
+    flex-direction: column;
+    padding: 16px 16px 32px !important;
+    gap: 16px;
+  }
+
+  .tdet-main-col {
+    width: 100%;
+  }
+
+  .tdet-sidebar {
+    flex: none;
+    width: 100%;
+  }
+
+  .tdet-sections-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .tdet-info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .tdet-section {
+    padding: 16px;
+  }
+
+  .tdet-section-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  /* ── Chaves page ── */
+  .chaves-page {
+    padding: 16px 16px 32px;
+    gap: 16px;
+  }
+
+  .cf-section {
+    padding: 14px 16px 4px;
+  }
+
+  .cf-label {
+    min-width: 60px;
+    font-size: 12px;
+  }
+
+  .cf-pill {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+
+  /* ── Chaves: bracket scrollable inside panel ── */
+  .chaves-panel {
+    overflow: visible;
+  }
+
+  .chaves-panel-title-bar {
+    padding: 12px 16px;
+    font-size: 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chaves-bracket-wrap,
+  .chaves-bracket-wrap--scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 16px 16px 20px;
+  }
+
+  .chaves-bracket-wrap::-webkit-scrollbar,
+  .chaves-bracket-wrap--scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chaves-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .chaves-filters {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chaves-select {
+    min-width: 120px;
+  }
+
+  .chaves-grupo-body {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chaves-class-col {
+    flex: none;
+    width: 100%;
+  }
+
+  .chaves-jogos-col {
+    width: 100%;
+  }
+
+  .chaves-grupo {
+    padding: 12px 16px 16px;
+  }
+
+  /* Split bracket: each half scrollable */
+  .br-split-wrap {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .br-split-half,
+  .br-split-final {
+    width: 100%;
+  }
+
+  .br-dyn-tree {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .br-dyn-tree::-webkit-scrollbar {
+    display: none;
+  }
+
+  .br-split-label {
+    padding: 0 0 10px;
+  }
+
+  /* ── Lista de inscritos ── */
+  .tdet-inscr-list {
+    gap: 6px;
+  }
+
+  /* ── Programação ── */
+  .tdet-content .tdet-section {
+    padding: 14px;
+  }
+
+  /* ── Próximos eventos ── */
+  .tdet-next-events {
+    padding: 20px 16px;
+  }
+
+  .tdet-next-inner {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .tdet-next-list {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tdet-next-card {
+    width: 100%;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — TorneioInscrever mobile (≤767px)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  .tinscr-page {
+    background: #f4f6f9;
+  }
+
+  .tinscr-content {
+    flex-direction: column;
+    padding: 0 0 32px;
+    gap: 0;
+  }
+
+  /* Sidebar card: compact horizontal strip at top */
+  .tinscr-card {
+    flex: none;
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    padding: 16px;
+    gap: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .tinscr-card-title {
+    font-size: 15px;
+  }
+
+  .tinscr-torneio-info {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .tinscr-badge {
+    width: 48px;
+    height: 36px;
+  }
+
+  /* Steps: horizontal compact */
+  .tinscr-steps {
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tinscr-steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tinscr-step-label {
+    font-size: 10px;
+  }
+
+  /* Form panel: full width, comfortable padding */
+  .tinscr-form-panel {
+    flex: 1;
+    width: 100%;
+    padding: 24px 16px 32px;
+    background: #fff;
+    margin: 12px 16px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    box-sizing: border-box;
+  }
+
+  .tinscr-form-title {
+    font-size: 22px;
+  }
+
+  .tinscr-nav-btns {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .tinscr-nav-btns .umds-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tinscr-payment-opts {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tinscr-payment-opt {
+    width: 100%;
+  }
+
+  .tinscr-card-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tinscr-login-btn.umds-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tinscr-social-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tinscr-social-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Sucesso screen */
+  .tinscr-sucesso {
+    margin: 16px;
+    padding: 32px 20px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    align-items: center;
+    text-align: center;
+  }
+
+  .tinscr-sucesso .umds-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GLOBAL RULES — Responsividade geral
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Evitar scroll horizontal global */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Touch targets: apply selectively to interactive elements that need it */
+.navbar-hamburger,
+.navbar-mobile-link,
+.navbar-mobile-mais-toggle,
+.tdet-tab,
+.trn-fixed-cta-btn,
+.tdet-mobile-cta-btn {
+  min-height: 44px;
+}
+
+/* Imagens responsivas por padrão */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAVBAR — Animação slide-down + user header no drawer + desktop 64px
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Desktop: 64px height */
+@media (min-width: 768px) {
+  .navbar {
+    height: 64px;
+  }
+
+  .navbar-inner {
+    height: 64px;
+  }
+}
+
+/* Mobile menu slide-down animation */
+@keyframes navSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* User header in mobile drawer */
+.navbar-mobile-user-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.navbar-mobile-avatar-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--sport-primary);
+}
+
+.navbar-mobile-user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navbar-mobile-user-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-mobile-user-role {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.navbar-mobile-logout-btn {
+  display: none;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  min-height: 36px;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.navbar-mobile-logout-btn:hover {
+  background: #f4f6f9;
+  border-color: var(--sport-primary);
+}
+
+/* Backdrop blur for navbar */
+.navbar {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABS FADE GRADIENT (TorneioDetalhe)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tdet-tabs-fade-wrap {
+  position: relative;
+}
+
+.tdet-tabs-fade-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 100%;
+  background: linear-gradient(to left, #fff 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .tdet-tabs-fade-wrap::after {
+    display: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TDET — Fixed mobile CTA button + Category pill "+N mais"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tdet-mobile-cta {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .tdet-mobile-cta {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.10);
+  }
+
+  .tdet-mobile-cta-btn.umds-button {
+    width: 100%;
+    justify-content: center;
+    height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--feedback-positive-dark);
+  }
+
+  /* Space for the fixed CTA */
+  .tdet-page {
+    padding-bottom: 80px;
+  }
+
+  /* Hide desktop inscr button on mobile */
+  .tdet-inscr-btn.umds-button {
+    display: none !important;
+  }
+}
+
+/* Category pill more button */
+.tdet-cat-chip--more {
+  background: rgba(255, 255, 255, 0.2) !important;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  transition: background 0.15s;
+}
+
+.tdet-cat-chip--more:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   INSCR — Lista de inscritos mobile layout
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.inscr-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 20px;
+  background: #f4f6f9;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.inscr-cat-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.inscr-cat-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.inscr-badge {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.inscr-badge--blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.inscr-badge--yellow {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.inscr-dupla-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.inscr-dupla-row:last-child {
+  border-bottom: none;
+}
+
+.inscr-dupla-avs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.inscr-dupla-names {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.inscr-dupla-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inscr-dupla-clube {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inscr-dupla-ranking {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.inscr-dupla-ranking span {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TDET — Album tab empty state
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tdet-album-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 32px;
+  text-align: center;
+}
+
+.tdet-album-empty-icon {
+  font-size: 64px;
+  line-height: 1;
+}
+
+.tdet-album-empty-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tdet-album-empty-sub {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 280px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RANKING — Mobile filter wrap + podium single column
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .rk-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .rk-filter-label {
+    width: 100%;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .rk-select {
+    width: calc(50% - 4px) !important;
+    flex: none;
+  }
+
+  .rk-search-wrap {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
+
+  /* Podium: single column */
+  .rk-podium {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .rk-podium-card {
+    width: 100%;
+  }
+
+  /* First podium card: more prominent */
+  .rk-podium>div:first-child .rk-podium-card,
+  .rk-podium>.rk-podium-card:first-child {
+    border-width: 2px;
+    position: relative;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRANSPARENCIA — Mobile select dropdown
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.trs-mobile-select-wrap {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .trs-mobile-select-wrap {
+    display: block;
+    padding: 0 0 16px;
+  }
+
+  .trs-mobile-select {
+    width: 100%;
+    height: 44px;
+    padding: 0 40px 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .trs-mobile-select:focus {
+    border-color: var(--sport-primary);
+    box-shadow: 0 0 0 3px rgba(188, 212, 5, 0.15);
+  }
+
+  /* Hide sidebar on mobile */
+  .trs-sidebar {
+    display: none !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TORNEIOS — Fixed bottom CTA
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.trn-fixed-cta {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .trn-fixed-cta {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 12px 24px;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.10);
+  }
+
+  .trn-fixed-cta-btn.umds-button {
+    width: 100%;
+    max-width: 480px;
+    height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    justify-content: center;
+    color: var(--feedback-positive-dark);
+  }
+
+  /* Space for fixed CTA */
+  .torneios-page {
+    padding-bottom: 80px;
+  }
+
+  /* Hide in-card buttons on mobile since we have fixed CTA */
+  .trn-card-action {
+    display: none;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME — Sponsors banner responsive
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .hero-banner {
+    height: auto !important;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    display: block;
+  }
+
+  .second-banner {
+    height: auto !important;
+    overflow: hidden;
+  }
+
+  .second-banner-img {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    display: block;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME — News cards hover + line clamp
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.news-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+}
+
+/* line-clamp já definido no bloco base */
+
+/* Tournaments tabs full width on mobile */
+@media (max-width: 767px) {
+  .tournaments-section--home .umds-tabs {
+    width: 100%;
+  }
+
+  .tournaments-section--home .umds-tabs__tab {
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+    min-height: 44px;
+  }
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TDET — Campeões mobile 1 column
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .camp-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .camp-card {
+    width: 100%;
+  }
+
+  .camp-card-header {
+    font-size: 13px !important;
+    padding: 10px 12px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .camp-card-body {
+    padding: 12px !important;
+  }
+
+  .camp-podium-row {
+    padding: 8px 0 !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TDET — Ranking print button hide on mobile
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .chaves-print-btn {
+    display: none !important;
+  }
+
+  .chaves-panel-title-bar {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+
+  /* Scroll hint label for bracket */
+  .chaves-bracket-wrap::before,
+  .chaves-bracket-wrap--scroll::before {
+    content: '← deslize para ver →';
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    color: #9ca3af;
+    text-align: center;
+    padding-bottom: 8px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FACA PARTE — Fixed action buttons on mobile
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  .fp-actions {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 16px;
+    z-index: 200;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .fp-actions--right {
+    justify-content: flex-end;
+  }
+
+  .fp-fields {
+    padding-bottom: 80px !important;
+  }
+
+  /* Full width buttons in fixed bar */
+  .fp-actions>button,
+  .fp-actions>[class*="umds-btn"] {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RANKING — Mobile column visibility + table layout
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hide the mobile-info block on desktop */
+.rk-mobile-info {
+  display: none;
+}
+
+@media (max-width: 767px) {
+
+  /* Show only Rank | Jogador | Pontuação | chevron */
+  .rk-col--codigo,
+  .rk-col--idade,
+  .rk-col--cat,
+  .rk-col--clube {
+    display: none !important;
+  }
+
+  /* Override the flex-wrap from previous rules — use 3-col grid */
+  .rk-row-main {
+    display: grid !important;
+    grid-template-columns: 44px 1fr 80px 36px !important;
+    gap: 6px !important;
+    padding: 12px 12px 12px 24px !important;
+    align-items: center !important;
+    flex-wrap: unset !important;
+  }
+
+  /* Mobile info bar shown when expanded */
+  .rk-mobile-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-family: 'Open Sans', sans-serif;
+    color: #374151;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .rk-mobile-info span {
+    min-width: calc(50% - 8px);
+    color: #374151;
+  }
+
+  .rk-mobile-info strong {
+    color: #111;
+    margin-right: 4px;
+  }
+
+  /* Pontos column right-aligned */
+  .rk-col--pontos {
+    text-align: right;
+    font-size: 13px !important;
+  }
+
+  /* Rank column smaller */
+  .rk-col--rank {
+    font-size: 14px !important;
+  }
+
+  /* Nome column — clip long names */
+  .rk-col--nome {
+    font-size: 13px !important;
+    gap: 6px !important;
+  }
+
+  .rk-col--nome .rk-avatar-photo,
+  .rk-col--nome .rk-avatar-sm {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 10px !important;
+    flex-shrink: 0;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAVES — Desktop FIFA-style bracket (dbr-*)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Pure-CSS flex bracket (br2-*) ──────────────────────────────────────────
+   All columns stretch to the same height. Each round has N flex slots (flex:1).
+   The next round has N/2 slots → each slot is 2× taller → auto-centered. ── */
+
+.br2-tree {
+  display: flex;
+  align-items: stretch;
+  padding: 16px 24px 28px;
+  overflow-x: auto;
+}
+
+.br2-round {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+}
+
+.br2-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  height: 32px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 8px 6px;
+}
+
+.br2-slots {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Each slot stretches to fill equal share of the column height */
+.br2-slot {
+  display: flex;
+  align-items: center;
+  /* card is vertically centered within slot */
+  flex: 1;
+  padding: 4px 8px;
+  min-height: 88px;
+  /* prevents slots collapsing when no card */
+}
+
+/* ── Connector column ── */
+.br2-conn {
+  display: flex;
+  flex-direction: column;
+  width: 28px;
+  flex-shrink: 0;
+}
+
+/* Each connector slot spans 2 round-slots in height */
+.br2-conn-slot {
+  flex: 1;
+  position: relative;
+}
+
+/* C-bracket from 25% to 75% of slot height (= centers of the two feeding cards) */
+.br2-conn-slot::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: 0;
+  right: 6px;
+  border-right: 2px solid #d1d5db;
+  border-top: 2px solid #d1d5db;
+  border-bottom: 2px solid #d1d5db;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Midpoint horizontal arm to the right */
+.br2-conn-slot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 6px;
+  height: 2px;
+  background: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* Single card → just a horizontal line at center */
+.br2-conn-slot--single::before {
+  top: calc(50% - 1px);
+  bottom: auto;
+  height: 2px;
+  border: none;
+  background: #d1d5db;
+  border-radius: 0;
+  right: 0;
+}
+
+.br2-conn-slot--single::after {
+  display: none;
+}
+
+.dbr-wrap {
+  padding: 24px 28px 28px;
+  overflow-x: auto;
+}
+
+.dbr-tree {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-width: max-content;
+}
+
+.dbr-round-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding-right: 32px;
+}
+
+.dbr-round-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.dbr-round-cards {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbr-round-col .mcard {
+  width: 200px;
+}
+
+.dbr-champion-card {
+  width: 160px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAVES — FIFA-style mobile bracket
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Desktop: hide mobile view, show desktop bracket */
+/* ── Match card (used in mobile + desktop FIFA bracket) ── */
+.mcard {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.mcard-header {
+  background: #f3f4f6;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 3px 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mcard-team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 8px;
+}
+
+.mcard-team--win {
+  background: #f0fdf4;
+}
+
+.mcard-div {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 0;
+}
+
+.mcard-names-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mcard-n {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.mcard-n2 {
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.mcard-n--tbd {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.mcard-sc {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #9ca3af;
+  min-width: 18px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.mcard-sc--win {
+  color: #0f4c30;
+  font-size: 15px;
+}
+
+/* ── Small avatar (bracket cards) ── */
+.mav {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mav--init {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── Champion card ── */
+.mbr-champion-card {
+  width: 100%;
+  background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+  border: 2px solid #D4AF37;
+  border-radius: 8px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.mbr-champion-trophy {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.mbr-champion-names {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #111;
+}
+
+.mbr-champion-tbd {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.mbr-wrap {
+  display: none;
+}
+
+.chaves-desktop-bracket {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .mbr-wrap {
+    display: block;
+  }
+
+  .chaves-desktop-bracket {
+    display: none !important;
+  }
+
+  /* ── Round selector pills bar ── */
+  .mbr-rounds-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 12px 16px;
+    scrollbar-width: none;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .mbr-rounds-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mbr-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #d1d5db;
+    background: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    min-height: 36px;
+  }
+
+  .mbr-pill--active {
+    background: #0f4c30;
+    border-color: #0f4c30;
+    color: #fff;
+  }
+
+  /* ── Pairs list container ── */
+  .mbr-pairs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 16px;
+  }
+
+  /* ── A single bracket pair: [Left 2 matches] [Connector] [Right 1 match] ── */
+  .mbr-pair {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .mbr-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 5;
+    min-width: 0;
+  }
+
+  /* ── Bracket connector lines ── */
+  .mbr-conn {
+    width: 18px;
+    flex-shrink: 0;
+    position: relative;
+    align-self: stretch;
+  }
+
+  /* Upper arm: top card center → midpoint */
+  .mbr-conn::before {
+    content: '';
+    position: absolute;
+    top: 24%;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    border-right: 2px solid #d1d5db;
+    border-top: 2px solid #d1d5db;
+    border-radius: 0 4px 0 0;
+  }
+
+  /* Lower arm: midpoint → bottom card center */
+  .mbr-conn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 24%;
+    border-right: 2px solid #d1d5db;
+    border-bottom: 2px solid #d1d5db;
+    border-radius: 0 0 4px 0;
+  }
+
+  /* Single match: just a horizontal line */
+  .mbr-conn--single::before {
+    top: 50%;
+    bottom: calc(50% - 1px);
+    border-right: none;
+    border-radius: 0;
+  }
+
+  .mbr-conn--single::after {
+    display: none;
+  }
+
+  /* ── Right col: one result / champion card ── */
+  .mbr-right-col {
+    flex: 4;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .mbr-right-col>.mcard {
+    width: 100%;
+  }
+
+  /* placeholder — mcard styles moved to global scope below */
+
+  /* Also make the chaves filter selects full-width stacked on mobile */
+  .cf-selects-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .cf-select-group {
+    width: 100% !important;
+  }
+
+  .cf-select {
+    width: 100% !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LISTA DE INSCRITOS — Desktop fix + Mobile layout
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── DESKTOP FIX: inscr-dupla-row was nested inside the table Atleta cell ──
+   Remove the extra padding/border, make avatars side-by-side, hide the
+   duplicate ranking and clube (those are separate columns on desktop).       */
+.tli-td .inscr-dupla-row {
+  padding: 0 !important;
+  border-bottom: none !important;
+  gap: 8px;
+}
+
+.tli-td .inscr-dupla-avs {
+  flex-direction: row !important;
+  gap: 3px !important;
+}
+
+.tli-td .inscr-dupla-avs .player-av,
+.tli-td .inscr-dupla-avs .player-av--init {
+  width: 26px !important;
+  height: 26px !important;
+  font-size: 9px !important;
+}
+
+/* Hide inline ranking and clube on desktop (separate columns exist) */
+.inscr-rank-inline {
+  display: none;
+}
+
+.tli-td .inscr-dupla-clube {
+  display: none;
+}
+
+.tli-td .inscr-dupla-ranking {
+  display: none;
+}
+
+/* Each player line: name + rank — default block on desktop */
+.inscr-player-line {
+  display: block;
+}
+
+
+/* ── MOBILE: convert the table to a proper card list ── */
+@media (max-width: 767px) {
+
+  /* Make table elements behave like blocks */
+  .tli-table {
+    display: block;
+    width: 100%;
+  }
+
+  .tli-table thead {
+    display: none;
+  }
+
+  .tli-table tbody {
+    display: block;
+  }
+
+  /* Each row is a single full-width block */
+  .tli-row {
+    display: block;
+    border-bottom: 1px solid #f3f4f6;
+    background: #fff;
+  }
+
+  .tli-row:not(:last-child) td {
+    border-bottom: none;
+  }
+
+  /* Hide Código, Clube, Cidade, and the separate Ranking column */
+  .tli-td--codigo,
+  .tli-td--clube,
+  .tli-td--cidade,
+  .tli-td--ranking {
+    display: none !important;
+  }
+
+  /* Atleta cell fills the whole row */
+  .tli-td--atleta {
+    display: block !important;
+    padding: 0 !important;
+    width: 100%;
+  }
+
+  .tli-dupla-cell {
+    display: block !important;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* ── inscr-dupla-row: grid [avs | nomes | ranking] ── */
+  .tli-td .inscr-dupla-row {
+    display: grid !important;
+    grid-template-columns: 54px 1fr 36px !important;
+    align-items: start !important;
+    gap: 0 8px !important;
+    padding: 10px 16px !important;
+    width: 100% !important;
+  }
+
+  .tli-td .inscr-dupla-names {
+    min-width: 0 !important;
+  }
+
+  /* Ranking visível no mobile, alinhado à direita */
+  .tli-td .inscr-dupla-ranking {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 3px !important;
+  }
+
+  .tli-td .inscr-dupla-ranking span {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Avatares sobrepostos em 32px */
+  .tli-td .inscr-dupla-avs {
+    flex-direction: row !important;
+    gap: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .tli-td .inscr-dupla-avs .player-av,
+  .tli-td .inscr-dupla-avs .player-av--init {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 11px !important;
+  }
+
+  .tli-td .inscr-dupla-avs .player-av:nth-child(2),
+  .tli-td .inscr-dupla-avs .player-av--init:nth-child(2) {
+    margin-left: -10px;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
+  /* Clube abaixo dos nomes */
+  .tli-td .inscr-dupla-clube {
+    display: block !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAVES — Jogos: avatares sobrepostos + nomes abreviados no mobile
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+  /* Avatares sobrepostos nas duplas dos jogos */
+  .gm-row .dupla-avs {
+    gap: 0 !important;
+  }
+
+  .gm-row .dupla-avs .player-av:nth-child(2),
+  .gm-row .dupla-avs .player-av--init:nth-child(2) {
+    margin-left: -7px;
+    box-shadow: 0 0 0 1.5px #fff;
+  }
+
+  /* Row mais compacta */
+  .gm-row {
+    gap: 4px !important;
+    padding: 6px 0;
+  }
+
+  .gm-side {
+    gap: 4px !important;
+  }
+
+  /* Nomes menores para caber */
+  .gm-row .dupla-names span {
+    font-size: 11px !important;
+    line-height: 1.3;
+  }
+
+  /* Score no centro */
+  .gm-score-block {
+    padding: 0 4px !important;
+    gap: 5px !important;
+  }
+
+  .gm-score {
+    font-size: 14px !important;
+  }
+}
+
+/* =======================================================================
+   Mobile filter bar + bottom-drawer (mobile only)
+   ======================================================================= */
+
+/* ── Mobile bar: [search] [Filtrar] ───────────────────────────────────── */
+.rk-mobile-bar {
+  display: none; /* hidden on desktop — shown via mobile override below */
+}
+
+/* ── Filter button ──────────────────────────────────────────────────────── */
+.rk-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  background: #194280;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.rk-filter-btn:active { background: #122b55; }
+
+.rk-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #c8f000;
+  color: #1a1a1a;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* ── Backdrop ───────────────────────────────────────────────────────────── */
+.rk-filter-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1100;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.rk-filter-backdrop--open {
+  opacity: 1;
+}
+
+/* ── Drawer ─────────────────────────────────────────────────────────────── */
+.rk-filter-drawer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1101;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.rk-filter-drawer--open {
+  transform: translateY(0);
+}
+
+/* Drag handle */
+.rk-drawer-handle {
+  width: 36px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+  margin: 10px auto 0;
+  flex-shrink: 0;
+}
+
+/* Drawer header */
+.rk-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.rk-drawer-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.rk-drawer-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.rk-drawer-close:active { background: #e5e7eb; }
+
+/* Drawer body — scrollable */
+.rk-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Section inside drawer */
+.rk-drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rk-drawer-section-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0;
+}
+
+/* Pills */
+.rk-drawer-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Scrollable pills (categoria — many options) */
+.rk-drawer-pills--scroll {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.rk-drawer-pills--scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.rk-drawer-pills--scroll::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
+}
+
+.rk-drawer-pill {
+  padding: 6px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rk-drawer-pill:active {
+  background: #f3f4f6;
+}
+
+.rk-drawer-pill--active {
+  background: #194280;
+  border-color: #194280;
+  color: #fff;
+}
+
+/* Drawer footer — fixed at bottom */
+.rk-drawer-footer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
+  border-top: 1px solid #f0f0f0;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.rk-drawer-btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  border: none;
+}
+
+.rk-drawer-btn--clear {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1.5px solid #d1d5db;
+}
+
+.rk-drawer-btn--clear:active { background: #e5e7eb; }
+
+.rk-drawer-btn--apply {
+  background: #194280;
+  color: #fff;
+}
+
+.rk-drawer-btn--apply:active { background: #122b55; }
+
+/* ── Mobile overrides ───────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Show mobile bar */
+  .rk-mobile-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .rk-mobile-bar .rk-search-wrap {
+    flex: 1;
+    max-width: none;
+  }
+
+  /* Show backdrop and drawer */
+  .rk-filter-backdrop {
+    display: block;
+    pointer-events: none; /* only active when --open */
+  }
+
+  .rk-filter-backdrop--open {
+    pointer-events: auto;
+  }
+
+  .rk-filter-drawer {
+    display: flex;
+  }
+}
+
+/* ── Desktop: hide drawer elements ─────────────────────────────────────── */
+@media (min-width: 768px) {
+  .rk-mobile-bar       { display: none !important; }
+  .rk-filter-backdrop  { display: none !important; }
+  .rk-filter-drawer    { display: none !important; }
+}

@@ -11,6 +11,8 @@ import './index.css'
 import './styles/tokens.css'
 import './styles/utilities.css'
 import './styles/1ds-overrides.css'
+import './styles/mobile-enhancements.css'
+import './styles/Skeleton.css'
 import App from './App.jsx'
 import { initTheme } from '@1doc/1ds-react'
 

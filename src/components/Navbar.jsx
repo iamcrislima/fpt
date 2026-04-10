@@ -1,8 +1,9 @@
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Input, Avatar, Button, Icon } from '@1doc/1ds-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faBars, faXmark, faRightLeft, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import './Navbar.css'
 import { useSport } from '../context/SportContext'
 import { useAuth } from '../context/AuthContext'
 import UserDropdown from './UserDropdown'
@@ -35,7 +36,7 @@ const MAIS_PATHS = [
 
 const SPORT_FULL_NAMES = { bt: 'Beach Tennis', tennis: 'Tênis' }
 
-export default function Navbar() {
+const Navbar = forwardRef(function Navbar(_, ref) {
   const { sport, setSport } = useSport()
   const { user, isLoggedIn, logout } = useAuth()
   const navigate = useNavigate()
@@ -43,10 +44,16 @@ export default function Navbar() {
 
   const [maisOpen, setMaisOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [mobileMaisOpen, setMobileMaisOpen] = useState(false)
   const [switchModalOpen, setSwitchModalOpen] = useState(false)
   const closeTimer = useRef(null)
   const navRef = useRef(null)
+  const mobileMenuRef = useRef(null)
+  const touchStartX = useRef(0)
+
+  // Expõe openMenu para o BottomNavBar via ref
+  useImperativeHandle(ref, () => ({
+    openMenu: () => setMobileOpen(true),
+  }))
 
   const otherSport = sport === 'bt' ? 'tennis' : 'bt'
 
@@ -66,7 +73,6 @@ export default function Navbar() {
 
   function closeMobileMenu() {
     setMobileOpen(false)
-    setMobileMaisOpen(false)
   }
 
   function confirmSportSwitch() {
@@ -77,7 +83,17 @@ export default function Navbar() {
     navigate(`/${otherSport}${segments ? `/${segments}` : ''}`)
   }
 
-  // Close on ESC key
+  // Swipe esquerda ≥ 80px para fechar o menu mobile
+  // (drawer vem da esquerda → swipe left = fechar, mais natural)
+  function handleTouchStart(e) {
+    touchStartX.current = e.touches[0].clientX
+  }
+  function handleTouchEnd(e) {
+    const delta = e.changedTouches[0].clientX - touchStartX.current
+    if (delta < -80) closeMobileMenu()
+  }
+
+  // Fecha no ESC
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
@@ -89,20 +105,33 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // Close on outside click / touch
+  // Trava scroll do body enquanto menu mobile estiver aberto
   useEffect(() => {
-    function handleOutsideClick(event) {
-      if (navRef.current && !navRef.current.contains(event.target)) {
-        closeMobileMenu()
-      }
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
     }
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
+  // Fecha ao clicar fora — exclui o próprio menu mobile (BUG 3 fix)
+  // Nota: o backdrop já tem onClick={closeMobileMenu}, este handler
+  // cobre cliques fora do backdrop (ex: zona não coberta)
+  useEffect(() => {
+    if (!mobileOpen) return   // só registra listener quando menu está aberto
+    function handleOutsideClick(event) {
+      const inMenu = mobileMenuRef.current?.contains(event.target)
+      if (!inMenu) closeMobileMenu()
+    }
+    // mousedown para desktop, touchstart para mobile
     document.addEventListener('mousedown', handleOutsideClick)
-    document.addEventListener('touchstart', handleOutsideClick)
+    document.addEventListener('touchstart', handleOutsideClick, { passive: true })
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick)
       document.removeEventListener('touchstart', handleOutsideClick)
     }
-  }, [])
+  }, [mobileOpen])
 
   return (
     <>
@@ -160,7 +189,6 @@ export default function Navbar() {
               className="navbar-search-input"
             />
             <div className="navbar-right-sep" />
-            {/* Sport switcher pill — shows target sport (not current) */}
             {sport && (
               <button
                 className="sport-switcher-pill"
@@ -186,7 +214,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Hamburger button — visible only on mobile */}
+          {/* Hamburger button — visível só no mobile */}
           <button
             className="navbar-hamburger"
             onClick={() => setMobileOpen(prev => !prev)}
@@ -198,8 +226,27 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile overlay menu — fora do <header> para escapar do backdrop-filter */}
-      <div className={`navbar-mobile-menu${mobileOpen ? ' navbar-mobile-menu--open' : ''}`}>
+      {/* Menu mobile fullscreen — fora do <header> para escapar do backdrop-filter */}
+      <div
+        ref={mobileMenuRef}
+        className={`navbar-mobile-menu${mobileOpen ? ' navbar-mobile-menu--open' : ''}`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Header do menu fullscreen com botão [X] */}
+        <div className="navbar-mobile-menu-header">
+          <Link to={sport ? `/${sport}` : '/'} className="navbar-logo" onClick={closeMobileMenu}>
+            <img src={FPT_LOGO_URL} alt="FPT Logo" />
+          </Link>
+          <button
+            className="navbar-mobile-close-btn"
+            onClick={closeMobileMenu}
+            aria-label="Fechar menu"
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
+
         <nav className="navbar-mobile-nav">
 
           {/* User section */}
@@ -241,11 +288,11 @@ export default function Navbar() {
             </div>
           )}
 
-          {NAV_LINKS.map(({ path, label }) => (
+          {/* Links diretos — sem "Mais" colapsável (itens da bottom bar já cobrem Início, Torneios, Ranking, Faça Parte) */}
+          {MAIS_PATHS.map(({ path, label }) => (
             <NavLink
               key={path}
               to={sportLink(path)}
-              end={path === ''}
               className="navbar-mobile-link"
               onClick={closeMobileMenu}
             >
@@ -253,35 +300,7 @@ export default function Navbar() {
             </NavLink>
           ))}
 
-          {/* Mais section */}
-          <button
-            className="navbar-mobile-mais-toggle"
-            onClick={() => setMobileMaisOpen(prev => !prev)}
-            aria-expanded={mobileMaisOpen}
-          >
-            <span>Mais</span>
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className={`navbar-mobile-mais-chevron${mobileMaisOpen ? ' navbar-mobile-mais-chevron--open' : ''}`}
-            />
-          </button>
-
-          {mobileMaisOpen && (
-            <div className="navbar-mobile-mais-list">
-              {MAIS_PATHS.map(({ path, label }) => (
-                <NavLink
-                  key={path}
-                  to={sportLink(path)}
-                  className="navbar-mobile-sub-link"
-                  onClick={closeMobileMenu}
-                >
-                  {label}
-                </NavLink>
-              ))}
-            </div>
-          )}
-
-          {/* Logout — bottom of drawer */}
+          {/* Logout — rodapé do drawer */}
           {isLoggedIn && (
             <button
               className="navbar-mobile-logout-link"
@@ -294,7 +313,7 @@ export default function Navbar() {
         </nav>
       </div>
 
-      {/* Sport switch confirmation modal */}
+      {/* Modal de confirmação de troca de modalidade */}
       {switchModalOpen && (
         <div className="sport-switch-backdrop" role="dialog" aria-modal="true" onClick={() => setSwitchModalOpen(false)}>
           <div className="sport-switch-modal" onClick={e => e.stopPropagation()}>
@@ -317,4 +336,6 @@ export default function Navbar() {
       )}
     </>
   )
-}
+})
+
+export default Navbar

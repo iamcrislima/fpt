@@ -1,7 +1,15 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
+import './Ranking.css'
 import { Icon } from '@1doc/1ds-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSliders, faXmark } from '@fortawesome/free-solid-svg-icons'
 import TournamentsSection from '../components/TournamentsSection'
 import { useSport } from '../context/SportContext'
+import { usePullToRefresh } from '../hooks/usePullToRefresh'
+import { SkeletonRankingRow, SkeletonRankingPodium, SkeletonList } from '../components/SkeletonLoader'
+import PtrIndicator from '../components/PtrIndicator'
+import BottomSheetSelect from '../components/BottomSheetSelect'
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 function initials(name) {
@@ -264,13 +272,40 @@ export default function Ranking() {
   const isTennis = sport === 'tennis'
   const ALL_CATEGORIES = isTennis ? ALL_CATEGORIES_TENNIS : ALL_CATEGORIES_BT
 
-  const [openedRow, setOpenedRow]   = useState(null)
-  const [regiao, setRegiao]         = useState('Todas as Regiões')
-  const [genero, setGenero]         = useState('Todos')
-  const [categoria, setCategoria]   = useState(DEFAULT_CAT)
-  const [ano, setAno]               = useState('2026')
-  const [busca, setBusca]           = useState('')
-  const [showAll, setShowAll]       = useState(false)
+  const [openedRow, setOpenedRow]     = useState(null)
+  const [regiao, setRegiao]           = useState('Todas as Regiões')
+  const [genero, setGenero]           = useState('Todos')
+  const [categoria, setCategoria]     = useState(DEFAULT_CAT)
+  const [ano, setAno]                 = useState('2026')
+  const [busca, setBusca]             = useState('')
+  const [showAll, setShowAll]         = useState(false)
+  const [refreshing, setRefreshing]   = useState(false)
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false)
+
+  // Count of non-default active filters (for the badge on the Filtrar button)
+  const activeFilterCount = [
+    regiao !== 'Todas as Regiões',
+    genero !== 'Todos',
+    categoria !== DEFAULT_CAT,
+    ano !== '2026',
+  ].filter(Boolean).length
+
+  function clearFilters() {
+    setRegiao('Todas as Regiões')
+    setGenero('Todos')
+    setCategoria(DEFAULT_CAT)
+    setAno('2026')
+    setFilterDrawerOpen(false)
+  }
+
+  async function handleRefresh() {
+    setRefreshing(true)
+    setBusca('')
+    await new Promise(r => setTimeout(r, 700))
+    setRefreshing(false)
+  }
+
+  const { loading: ptrLoading, pullRatio, handlers } = usePullToRefresh(handleRefresh)
 
   const toggle = (codigo) => setOpenedRow(prev => prev === codigo ? null : codigo)
 
@@ -285,7 +320,105 @@ export default function Ranking() {
   const top3 = filtered.slice(0, 3)
 
   return (
-    <main className="rk-page">
+    <main className="rk-page" {...handlers}>
+
+      <PtrIndicator loading={ptrLoading} ratio={pullRatio} />
+
+      {/* ── Filter drawer — mobile only (portal to escape page-animate transform stacking context) ── */}
+      {createPortal(<>
+      <div
+        className={`rk-filter-backdrop${filterDrawerOpen ? ' rk-filter-backdrop--open' : ''}`}
+        onClick={() => setFilterDrawerOpen(false)}
+      />
+      <div className={`rk-filter-drawer${filterDrawerOpen ? ' rk-filter-drawer--open' : ''}`}>
+        {/* Drag handle */}
+        <div className="rk-drawer-handle" />
+
+        {/* Header */}
+        <div className="rk-drawer-header">
+          <span className="rk-drawer-title">Filtros</span>
+          <button className="rk-drawer-close" onClick={() => setFilterDrawerOpen(false)} aria-label="Fechar filtros">
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="rk-drawer-body">
+
+          {/* Região */}
+          <div className="rk-drawer-section">
+            <p className="rk-drawer-section-label">Região</p>
+            <div className="rk-drawer-pills">
+              {REGIOES.map(r => (
+                <button
+                  key={r}
+                  className={`rk-drawer-pill${regiao === r ? ' rk-drawer-pill--active' : ''}`}
+                  onClick={() => setRegiao(r)}
+                >{r}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Gênero */}
+          <div className="rk-drawer-section">
+            <p className="rk-drawer-section-label">Gênero</p>
+            <div className="rk-drawer-pills">
+              {GENEROS_FILTER.map(g => (
+                <button
+                  key={g}
+                  className={`rk-drawer-pill${genero === g ? ' rk-drawer-pill--active' : ''}`}
+                  onClick={() => { setGenero(g); setCategoria('Todas') }}
+                >{g}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Categoria */}
+          <div className="rk-drawer-section">
+            <p className="rk-drawer-section-label">Categoria</p>
+            <div className="rk-drawer-pills rk-drawer-pills--scroll">
+              {[
+                { value: 'Todas', label: 'Todas as categorias' },
+                ...ALL_CATEGORIES
+                  .filter(c => genero === 'Todos' || c.startsWith(genero))
+                  .map(c => ({ value: c, label: c })),
+              ].map(({ value, label }) => (
+                <button
+                  key={value}
+                  className={`rk-drawer-pill${categoria === value ? ' rk-drawer-pill--active' : ''}`}
+                  onClick={() => setCategoria(value)}
+                >{label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Ano */}
+          <div className="rk-drawer-section">
+            <p className="rk-drawer-section-label">Ano</p>
+            <div className="rk-drawer-pills">
+              {ANOS.map(a => (
+                <button
+                  key={a}
+                  className={`rk-drawer-pill${ano === a ? ' rk-drawer-pill--active' : ''}`}
+                  onClick={() => setAno(a)}
+                >{a}</button>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Fixed footer */}
+        <div className="rk-drawer-footer">
+          <button className="rk-drawer-btn rk-drawer-btn--clear" onClick={clearFilters}>
+            Limpar filtros
+          </button>
+          <button className="rk-drawer-btn rk-drawer-btn--apply" onClick={() => setFilterDrawerOpen(false)}>
+            Aplicar filtros
+          </button>
+        </div>
+      </div>
+      </>, document.body)}
 
       {/* Hero banner */}
       <div className={`rk-hero${isTennis ? ' rk-hero--tennis' : ''}`}>
@@ -300,28 +433,71 @@ export default function Ranking() {
         <div className="rk-content">
           <h1 className="rk-page-title">{isTennis ? 'Ranking Fiat de Tênis' : 'Ranking Fiat de Beach Tennis'}</h1>
 
-          {/* Filters */}
+          {/* Mobile: search + filter button (hidden on desktop via CSS) */}
+          <div className="rk-mobile-bar">
+            <div className="rk-search-wrap">
+              <input
+                className="rk-search"
+                placeholder="Buscar por nome"
+                value={busca}
+                onChange={e => setBusca(e.target.value)}
+              />
+              <span className="rk-search-icon"><Icon name="search" size="sm" /></span>
+            </div>
+            <button
+              className="rk-filter-btn"
+              onClick={() => setFilterDrawerOpen(true)}
+              aria-label="Abrir filtros"
+            >
+              <FontAwesomeIcon icon={faSliders} />
+              <span>Filtrar</span>
+              {activeFilterCount > 0 && (
+                <span className="rk-filter-badge">{activeFilterCount}</span>
+              )}
+            </button>
+          </div>
+
+          {/* Desktop filters (hidden on mobile via CSS) */}
           <div className="rk-filter-row">
             <span className="rk-filter-label">Filtros:</span>
 
-            <select className="rk-select" value={regiao} onChange={e => setRegiao(e.target.value)}>
-              {REGIOES.map(r => <option key={r}>{r}</option>)}
-            </select>
+            <BottomSheetSelect
+              value={regiao}
+              onChange={setRegiao}
+              options={REGIOES}
+              title="Região"
+              nativeClassName="rk-select"
+            />
 
-            <select className="rk-select" value={genero} onChange={e => { setGenero(e.target.value); setCategoria('Todas') }}>
-              {GENEROS_FILTER.map(g => <option key={g}>{g}</option>)}
-            </select>
+            <BottomSheetSelect
+              value={genero}
+              onChange={v => { setGenero(v); setCategoria('Todas') }}
+              options={GENEROS_FILTER}
+              title="Gênero"
+              nativeClassName="rk-select"
+            />
 
-            <select className="rk-select" value={categoria} onChange={e => setCategoria(e.target.value)}>
-              <option value="Todas">Todas as categorias</option>
-              {ALL_CATEGORIES
-                .filter(c => genero === 'Todos' || c.startsWith(genero))
-                .map(c => <option key={c}>{c}</option>)}
-            </select>
+            <BottomSheetSelect
+              value={categoria}
+              onChange={setCategoria}
+              options={[
+                { value: 'Todas', label: 'Todas as categorias' },
+                ...ALL_CATEGORIES
+                  .filter(c => genero === 'Todos' || c.startsWith(genero))
+                  .map(c => ({ value: c, label: c }))
+              ]}
+              title="Categoria"
+              searchable={ALL_CATEGORIES.length > 10}
+              nativeClassName="rk-select"
+            />
 
-            <select className="rk-select" value={ano} onChange={e => setAno(e.target.value)}>
-              {ANOS.map(a => <option key={a}>{a}</option>)}
-            </select>
+            <BottomSheetSelect
+              value={ano}
+              onChange={setAno}
+              options={ANOS}
+              title="Ano"
+              nativeClassName="rk-select"
+            />
 
             <div className="rk-search-wrap">
               <input className="rk-search" placeholder="Buscar por nome" value={busca} onChange={e => setBusca(e.target.value)} />
@@ -330,7 +506,9 @@ export default function Ranking() {
           </div>
 
           {/* Top 3 podium */}
-          {top3.length >= 3 && (
+          {refreshing ? (
+            <SkeletonRankingPodium />
+          ) : top3.length >= 3 && (
             <div className="rk-podium">
               <PodiumCard label="Líder do Ranking" player={top3[0]} />
               <PodiumCard label="2º Colocado"       player={top3[1]} />
@@ -352,19 +530,25 @@ export default function Ranking() {
 
           {/* Rows */}
           <div className="rk-rows">
-            {displayed.length === 0 && (
-              <div className="rk-empty-state">
-                Nenhum resultado encontrado para os filtros selecionados.
-              </div>
+            {refreshing ? (
+              <SkeletonList Component={SkeletonRankingRow} count={8} />
+            ) : (
+              <>
+                {displayed.length === 0 && (
+                  <div className="rk-empty-state">
+                    Nenhum resultado encontrado para os filtros selecionados.
+                  </div>
+                )}
+                {displayed.map(p => (
+                  <RankingRow
+                    key={p.codigo}
+                    player={p}
+                    isOpen={openedRow === p.codigo}
+                    onToggle={() => toggle(p.codigo)}
+                  />
+                ))}
+              </>
             )}
-            {displayed.map(p => (
-              <RankingRow
-                key={p.codigo}
-                player={p}
-                isOpen={openedRow === p.codigo}
-                onToggle={() => toggle(p.codigo)}
-              />
-            ))}
           </div>
 
           {/* Mostrar todos */}

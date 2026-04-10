@@ -1,0 +1,642 @@
+/* =======================================================================
+   Página TorneioInscrever
+   ======================================================================= */
+
+.tinscr-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f6f9;
+  --umds-theme-primary-pure: var(--sport-primary);
+  --umds-theme-primary-dark: var(--sport-primary-dark);
+  --umds-semantic-color-primary-pure: var(--sport-primary);
+  --umds-semantic-color-primary-dark: var(--sport-primary-dark);
+}
+
+.tinscr-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 40px 48px;
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* --- Card torneio --- */
+.tinscr-card {
+  flex: 0 0 360px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tinscr-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tinscr-torneio-info {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: #f4f6f9;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.tinscr-badge {
+  width: 64px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.tinscr-torneio-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.tinscr-torneio-local,
+.tinscr-torneio-data {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tinscr-torneio-local .umds-icon,
+.tinscr-torneio-local svg,
+.tinscr-torneio-data .umds-icon,
+.tinscr-torneio-data svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+/* --- Steps indicator --- */
+.tinscr-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.tinscr-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tinscr-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #9ca3af;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tinscr-step--active .tinscr-step-num {
+  background: var(--sport-primary);
+  color: #0f4c30;
+}
+
+.tinscr-step-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.tinscr-step--active .tinscr-step-label {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.tinscr-step-line {
+  flex: 1;
+  height: 2px;
+  background: #e5e7eb;
+  margin: 0 4px;
+  margin-bottom: 14px;
+}
+
+/* --- Form panel --- */
+.tinscr-form-panel {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.tinscr-form-header {
+  margin-bottom: 28px;
+}
+
+.tinscr-etapa-num {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0 0 4px;
+}
+
+.tinscr-form-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tinscr-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tinscr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tinscr-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.tinscr-required {
+  color: #ef4444;
+}
+
+.tinscr-input-wrap {
+  position: relative;
+}
+
+.tinscr-input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0 44px 0 14px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.tinscr-input:focus {
+  border-color: var(--sport-primary);
+  box-shadow: 0 0 0 3px rgba(188, 212, 5, 0.15);
+}
+
+.tinscr-input-wrap .tinscr-input {
+  padding-right: 44px;
+}
+
+.tinscr-eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+}
+
+.tinscr-forgot-link {
+  background: none;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: var(--primary-pure);
+  cursor: pointer;
+  text-align: right;
+  padding: 0;
+  align-self: flex-end;
+}
+
+.tinscr-login-btn.umds-button {
+  width: 100%;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--feedback-positive-dark);
+}
+
+.tinscr-or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tinscr-or-line {
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.tinscr-or-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.tinscr-social-row {
+  display: flex;
+  gap: 12px;
+}
+
+.tinscr-social-btn {
+  flex: 1;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.tinscr-social-btn:hover {
+  border-color: #9ca3af;
+}
+
+.tinscr-social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.tinscr-register-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tinscr-register-text {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tinscr-register-link {
+  background: none;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #042246;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Step done state */
+.tinscr-step--done .tinscr-step-num {
+  background: #0f4c30;
+  color: #fff;
+}
+
+.tinscr-step--done .tinscr-step-label {
+  color: #0f4c30;
+}
+
+.tinscr-step-line--done {
+  background: #0f4c30;
+}
+
+/* Nav buttons (Voltar / Próximo) */
+.tinscr-nav-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.tinscr-nav-btns .umds-button {
+  flex: 1;
+}
+
+/* Parceiro result / selecionado */
+.tinscr-parceiro-result,
+.tinscr-parceiro-selecionado {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.tinscr-parceiro-result:hover {
+  border-color: var(--sport-primary);
+}
+
+.tinscr-parceiro-selecionado {
+  border-color: var(--sport-primary);
+  background: #f9fce6;
+  cursor: default;
+}
+
+.tinscr-parceiro-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #194280;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tinscr-parceiro-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tinscr-parceiro-nome {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tinscr-parceiro-detalhe {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0;
+}
+
+.tinscr-parceiro-remover {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+/* Categoria grid */
+.tinscr-cat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tinscr-cat-chip-btn {
+  padding: 8px 20px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.tinscr-cat-chip-btn:hover {
+  border-color: var(--sport-primary);
+}
+
+.tinscr-cat-chip-btn--active {
+  border-color: var(--sport-primary);
+  background: var(--sport-primary);
+  color: #0f4c30;
+}
+
+.tinscr-cat-chip-btn--locked {
+  opacity: 0.38;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tinscr-cat-chip-btn--locked:hover {
+  border-color: #e5e7eb;
+}
+
+.inscr-eligible-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #6b7280;
+  margin: 4px 0 0;
+}
+
+.tinscr-resumo-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #0f4c30;
+}
+
+/* Resumo de pagamento */
+.tinscr-resumo-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tinscr-resumo-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+}
+
+.tinscr-resumo-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.tinscr-resumo-row--total {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 8px;
+  margin-top: 4px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Opções de pagamento */
+.tinscr-payment-opts {
+  display: flex;
+  gap: 12px;
+}
+
+.tinscr-payment-opt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.tinscr-payment-opt:hover {
+  border-color: var(--sport-primary);
+}
+
+.tinscr-payment-opt--active {
+  border-color: var(--sport-primary);
+  background: #f9fce6;
+  color: #0f4c30;
+  font-weight: 700;
+}
+
+/* Pix */
+.tinscr-pix-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: #f4f6f9;
+  border-radius: 8px;
+}
+
+.tinscr-pix-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #374151;
+  margin: 0;
+  text-align: center;
+}
+
+.tinscr-pix-qr {
+  width: 120px;
+  height: 120px;
+  background: #e5e7eb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #9ca3af;
+}
+
+.tinscr-pix-copy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid #194280;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #194280;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Cartão de crédito */
+.tinscr-card-row {
+  display: flex;
+  gap: 12px;
+}
+
+.tinscr-card-row .tinscr-field {
+  flex: 1;
+}
+
+/* Tela de sucesso */
+.tinscr-sucesso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding: 48px 32px;
+}
+
+.tinscr-sucesso-icon {
+  color: #0f4c30;
+  font-size: 48px;
+}
+
+.tinscr-sucesso-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.tinscr-sucesso-desc {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 420px;
+}
+

@@ -1,0 +1,136 @@
+/* ────────────────────────────────────────────────────────────
+   BottomNavBar — apenas mobile (oculto no desktop)
+   ──────────────────────────────────────────────────────────── */
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .bottom-nav {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    height: calc(60px + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    background: var(--navbar-bg, #0d1b2e);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Item base ─────────────────────────────────────────── */
+  .bottom-nav__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 4px 2px;
+    color: rgba(255, 255, 255, 0.42);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.18s ease;
+    position: relative;
+    /* Garante toda a área clicável */
+    min-height: 100%;
+  }
+
+  .bottom-nav__item--active {
+    color: var(--sport-primary, #c8f000);
+  }
+
+  /* Linha indicadora no topo do item ativo */
+  .bottom-nav__item--active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: var(--sport-primary, #c8f000);
+    border-radius: 0 0 2px 2px;
+    animation: nav-indicator-in 0.2s ease forwards;
+  }
+
+  @keyframes nav-indicator-in {
+    from { opacity: 0; transform: scaleX(0); }
+    to   { opacity: 1; transform: scaleX(1); }
+  }
+
+  .bottom-nav__item:active {
+    transform: scale(0.88);
+    transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .bottom-nav__icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .bottom-nav__label {
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  /* ── Item central — HOME em destaque ───────────────────── */
+  .bottom-nav__item--center {
+    /* Sobe um pouco para criar o efeito "island" */
+    position: relative;
+    top: -6px;
+    gap: 5px;
+    /* Não tem a linha indicadora */
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* O item central não usa ::before para o indicador */
+  .bottom-nav__item--center::before {
+    display: none !important;
+  }
+
+  /* Bolinha circular com cor primária */
+  .bottom-nav__center-bubble {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--sport-primary, #c8f000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 4px 16px rgba(200, 240, 0, 0.40),
+      0 2px 8px rgba(0, 0, 0, 0.30);
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .bottom-nav__item--center:active .bottom-nav__center-bubble {
+    transform: scale(0.90);
+    box-shadow: 0 2px 8px rgba(200, 240, 0, 0.25);
+  }
+
+  /* Ícone dentro da bolinha — cor escura (contraste sobre amarelo) */
+  .bottom-nav__icon--center {
+    font-size: 20px;
+    color: #0a1628;
+  }
+
+  /* Label do item central ativo: cor primária */
+  .bottom-nav__item--center.bottom-nav__item--active {
+    color: var(--sport-primary, #c8f000);
+  }
+
+  /* A bolinha do item central ativo fica um pouco maior */
+  .bottom-nav__item--center.bottom-nav__item--active .bottom-nav__center-bubble {
+    transform: scale(1.06);
+  }
+}

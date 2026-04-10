@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import './App.css'
 import { SportProvider, useSport } from './context/SportContext'
 import { AuthProvider } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import BottomNavBar from './components/BottomNavBar'
 import SportSelection from './pages/SportSelection/SportSelection'
 import Login from './pages/Login/Login'
 import Painel from './pages/Painel/Painel'
@@ -46,6 +47,8 @@ function SportGate() {
 function SportLayout() {
   const { sport: urlSport } = useParams()
   const { setSport } = useSport()
+  const location = useLocation()
+  const navbarRef = useRef(null)
 
   const isValid = urlSport === 'bt' || urlSport === 'tennis'
 
@@ -59,34 +62,37 @@ function SportLayout() {
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="faca-parte" element={<FacaParte />} />
-        <Route path="torneios" element={<Torneios />} />
-        <Route path="torneios/:id" element={<TorneioDetalhe />} />
-        <Route path="torneios/:id/inscrever" element={<TorneioInscrever />} />
-        <Route path="ranking" element={<Ranking />} />
-        <Route path="regras" element={<Regras />} />
-        <Route path="transparencia" element={<Transparencia />} />
-        <Route path="fale-conosco" element={<FaleConosco />} />
-        <Route path="historia" element={<Historia />} />
-        <Route path="artigos/:slug" element={<Artigo />} />
-        <Route path="demonstrativo-financeiro" element={<DemonstrativoFinanceiro />} />
-        <Route path="atas-reuniao" element={<AtasReuniao />} />
-        <Route path="regulamento" element={<Regulamento />} />
-        <Route path="calendario" element={<Calendario />} />
-        <Route path="faq" element={<FAQ />} />
-        <Route path="a-federacao" element={<AFederacao />} />
-        <Route path="filiados" element={<Filiados />} />
-        <Route path="clubes-filiados" element={<ClubesFiliados />} />
-        <Route path="noticias" element={<Noticias />} />
-        <Route path="painel" element={<Painel />} />
-        <Route path="perfil" element={<Perfil />} />
-        <Route path="pagamentos" element={<Pagamentos />} />
-        <Route path="meus-torneios" element={<MeusTorneios />} />
-      </Routes>
-      <Footer />
+      <Navbar ref={navbarRef} />
+      <div key={location.pathname} className="page-animate">
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="faca-parte" element={<FacaParte />} />
+          <Route path="torneios" element={<Torneios />} />
+          <Route path="torneios/:id" element={<TorneioDetalhe />} />
+          <Route path="torneios/:id/inscrever" element={<TorneioInscrever />} />
+          <Route path="ranking" element={<Ranking />} />
+          <Route path="regras" element={<Regras />} />
+          <Route path="transparencia" element={<Transparencia />} />
+          <Route path="fale-conosco" element={<FaleConosco />} />
+          <Route path="historia" element={<Historia />} />
+          <Route path="artigos/:slug" element={<Artigo />} />
+          <Route path="demonstrativo-financeiro" element={<DemonstrativoFinanceiro />} />
+          <Route path="atas-reuniao" element={<AtasReuniao />} />
+          <Route path="regulamento" element={<Regulamento />} />
+          <Route path="calendario" element={<Calendario />} />
+          <Route path="faq" element={<FAQ />} />
+          <Route path="a-federacao" element={<AFederacao />} />
+          <Route path="filiados" element={<Filiados />} />
+          <Route path="clubes-filiados" element={<ClubesFiliados />} />
+          <Route path="noticias" element={<Noticias />} />
+          <Route path="painel" element={<Painel />} />
+          <Route path="perfil" element={<Perfil />} />
+          <Route path="pagamentos" element={<Pagamentos />} />
+          <Route path="meus-torneios" element={<MeusTorneios />} />
+        </Routes>
+        <Footer />
+      </div>
+      <BottomNavBar onOpenMenu={() => navbarRef.current?.openMenu()} />
     </>
   )
 }

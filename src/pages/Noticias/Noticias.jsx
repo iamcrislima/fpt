@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { useSport } from '../../context/SportContext'
+import { usePullToRefresh } from '../../hooks/usePullToRefresh'
+import { SkeletonNtCard, SkeletonList } from '../../components/SkeletonLoader'
+import PtrIndicator from '../../components/PtrIndicator'
 import './Noticias.css'
 
 const noticiasBT = [
@@ -266,8 +269,9 @@ export default function Noticias() {
 
   const [visiveis, setVisiveis] = useState(INITIAL_SHOW)
   const [carregando, setCarregando] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
-  const exibidas = noticias.slice(0, visiveis)
+  const exibidas = refreshing ? [] : noticias.slice(0, visiveis)
   const temMais  = visiveis < noticias.length
 
   function carregarMais() {
@@ -278,10 +282,19 @@ export default function Noticias() {
     }, 400)
   }
 
+  async function handleRefresh() {
+    setRefreshing(true)
+    setVisiveis(INITIAL_SHOW)
+    await new Promise(r => setTimeout(r, 700))
+    setRefreshing(false)
+  }
+
+  const { pulling, loading: ptrLoading, pullRatio, handlers } = usePullToRefresh(handleRefresh)
+
   const [destaque, ...restante] = exibidas
 
   return (
-    <main className="nt-page">
+    <main className="nt-page" {...handlers}>
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <div className={`rk-hero${sport === 'tennis' ? ' rk-hero--tennis rk-hero--noticias-tennis' : ''}`}>
@@ -290,6 +303,8 @@ export default function Noticias() {
         </div>
       </div>
 
+      <PtrIndicator loading={ptrLoading} ratio={pullRatio} />
+
       <div className="rk-wrapper">
         <div className="rk-content">
           <h1 className="rk-page-title">Em Destaque</h1>
@@ -297,13 +312,19 @@ export default function Noticias() {
           {/* ── Grid principal ─────────────────────────────────── */}
           <div className="nt-grid">
 
-            {/* Card destaque — ocupa 2 colunas */}
-            <NoticiaCard noticia={destaque} featured />
+            {refreshing ? (
+              <SkeletonList Component={SkeletonNtCard} count={6} />
+            ) : (
+              <>
+                {/* Card destaque — ocupa 2 colunas */}
+                <NoticiaCard noticia={destaque} featured />
 
-            {/* Restante */}
-            {restante.map(n => (
-              <NoticiaCard key={n.id} noticia={n} />
-            ))}
+                {/* Restante */}
+                {restante.map(n => (
+                  <NoticiaCard key={n.id} noticia={n} />
+                ))}
+              </>
+            )}
 
           </div>
 
