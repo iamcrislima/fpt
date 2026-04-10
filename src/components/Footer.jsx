@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram, faFacebook, faXTwitter } from '@fortawesome/free-brands-svg-icons'
+import './Footer.css'
 
 const FPT_FOOTER_LOGO = '/images/fpt-logo.svg'
 
