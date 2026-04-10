@@ -521,6 +521,21 @@ export default function TorneioDetalhe() {
   const [draftModalidade,setDraftModalidade]= useState('')
   const [draftNivel,     setDraftNivel]     = useState('')
 
+  // Derived from searchParams — declared before the functions that use them
+  const genero     = searchParams.get('genero')     || ''
+  const modalidade = searchParams.get('modalidade') || ''
+  const nivel      = searchParams.get('nivel')      || ''
+  const dados      = getChaveamento(genero, modalidade, nivel)
+
+  const setParam = (key, val, ...reset) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      next.set(key, val)
+      reset.forEach(k => next.delete(k))
+      return next
+    })
+  }
+
   const openChaveDrawer = () => {
     setDraftGenero(genero)
     setDraftModalidade(modalidade)
@@ -550,20 +565,6 @@ export default function TorneioDetalhe() {
       el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }
   }, [activeTab])
-
-  const genero    = searchParams.get('genero')    || ''
-  const modalidade = searchParams.get('modalidade') || ''
-  const nivel      = searchParams.get('nivel')      || ''
-  const dados     = getChaveamento(genero, modalidade, nivel)
-
-  const setParam = (key, val, ...reset) => {
-    setSearchParams(prev => {
-      const next = new URLSearchParams(prev)
-      next.set(key, val)
-      reset.forEach(k => next.delete(k))
-      return next
-    })
-  }
 
   return (
     <main className="tdet-page">
