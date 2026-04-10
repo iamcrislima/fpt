@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, Icon } from '@1doc/1ds-react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSliders, faXmark } from '@fortawesome/free-solid-svg-icons'
 import TournamentsSection from '../components/TournamentsSection'
 import InscricaoModal from '../components/InscricaoModal'
 import BottomSheetSelect from '../components/BottomSheetSelect'
@@ -512,6 +515,34 @@ export default function TorneioDetalhe() {
   const tabRefs = useRef({})
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
+  const [chaveDrawerOpen, setChaveDrawerOpen] = useState(false)
+  // Draft state — only applied when user taps "Aplicar"
+  const [draftGenero,    setDraftGenero]    = useState('')
+  const [draftModalidade,setDraftModalidade]= useState('')
+  const [draftNivel,     setDraftNivel]     = useState('')
+
+  const openChaveDrawer = () => {
+    setDraftGenero(genero)
+    setDraftModalidade(modalidade)
+    setDraftNivel(nivel)
+    setChaveDrawerOpen(true)
+  }
+  const applyChaveDrawer = () => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      if (draftGenero)     next.set('genero', draftGenero);     else next.delete('genero')
+      if (draftModalidade) next.set('modalidade', draftModalidade); else next.delete('modalidade')
+      if (draftNivel)      next.set('nivel', draftNivel);       else next.delete('nivel')
+      return next
+    })
+    setChaveDrawerOpen(false)
+  }
+  const clearChaveDrawer = () => {
+    setDraftGenero('')
+    setDraftModalidade('')
+    setDraftNivel('')
+  }
+  const chaveActiveCount = [genero, modalidade, nivel].filter(Boolean).length
 
   useEffect(() => {
     const el = tabRefs.current[activeTab]
@@ -893,8 +924,8 @@ export default function TorneioDetalhe() {
           {/* Print layout (hidden on screen) */}
           <PrintView dados={dados} />
 
-          {/* ── Filtros: 3 selects (Gênero / Modalidade / Nível) ── */}
-          <div className="cf-section print-hide">
+          {/* ── Filtros desktop: 3 selects (ocultos no mobile) ── */}
+          <div className="cf-section cf-section--desktop print-hide">
             <div className="cf-selects-row">
               <div className="cf-select-group">
                 <label className="cf-select-label">Gênero</label>
@@ -903,7 +934,7 @@ export default function TorneioDetalhe() {
                   onChange={v => setParam('genero', v, 'modalidade', 'nivel')}
                   options={[{ value: '', label: 'Selecione' }, ...GENEROS_CHAVE.map(g => ({ value: g, label: g }))]}
                   placeholder="Selecione"
-                title="Gênero"
+                  title="Gênero"
                   nativeClassName="cf-select"
                 />
               </div>
@@ -925,12 +956,93 @@ export default function TorneioDetalhe() {
                   onChange={v => setParam('nivel', v)}
                   options={[{ value: '', label: 'Selecione' }, ...NIVEIS_CHAVE.map(n => ({ value: n, label: n }))]}
                   placeholder="Selecione"
-                title="Nível"
+                  title="Nível"
                   nativeClassName="cf-select"
                 />
               </div>
             </div>
           </div>
+
+          {/* ── Botão Filtrar (mobile only) ── */}
+          <div className="cf-mobile-bar print-hide">
+            <button className="cf-filter-btn" onClick={openChaveDrawer} aria-label="Abrir filtros">
+              <FontAwesomeIcon icon={faSliders} />
+              <span>Filtrar categoria</span>
+              {chaveActiveCount > 0 && <span className="cf-filter-badge">{chaveActiveCount}</span>}
+            </button>
+            {genero && (
+              <span className="cf-active-summary">
+                {[genero, modalidade, nivel].filter(Boolean).join(' · ')}
+              </span>
+            )}
+          </div>
+
+          {/* ── Gaveta mobile (portal) ── */}
+          {createPortal(<>
+            <div
+              className={`ch-drawer-backdrop${chaveDrawerOpen ? ' ch-drawer-backdrop--open' : ''}`}
+              onClick={() => setChaveDrawerOpen(false)}
+            />
+            <div className={`ch-drawer${chaveDrawerOpen ? ' ch-drawer--open' : ''}`}>
+              <div className="ch-drawer-handle" />
+              <div className="ch-drawer-header">
+                <span className="ch-drawer-title">Filtrar Chaves</span>
+                <button className="ch-drawer-close" onClick={() => setChaveDrawerOpen(false)}>
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
+              </div>
+              <div className="ch-drawer-body">
+
+                <div className="ch-drawer-section">
+                  <p className="ch-drawer-section-label">Gênero</p>
+                  <div className="ch-drawer-pills">
+                    {GENEROS_CHAVE.map(g => (
+                      <button
+                        key={g}
+                        className={`ch-drawer-pill${draftGenero === g ? ' ch-drawer-pill--active' : ''}`}
+                        onClick={() => { setDraftGenero(g); setDraftModalidade(''); setDraftNivel('') }}
+                      >{g}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="ch-drawer-section">
+                  <p className="ch-drawer-section-label">Modalidade</p>
+                  <div className="ch-drawer-pills">
+                    {MODALIDADES_CHAVE.map(m => (
+                      <button
+                        key={m}
+                        className={`ch-drawer-pill${draftModalidade === m ? ' ch-drawer-pill--active' : ''}`}
+                        onClick={() => { setDraftModalidade(m); setDraftNivel('') }}
+                      >{m}</button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="ch-drawer-section">
+                  <p className="ch-drawer-section-label">Nível</p>
+                  <div className="ch-drawer-pills ch-drawer-pills--wrap">
+                    {NIVEIS_CHAVE.map(n => (
+                      <button
+                        key={n}
+                        className={`ch-drawer-pill${draftNivel === n ? ' ch-drawer-pill--active' : ''}`}
+                        onClick={() => setDraftNivel(n)}
+                      >{n}</button>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+              <div className="ch-drawer-footer">
+                <button className="ch-drawer-btn ch-drawer-btn--clear" onClick={clearChaveDrawer}>
+                  Limpar
+                </button>
+                <button className="ch-drawer-btn ch-drawer-btn--apply" onClick={applyChaveDrawer}>
+                  Aplicar
+                </button>
+              </div>
+            </div>
+          </>, document.body)}
 
           {/* ── Estado vazio ── */}
           {(!genero || !modalidade || !nivel) && (
